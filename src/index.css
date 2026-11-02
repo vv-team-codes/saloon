@@ -13,6 +13,10 @@
   --color-electric-500: #2f7bff;
   --color-electric-400: #5b97ff;
   --color-cyan-brand: #22d3ee;
+  --color-gold-300: #ecd28a;
+  --color-gold-400: #dcb95c;
+  --color-gold-500: #c9a24b;
+  --color-gold-600: #a9863a;
 
   --animate-float: float 7s ease-in-out infinite;
   --animate-float-slow: float 10s ease-in-out infinite;
@@ -24,6 +28,7 @@
   --animate-dash-flow: dashFlow 1.4s linear infinite;
   --animate-spin-slow: spin 14s linear infinite;
   --animate-shimmer: shimmer 5s linear infinite;
+  --animate-kenburns: kenburns 26s ease-in-out infinite alternate;
 }
 
 html {
@@ -69,6 +74,10 @@ body {
 @keyframes dashFlow {
   to { stroke-dashoffset: -16; }
 }
+@keyframes kenburns {
+  from { transform: scale(1) translateY(0); }
+  to { transform: scale(1.09) translateY(-10px); }
+}
 @keyframes shimmer {
   from { background-position: 200% center; }
   to { background-position: -200% center; }
@@ -109,6 +118,15 @@ body {
   );
   background-size: 200% auto;
   @apply animate-shimmer bg-clip-text text-transparent;
+}
+
+.text-gold-grad {
+  @apply bg-gradient-to-r from-gold-300 via-gold-500 to-gold-300 bg-clip-text text-transparent;
+}
+
+.gold-hr {
+  background: linear-gradient(to right, transparent, rgba(201, 162, 75, 0.65), transparent);
+  height: 1px;
 }
 
 .glass {

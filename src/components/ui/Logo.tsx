@@ -29,7 +29,7 @@ export default function Logo({ variant = 'dark', className = '' }: LogoProps) {
 
   return (
     <img
-      src="zyna-logo.jpg"
+      src="/zyna-logo.jpg"
       alt="ZYNA"
       className={`h-9 w-auto object-contain ${className}`}
       onError={() => setFailed(true)}

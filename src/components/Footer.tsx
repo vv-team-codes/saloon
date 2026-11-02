@@ -18,6 +18,7 @@ const SOCIALS = [
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-navy-950 text-white">
+      <div aria-hidden="true" className="gold-hr absolute inset-x-0 top-0" />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-32 left-1/2 h-64 w-[720px] -translate-x-1/2 rounded-full bg-violet-brand/20 blur-3xl"
@@ -34,7 +35,7 @@ export default function Footer() {
             </p>
             <p className="mt-3 text-[14.5px] leading-relaxed text-white/55">
               The intelligent 24/7 AI receptionist that replies, books and reminds — so your
-              business never misses a conversation that matters.
+              salon never misses a conversation that matters.
             </p>
             <div className="mt-6 flex gap-3">
               {SOCIALS.map((s) => (
@@ -78,12 +79,13 @@ export default function Footer() {
             <a href="#contact" className="mt-2 block text-[15px] text-white/70 transition-colors hover:text-white">
               Talk to Us →
             </a>
-            <p className="mt-2 text-[15px] text-white/70">United Arab Emirates</p>
+            <p className="mt-2 text-[15px] text-white/70">Dubai, United Arab Emirates</p>
           </div>
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-7 text-[13px] text-white/45 sm:flex-row">
           <p>© {new Date().getFullYear()} ZYNA. All rights reserved.</p>
+          <p className="hidden text-white/35 md:block">Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain</p>
           <p>
             <a href="https://www.zyna.ae" className="transition-colors hover:text-white">
               www.zyna.ae
