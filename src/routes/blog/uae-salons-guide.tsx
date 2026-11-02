@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Footer } from "@/components/zyna/sections";
 import { BlogHeader, UaeSalonsArticle, posts } from "@/components/zyna/blog";
 
-const post = posts[0];
+const post = posts[1];
 const title = `${post.title} — ZYNA`;
 
 export const Route = createFileRoute("/blog/uae-salons-guide")({

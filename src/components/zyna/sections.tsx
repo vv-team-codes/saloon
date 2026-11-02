@@ -43,6 +43,11 @@ export function Navbar() {
               </a>
             </li>
           ))}
+          <li>
+            <a href="/blog" className="rounded-full px-3.5 py-2 text-sm text-muted-foreground transition hover:text-primary">
+              Blog
+            </a>
+          </li>
         </ul>
         <div className="flex items-center gap-2">
           <a href={START_URL} className={cn(btn.primary, "hidden px-5 py-2.5 sm:inline-flex")}>
@@ -60,6 +65,9 @@ export function Navbar() {
               {label}
             </a>
           ))}
+          <a href="/blog" className="block rounded-xl px-4 py-3 text-base hover:bg-secondary">
+            Blog
+          </a>
           <a href={START_URL} onClick={() => setOpen(false)} className={cn(btn.primary, "mt-2 w-full")}>
             Get started →
           </a>

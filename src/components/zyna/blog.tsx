@@ -7,7 +7,15 @@ const wrap = "mx-auto w-full max-w-[1280px] px-5 sm:px-6";
 
 export const posts = [
   {
-    slug: "uae-salons-guide",
+    to: "/blog/salon-no-shows",
+    title: "3 quick ways UAE salons can cut no-shows",
+    excerpt: "Empty chairs cost more than you think. Three simple habits that keep your calendar full.",
+    date: "2026-11-02",
+    readTime: "1 min read",
+    tag: "Salons · Tips",
+  },
+  {
+    to: "/blog/uae-salons-guide",
     title: "Running a salon in the UAE: how to win more bookings in 2026",
     excerpt:
       "WhatsApp-first clients, late-night enquiries, Ramadan and wedding-season peaks — a practical guide to what makes UAE salons different, and how to turn more messages into appointments.",
@@ -54,9 +62,9 @@ export function BlogIndex() {
         </Reveal>
         <div className="mt-14 space-y-6">
           {posts.map((p) => (
-            <Reveal key={p.slug}>
+            <Reveal key={p.to}>
               <Link
-                to="/blog/uae-salons-guide"
+                to={p.to}
                 className="block rounded-3xl border bg-card p-8 transition hover:-translate-y-1 hover:shadow-soft"
               >
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">{p.tag}</p>
@@ -91,8 +99,42 @@ function Tip({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
-export function UaeSalonsArticle() {
+export function NoShowsArticle() {
   const post = posts[0];
+  return (
+    <article>
+      <header className="relative overflow-hidden bg-cream pb-16 pt-36">
+        <div className="pointer-events-none absolute -right-20 -top-20 h-[420px] w-[420px] rounded-full bg-tint-peach blur-3xl" />
+        <div className={cn(wrap, "relative max-w-[780px]")}>
+          <Link to="/blog" className="text-sm text-muted-foreground hover:text-primary">
+            ← All articles
+          </Link>
+          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.2em] text-primary">{post.tag}</p>
+          <h1 className="mt-4 text-4xl font-light leading-[1.08] sm:text-6xl">
+            3 quick ways UAE salons can cut <em className="text-gradient font-normal">no-shows</em>
+          </h1>
+          <p className="mt-6 text-sm text-muted-foreground">
+            {formatDate(post.date)} · {post.readTime}
+          </p>
+        </div>
+      </header>
+
+      <div className={cn(wrap, "max-w-[780px] pb-24 pt-6")}>
+        <P>
+          An empty chair is revenue you never get back. Send a WhatsApp reminder the day before every appointment.
+          Let clients reschedule with a single reply instead of a call. Keep a waitlist so a cancelled slot is
+          offered to someone else within minutes. ZYNA does all three for you, day and night.
+        </P>
+        <a href="/#contact" className={cn(btn.primary, "mt-10")}>
+          Book a demo →
+        </a>
+      </div>
+    </article>
+  );
+}
+
+export function UaeSalonsArticle() {
+  const post = posts[1];
   return (
     <article>
       <header className="relative overflow-hidden bg-cream pb-16 pt-36">

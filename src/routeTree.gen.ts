@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSalonNoShowsRouteImport } from './routes/blog/salon-no-shows'
 import { Route as BlogUaeSalonsGuideRouteImport } from './routes/blog/uae-salons-guide'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSalonNoShowsRoute = BlogSalonNoShowsRouteImport.update({
+  id: '/blog/salon-no-shows',
+  path: '/blog/salon-no-shows',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogUaeSalonsGuideRoute = BlogUaeSalonsGuideRouteImport.update({
   id: '/blog/uae-salons-guide',
   path: '/blog/uae-salons-guide',
@@ -31,30 +37,39 @@ const BlogUaeSalonsGuideRoute = BlogUaeSalonsGuideRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/blog/salon-no-shows': typeof BlogSalonNoShowsRoute
   '/blog/uae-salons-guide': typeof BlogUaeSalonsGuideRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/blog/salon-no-shows': typeof BlogSalonNoShowsRoute
   '/blog/uae-salons-guide': typeof BlogUaeSalonsGuideRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/blog/salon-no-shows': typeof BlogSalonNoShowsRoute
   '/blog/uae-salons-guide': typeof BlogUaeSalonsGuideRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/blog/uae-salons-guide' | '/blog/'
+  fullPaths: '/' | '/blog/salon-no-shows' | '/blog/uae-salons-guide' | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/blog/uae-salons-guide' | '/blog'
-  id: '__root__' | '/' | '/blog/uae-salons-guide' | '/blog/'
+  to: '/' | '/blog/salon-no-shows' | '/blog/uae-salons-guide' | '/blog'
+  id:
+    | '__root__'
+    | '/'
+    | '/blog/salon-no-shows'
+    | '/blog/uae-salons-guide'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BlogSalonNoShowsRoute: typeof BlogSalonNoShowsRoute
   BlogUaeSalonsGuideRoute: typeof BlogUaeSalonsGuideRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -75,6 +90,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/salon-no-shows': {
+      id: '/blog/salon-no-shows'
+      path: '/blog/salon-no-shows'
+      fullPath: '/blog/salon-no-shows'
+      preLoaderRoute: typeof BlogSalonNoShowsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/uae-salons-guide': {
       id: '/blog/uae-salons-guide'
       path: '/blog/uae-salons-guide'
@@ -87,6 +109,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BlogSalonNoShowsRoute: BlogSalonNoShowsRoute,
   BlogUaeSalonsGuideRoute: BlogUaeSalonsGuideRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
