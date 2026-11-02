@@ -23,7 +23,7 @@ export default function Contact() {
     'w-full rounded-2xl border border-navy-950/10 bg-white px-4.5 py-3.5 text-[15px] text-navy-950 placeholder:text-navy-950/35 outline-none transition-all duration-300 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15'
 
   return (
-    <section id="contact" className="relative overflow-hidden pb-24 pt-4 sm:pb-32">
+    <section id="contact" className="relative overflow-hidden bg-[#f6f4ef] pb-24 pt-14 sm:pb-32 sm:pt-20">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         {/* CTA band — Burj Khalifa at sunset */}
         <Reveal>
@@ -62,7 +62,7 @@ export default function Contact() {
         {/* Contact form */}
         <div id="form" className="mx-auto mt-24 grid max-w-5xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
-            <p className="text-[12.5px] font-bold uppercase tracking-[0.22em] text-gold-600">
+            <p className="text-[13px] font-extrabold uppercase tracking-[0.22em] text-[#7a5c14]">
               Get in touch
             </p>
             <h3 className="font-display mt-4 text-4xl font-semibold leading-[1.12] tracking-tight text-navy-950">
