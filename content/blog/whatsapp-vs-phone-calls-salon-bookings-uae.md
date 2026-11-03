@@ -1,7 +1,7 @@
 ---
 title: WhatsApp vs Phone Calls: How UAE Salons Really Get Booked (and Where Enquiries Die)
 slug: whatsapp-vs-phone-calls-salon-bookings-uae
-date: 2026-11-04
+date: 2026-11-03
 description: UAE clients overwhelmingly reach salons on WhatsApp — but most enquiries arrive after hours. Here's what the numbers mean for your salon booking process.
 keywords: WhatsApp salon booking, salon booking Dubai, salon enquiries after hours, salon appointment booking UAE
 category: Client Bookings
