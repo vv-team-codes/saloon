@@ -238,7 +238,7 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
   <body>
     <header class="site" id="site-header">
       <div class="nav-pill">
-        <a class="logo-pill" href="/#top" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
+        <a class="logo-pill" href="/" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
         <nav class="nav-links" aria-label="Main">
           <a href="/#journey">What We Do</a>
           <a href="/#journey">How It Works</a>
