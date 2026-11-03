@@ -125,12 +125,31 @@ const CSS = `
 body{margin:0;background:var(--navy);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
 a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:880px;margin:0 auto;padding:0 20px}
-header.site{padding:26px 0 8px}
-.logo-tile{display:inline-flex;background:#fff;border-radius:14px;padding:10px 14px}
-.logo-tile img{height:34px;width:auto;display:block}
-header.site nav{float:right;margin-top:14px}
-header.site nav a{color:rgba(255,255,255,.75);font-size:14.5px;font-weight:500;margin-left:22px}
-header.site nav a:hover{color:#fff;text-decoration:none}
+body{padding-top:96px}
+header.site{position:fixed;inset:0 0 auto 0;z-index:50;padding:16px 16px 0}
+@media(min-width:640px){header.site{padding:16px 24px 0}}
+.nav-pill{max-width:1152px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;border-radius:999px;padding:10px 10px 10px 12px;background:rgba(5,8,28,.3);border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .4s ease,border-color .4s ease,box-shadow .4s ease}
+header.site.scrolled .nav-pill{background:rgba(5,8,28,.75);border-color:rgba(255,255,255,.14);box-shadow:0 18px 44px -16px rgba(0,0,0,.65)}
+.logo-pill{display:inline-flex;align-items:center;flex-shrink:0;background:#fff;border-radius:999px;padding:6px 12px}
+.logo-pill img{height:28px;width:auto;display:block}
+@media(min-width:640px){.logo-pill img{height:32px}}
+.nav-links{display:none;align-items:center;gap:2px}
+@media(min-width:1024px){.nav-links{display:flex}}
+.nav-links a{color:rgba(255,255,255,.75);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;transition:background .3s ease,color .3s ease}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
+.nav-links a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.08)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.btn-start{display:none;align-items:center;gap:8px;border-radius:999px;background:linear-gradient(to right,var(--gold2),#a9863a);color:var(--navy);font-size:14px;font-weight:700;padding:10px 20px;transition:box-shadow .3s ease}
+@media(min-width:640px){.btn-start{display:inline-flex}}
+.btn-start:hover{text-decoration:none;color:var(--navy);box-shadow:0 14px 30px -10px rgba(201,162,75,.8)}
+.menu-btn{display:flex;height:40px;width:40px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer}
+@media(min-width:1024px){.menu-btn{display:none}}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:60;background:rgba(5,8,28,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center}
+.mobile-menu.open{display:flex}
+.mobile-menu a.mlink{font-family:Sora,Inter,system-ui,sans-serif;font-size:30px;font-weight:600;color:rgba(255,255,255,.9);padding:13px 0;transition:color .3s ease}
+.mobile-menu a.mlink:hover{color:var(--gold2);text-decoration:none}
+.mobile-menu .btn-start{display:inline-flex;margin-top:30px;font-size:15px;padding:15px 30px}
+.menu-close{position:absolute;top:24px;right:24px;height:44px;width:44px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:17px;cursor:pointer}
 h1,h2,h3{font-family:Sora,Inter,system-ui,sans-serif;color:#fff;line-height:1.25}
 .eyebrow{letter-spacing:.24em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--cyan)}
 .hero{padding:38px 0 10px}
@@ -157,8 +176,22 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .cta p{margin-bottom:0}
 .btn{display:inline-block;margin-top:14px;background:linear-gradient(to right,var(--gold2),#a9863a);color:#05081c;font-weight:700;padding:11px 22px;border-radius:999px}
 .btn:hover{text-decoration:none;filter:brightness(1.07)}
-footer.site{margin-top:56px;border-top:1px solid rgba(255,255,255,.1);padding:26px 0 40px;font-size:13.5px;color:var(--mut)}
+footer.site{margin-top:56px;padding:0 0 40px;font-size:13.5px;color:var(--mut)}
 footer.site a{color:rgba(255,255,255,.7)}
+footer.site a:hover{color:#fff;text-decoration:none}
+.gold-hr{height:1px;background:linear-gradient(to right,transparent,rgba(201,162,75,.7),transparent)}
+.foot-grid{display:flex;flex-direction:column;gap:38px;padding-top:44px}
+@media(min-width:900px){.foot-grid{flex-direction:row;justify-content:space-between;align-items:flex-start}}
+.f-logo{display:inline-flex;background:#fff;border-radius:16px;padding:13px}
+.f-logo img{height:36px;width:auto;display:block}
+.f-tag{margin:18px 0 0;font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan)}
+.f-blurb{margin:11px 0 0;max-width:330px;font-size:14.5px;line-height:1.65;color:var(--mut)}
+.foot-h{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:0 0 15px}
+.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:13px 58px}
+.foot-links a{font-size:15px}
+.foot-contact p{margin:0 0 9px;font-size:15px}
+.foot-bottom{margin-top:48px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.45)}
+.foot-bottom p{margin:0}
 .back{display:inline-block;margin-top:26px;font-size:15px;font-weight:600}
 ::selection{background:rgba(124,58,237,.35)}
 `
@@ -191,24 +224,78 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
     ${extraHead}
   </head>
   <body>
-    <header class="site">
-      <div class="wrap">
-        <a class="logo-tile" href="/" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
-        <nav aria-label="Main">
-          <a href="/">Home</a>
-          <a href="/blog/">Blog</a>
+    <header class="site" id="site-header">
+      <div class="nav-pill">
+        <a class="logo-pill" href="/#top" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
+        <nav class="nav-links" aria-label="Main">
+          <a href="/#journey">What We Do</a>
+          <a href="/#journey">How It Works</a>
+          <a href="/#journey">About</a>
+          <a href="/blog/" aria-current="page">Blog</a>
           <a href="/#contact">Contact</a>
         </nav>
+        <div class="nav-right">
+          <a class="btn-start" href="/#contact">Get Started <span aria-hidden="true">→</span></a>
+          <button class="menu-btn" id="mopen" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
+        </div>
+      </div>
+      <div class="mobile-menu" id="mmenu">
+        <button class="menu-close" id="mclose" type="button" aria-label="Close menu">✕</button>
+        <a class="mlink" href="/#journey">What We Do</a>
+        <a class="mlink" href="/#journey">How It Works</a>
+        <a class="mlink" href="/#journey">About</a>
+        <a class="mlink" href="/blog/">Blog</a>
+        <a class="mlink" href="/#contact">Contact</a>
+        <a class="btn-start" href="/#contact">Get Started <span aria-hidden="true">→</span></a>
       </div>
     </header>
     <main class="wrap">
       ${body}
     </main>
     <footer class="site">
+      <div class="gold-hr" aria-hidden="true"></div>
       <div class="wrap">
-        <p>© ${new Date().getFullYear()} ZYNA — The 24/7 AI receptionist for salons &amp; beauty businesses in the UAE. <a href="mailto:hello@zyna.ae">hello@zyna.ae</a> · Dubai, United Arab Emirates</p>
+        <div class="foot-grid">
+          <div>
+            <span class="f-logo"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></span>
+            <p class="f-tag">AI THAT WORKS FOR YOU</p>
+            <p class="f-blurb">The intelligent 24/7 AI receptionist that replies, books and reminds — so your salon never misses a conversation that matters.</p>
+          </div>
+          <nav aria-label="Footer">
+            <p class="foot-h">Explore</p>
+            <div class="foot-links">
+              <a href="/#problem">Why ZYNA</a>
+              <a href="/#how">How it works</a>
+              <a href="/#features">Features</a>
+              <a href="/#results">Results</a>
+              <a href="/blog/">Blog</a>
+              <a href="/#contact">Contact</a>
+            </div>
+          </nav>
+          <div class="foot-contact">
+            <p class="foot-h">Contact</p>
+            <p><a href="mailto:hello@zyna.ae">hello@zyna.ae</a></p>
+            <p><a href="/#contact">Talk to Us →</a></p>
+            <p>Dubai, United Arab Emirates</p>
+          </div>
+        </div>
+        <div class="foot-bottom">
+          <p>© ${new Date().getFullYear()} ZYNA. All rights reserved.</p>
+          <p><a href="https://www.zyna.ae">www.zyna.ae</a></p>
+        </div>
       </div>
     </footer>
+    <script>
+      (function () {
+        var h = document.getElementById('site-header')
+        var on = function () { h.classList.toggle('scrolled', window.scrollY > 24) }
+        window.addEventListener('scroll', on, { passive: true }); on()
+        var m = document.getElementById('mmenu'), o = document.getElementById('mopen'), c = document.getElementById('mclose')
+        o.addEventListener('click', function () { m.classList.add('open'); o.setAttribute('aria-expanded', 'true') })
+        c.addEventListener('click', function () { m.classList.remove('open'); o.setAttribute('aria-expanded', 'false') })
+        m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { m.classList.remove('open') }) })
+      })()
+    </script>
   </body>
 </html>
 `
