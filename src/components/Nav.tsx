@@ -5,10 +5,11 @@ import { IconArrowRight, IconX } from './ui/icons'
 import { FORM_FRACTION, scrollToFormScene, scrollToJourneyFraction } from '../journey/Journey'
 
 const LINKS: { label: string; frac?: number; form?: boolean; page?: string }[] = [
-  { label: 'What We Do', frac: 0.36 },
-  { label: 'How It Works', frac: 0.5 },
-  // "About" lands on the film's final scene — the enquiry form itself,
-  // the slot the old get-in-touch scene used to occupy.
+  // Fractions rescaled ×9/10 for the 10-scene film (v9) so each link
+  // still lands on the same film moment.
+  { label: 'What We Do', frac: 0.324 },
+  { label: 'How It Works', frac: 0.45 },
+  // "About" lands on the enquiry form scene (scene 9 of 10).
   { label: 'About', frac: FORM_FRACTION },
   { label: 'Blog', page: '/blog/' },
   { label: 'Contact', form: true },
