@@ -16,6 +16,7 @@ good practice. Files are self-hosted in this folder.
 | photo-salon-luxury.jpg | Journey scene 7 — "Ready to transform your salon?" (luxury salon interior) | https://www.pexels.com/photo/7195810/ |
 | photo-dubai-skyline.jpg | Journey scene 8 — "Never miss a booking again" (Dubai skyline with Burj Khalifa) | https://www.pexels.com/photo/19664340/ |
 | photo-office-lobby.jpg | Journey scene 9 — "Get in touch" (modern office lobby) | https://www.pexels.com/photo/164586/ |
+| photo-thank-you.jpg | Journey scene 10 — "Thank you for visiting" (two happy clients sharing a joyful conversation in a warm, elegant salon) | https://www.pexels.com/photo/7984914/ |
 
 Scene 1 uses the AI-generated exterior of the ZYNA office
 (`photo-office-exterior.jpg`, generated in-house — see the table above);
