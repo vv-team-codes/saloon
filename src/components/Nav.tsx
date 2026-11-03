@@ -4,10 +4,11 @@ import { IconArrowRight, IconX } from './ui/icons'
 
 import { scrollToJourneyFraction } from '../journey/Journey'
 
-const LINKS: { label: string; frac?: number; href?: string }[] = [
+const LINKS: { label: string; frac?: number; href?: string; page?: string }[] = [
   { label: 'What We Do', frac: 0.36 },
   { label: 'How It Works', frac: 0.5 },
   { label: 'About', frac: 0.9 },
+  { label: 'Blog', page: '/blog/' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -38,16 +39,26 @@ export default function Nav() {
         </a>
 
         <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
-          {LINKS.map((link) => (
-            <button
-              key={link.label}
-              type="button"
-              onClick={() => (link.href ? document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }) : scrollToJourneyFraction(link.frac ?? 0))}
-              className="rounded-full px-4 py-2 text-[14px] font-medium text-white/75 transition-colors duration-300 hover:bg-white/8 hover:text-white"
-            >
-              {link.label}
-            </button>
-          ))}
+          {LINKS.map((link) =>
+            link.page ? (
+              <a
+                key={link.label}
+                href={link.page}
+                className="rounded-full px-4 py-2 text-[14px] font-medium text-white/75 transition-colors duration-300 hover:bg-white/8 hover:text-white"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <button
+                key={link.label}
+                type="button"
+                onClick={() => (link.href ? document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }) : scrollToJourneyFraction(link.frac ?? 0))}
+                className="rounded-full px-4 py-2 text-[14px] font-medium text-white/75 transition-colors duration-300 hover:bg-white/8 hover:text-white"
+              >
+                {link.label}
+              </button>
+            ),
+          )}
         </nav>
 
         <div className="flex items-center gap-2.5">
@@ -80,21 +91,32 @@ export default function Nav() {
           >
             <IconX className="h-5 w-5" />
           </button>
-          {LINKS.map((link, i) => (
-            <button
-              key={link.label}
-              type="button"
-              onClick={() => {
-                setOpen(false)
-                if (link.href) document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' })
-                else scrollToJourneyFraction(link.frac ?? 0)
-              }}
-              className="font-display py-3.5 text-3xl font-semibold text-white/90 transition-colors hover:text-gold-300"
-              style={{ transitionDelay: `${i * 30}ms` }}
-            >
-              {link.label}
-            </button>
-          ))}
+          {LINKS.map((link, i) =>
+            link.page ? (
+              <a
+                key={link.label}
+                href={link.page}
+                className="font-display py-3.5 text-3xl font-semibold text-white/90 transition-colors hover:text-gold-300"
+                style={{ transitionDelay: `${i * 30}ms` }}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <button
+                key={link.label}
+                type="button"
+                onClick={() => {
+                  setOpen(false)
+                  if (link.href) document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' })
+                  else scrollToJourneyFraction(link.frac ?? 0)
+                }}
+                className="font-display py-3.5 text-3xl font-semibold text-white/90 transition-colors hover:text-gold-300"
+                style={{ transitionDelay: `${i * 30}ms` }}
+              >
+                {link.label}
+              </button>
+            ),
+          )}
           <a
             href="#contact"
             onClick={() => setOpen(false)}
