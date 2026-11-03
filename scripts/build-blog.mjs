@@ -178,16 +178,29 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .btn:hover{text-decoration:none;filter:brightness(1.07)}
 .gold-hr{height:1px;background:linear-gradient(to right,transparent,rgba(201,162,75,.7),transparent)}
 .bottom-bar{margin-top:56px;background:var(--navy)}
-.bottom-bar .bar-in{max-width:1152px;margin:0 auto;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:13px;color:rgba(255,255,255,.45)}
-@media(min-width:1024px){.bottom-bar .bar-in{flex-direction:row;justify-content:space-between;gap:20px;text-align:left}}
+.bottom-bar .bar-in{padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 32px;font-size:13px;color:rgba(255,255,255,.45)}
+@media(min-width:640px){.bottom-bar .bar-in{padding:16px 32px}}
 .bottom-bar p{margin:0}
 .bottom-bar .emirates{color:rgba(255,255,255,.35)}
+@media(max-width:639px){.bottom-bar .emirates{order:3;flex:0 0 100%;text-align:center}}
+@media(min-width:640px){.bottom-bar .emirates{flex:1;text-align:center}}
 .bottom-bar a{color:rgba(255,255,255,.45)}
 .bottom-bar a:hover{color:#fff;text-decoration:none}
-.social-float{position:fixed;right:20px;bottom:20px;z-index:30;display:flex;gap:10px}
-.social-float a{display:flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(10,15,46,.85);color:#fff;box-shadow:0 12px 32px -8px rgba(0,0,0,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:border-color .3s ease,color .3s ease,transform .3s ease}
-.social-float a:hover{border-color:rgba(220,185,92,.7);color:var(--gold2);text-decoration:none;transform:translateY(-2px)}
-.social-float svg{width:20px;height:20px}
+@keyframes social-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes social-halo{0%{opacity:.65;transform:scale(1)}70%{opacity:0;transform:scale(1.45)}100%{opacity:0;transform:scale(1.45)}}
+.social-float{position:fixed;right:20px;bottom:20px;z-index:30;display:flex;gap:10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.social-float.dragging{cursor:grabbing}
+.social-float a{position:relative;display:flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:#fff;box-shadow:0 12px 32px -8px rgba(0,0,0,.65);animation:social-bob 3.6s ease-in-out infinite}
+.social-float a.fb{background:#1877F2;--halo:rgba(24,119,242,.55)}
+.social-float a.ig{background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);--halo:rgba(214,41,118,.5);animation-delay:1.1s}
+.social-float a::after{content:"";position:absolute;inset:0;border-radius:999px;border:2px solid var(--halo,rgba(255,255,255,.4));animation:social-halo 3.2s cubic-bezier(.22,1,.36,1) infinite;pointer-events:none}
+.social-float a.ig::after{animation-delay:1.6s}
+.social-float a:hover{text-decoration:none}
+.social-float svg{width:22px;height:22px;transition:transform .3s ease}
+.social-float a:hover svg{transform:scale(1.08)}
+.social-float.dragging a,.social-float.dragging a::after{animation:none}
+.social-float.dragging a::after{opacity:0}
+@media (prefers-reduced-motion: reduce){.social-float a,.social-float a::after{animation:none}}
 .back{display:inline-block;margin-top:26px;font-size:15px;font-weight:600}
 ::selection{background:rgba(124,58,237,.35)}
 `
@@ -256,9 +269,9 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
         <p><a href="https://www.zyna.ae">www.zyna.ae</a></p>
       </div>
     </div>
-    <div class="social-float">
-      <a href="https://www.facebook.com/profile.php?id=61595756175259" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
-      <a href="https://www.instagram.com/zyna_ae/" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a>
+    <div class="social-float" id="social-float">
+      <a class="fb" href="https://www.facebook.com/profile.php?id=61595756175259" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+      <a class="ig" href="https://www.instagram.com/zyna_ae/" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a>
     </div>
     <script>
       (function () {
@@ -269,6 +282,57 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
         o.addEventListener('click', function () { m.classList.add('open'); o.setAttribute('aria-expanded', 'true') })
         c.addEventListener('click', function () { m.classList.remove('open'); o.setAttribute('aria-expanded', 'false') })
         m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { m.classList.remove('open') }) })
+      })()
+    </script>
+    <script>
+      // Draggable social cluster — same behaviour (and storage key) as the
+      // homepage widget: drag it anywhere, it stays where dropped; a press
+      // that barely moves is a normal click on the link.
+      (function () {
+        var sf = document.getElementById('social-float')
+        if (!sf) return
+        var KEY = 'zyna-social-pos', THRESH = 6, pos = null
+        var clampPos = function (p) {
+          return {
+            x: Math.min(Math.max(4, p.x), Math.max(4, window.innerWidth - sf.offsetWidth - 4)),
+            y: Math.min(Math.max(4, p.y), Math.max(4, window.innerHeight - sf.offsetHeight - 4))
+          }
+        }
+        var apply = function (p) { sf.style.left = p.x + 'px'; sf.style.top = p.y + 'px'; sf.style.right = 'auto'; sf.style.bottom = 'auto' }
+        try {
+          var raw = localStorage.getItem(KEY)
+          if (raw) { var saved = JSON.parse(raw); if (saved && typeof saved.x === 'number' && typeof saved.y === 'number') { pos = clampPos(saved); apply(pos) } }
+        } catch (e) {}
+        var drag = null, suppress = false
+        sf.addEventListener('pointerdown', function (e) {
+          if (e.button !== undefined && e.button !== 0) return
+          var r = sf.getBoundingClientRect()
+          drag = { id: e.pointerId, sx: e.clientX, sy: e.clientY, ox: r.left, oy: r.top, moved: false }
+        })
+        sf.addEventListener('pointermove', function (e) {
+          if (!drag || e.pointerId !== drag.id) return
+          var dx = e.clientX - drag.sx, dy = e.clientY - drag.sy
+          if (!drag.moved) {
+            if (Math.sqrt(dx * dx + dy * dy) < THRESH) return
+            drag.moved = true
+            sf.classList.add('dragging')
+            try { sf.setPointerCapture(e.pointerId) } catch (err) {}
+          }
+          pos = clampPos({ x: drag.ox + dx, y: drag.oy + dy }); apply(pos)
+        })
+        var end = function (e) {
+          if (!drag || e.pointerId !== drag.id) return
+          if (drag.moved) {
+            suppress = true
+            try { localStorage.setItem(KEY, JSON.stringify(pos)) } catch (err) {}
+          }
+          drag = null
+          sf.classList.remove('dragging')
+        }
+        sf.addEventListener('pointerup', end)
+        sf.addEventListener('pointercancel', end)
+        sf.addEventListener('click', function (e) { if (suppress) { e.preventDefault(); e.stopPropagation(); suppress = false } }, true)
+        window.addEventListener('resize', function () { if (pos) { pos = clampPos(pos); apply(pos) } })
       })()
     </script>
   </body>
