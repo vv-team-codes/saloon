@@ -414,8 +414,9 @@ export default function Journey() {
             backdrop is the Dubai frame again — dimmed and blurred — so the
             card arrives as part of the film, not as a page section after it.
             The layer is pointer-events:none until the rAF loop judges the
-            scene arrived; its own scroll well (overflow-y-auto) exists only
-            so the card stays reachable on short viewports. */}
+            scene arrived; its own scroll well (overflow-y-auto, scrollbar
+            hidden) holds the card below the fixed nav and keeps every field
+            reachable on short viewports. */}
         <div
           id="contact"
           ref={formLayerRef}
@@ -437,9 +438,17 @@ export default function Journey() {
           />
           <div aria-hidden="true" className="absolute inset-0 bg-navy-950/40" />
           <div aria-hidden="true" className="absolute inset-0 shadow-[inset_0_0_180px_rgba(5,8,28,0.55)]" />
-          <div className="absolute inset-0 overflow-y-auto">
-            <div className="flex min-h-full px-5 py-20 sm:px-8">
-              <div ref={formCardRef} className="m-auto w-[min(92vw,36rem)] max-w-xl will-change-transform">
+          {/* Scroll well: top padding reserves nav height + margin so the
+              card can never slide under the fixed nav pill; the inner
+              min-h-full flex centres the card when it fits and lets it
+              top-align (fully scrollable) when it doesn't. No m-auto —
+              auto margins in a scrollable flex box push a too-tall card's
+              top above the scroll origin, where it can never be reached.
+              The well's own scrollbar is hidden (.no-scrollbar) so only the
+              golden progress rail shows; wheel/touch scrolling still works. */}
+          <div className="no-scrollbar absolute inset-0 overflow-y-auto pb-6 pt-[7rem] sm:pt-[8rem]">
+            <div className="flex min-h-full items-center justify-center px-5 sm:px-8">
+              <div ref={formCardRef} className="w-[min(92vw,36rem)] max-w-xl will-change-transform">
                 <Contact />
               </div>
             </div>
