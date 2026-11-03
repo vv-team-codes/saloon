@@ -25,6 +25,8 @@ const N = 10
 
 type SceneDef = {
   img: string
+  /** 1080w variant served to viewports up to 768px via <picture>. */
+  imgM: string
   alt: string
   objectPosition: string
   origin: string
@@ -33,15 +35,15 @@ type SceneDef = {
 }
 
 const SCENE_IMGS: SceneDef[] = [
-  { img: 'images/scenes/photo-office-exterior.jpg', alt: 'The ZYNA office building in Dubai, seen from outside', objectPosition: '50% 72%', origin: '50% 34%', scaleFrom: 1.0, scaleTo: 1.15 },
-  { img: 'images/scenes/scene-2-reception.jpg', alt: 'The ZYNA reception', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.22, scaleTo: 1.36 },
-  { img: 'images/scenes/photo-chat-typing.jpg', alt: 'A client messaging the salon from her phone', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
-  { img: 'images/scenes/photo-salon-reception.jpg', alt: 'A salon reception desk', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
-  { img: 'images/scenes/photo-stylist-client.jpg', alt: 'A stylist at work with a client in a premium salon', objectPosition: '38% 50%', origin: '34% 48%', scaleFrom: 1.12, scaleTo: 1.3 },
-  { img: 'images/scenes/photo-salon-wide.jpg', alt: 'A wide, elegant salon interior — every step connected', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
-  { img: 'images/scenes/photo-salon-luxury.jpg', alt: 'A luxury salon interior', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
-  { img: 'images/scenes/photo-dubai-skyline.jpg', alt: 'The Dubai skyline and Burj Khalifa across the water', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
-  { img: 'images/scenes/photo-thank-you.jpg', alt: 'Two happy clients sharing a joyful conversation in a warm, elegant salon', objectPosition: '50% 42%', origin: '50% 45%', scaleFrom: 1.12, scaleTo: 1.26 },
+  { img: 'images/scenes/photo-office-exterior.jpg', imgM: 'images/scenes/m/photo-office-exterior.jpg', alt: 'The ZYNA office building in Dubai, seen from outside', objectPosition: '50% 72%', origin: '50% 34%', scaleFrom: 1.0, scaleTo: 1.15 },
+  { img: 'images/scenes/scene-2-reception.jpg', imgM: 'images/scenes/m/scene-2-reception.jpg', alt: 'The ZYNA reception', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.22, scaleTo: 1.36 },
+  { img: 'images/scenes/photo-chat-typing.jpg', imgM: 'images/scenes/m/photo-chat-typing.jpg', alt: 'A client messaging the salon from her phone', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
+  { img: 'images/scenes/photo-salon-reception.jpg', imgM: 'images/scenes/m/photo-salon-reception.jpg', alt: 'A salon reception desk', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
+  { img: 'images/scenes/photo-stylist-client.jpg', imgM: 'images/scenes/m/photo-stylist-client.jpg', alt: 'A stylist at work with a client in a premium salon', objectPosition: '38% 50%', origin: '34% 48%', scaleFrom: 1.12, scaleTo: 1.3 },
+  { img: 'images/scenes/photo-salon-wide.jpg', imgM: 'images/scenes/m/photo-salon-wide.jpg', alt: 'A wide, elegant salon interior — every step connected', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
+  { img: 'images/scenes/photo-salon-luxury.jpg', imgM: 'images/scenes/m/photo-salon-luxury.jpg', alt: 'A luxury salon interior', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
+  { img: 'images/scenes/photo-dubai-skyline.jpg', imgM: 'images/scenes/m/photo-dubai-skyline.jpg', alt: 'The Dubai skyline and Burj Khalifa across the water', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
+  { img: 'images/scenes/photo-thank-you.jpg', imgM: 'images/scenes/m/photo-thank-you.jpg', alt: 'Two happy clients sharing a joyful conversation in a warm, elegant salon', objectPosition: '50% 42%', origin: '50% 45%', scaleFrom: 1.12, scaleTo: 1.26 },
 ]
 
 // Photo layers in slot order. Slot 8 is the enquiry form (a DOM layer, not
@@ -290,14 +292,45 @@ export default function Journey() {
     let raf = 0
     let current = 0
 
+    // Follow rate: the gentle 0.06 glide that feels cinematic under a
+    // mouse wheel feels delayed and floaty under a finger, so on coarse
+    // pointers (touch) the film tracks the scroll much more closely at
+    // 0.18. A gap of 5% of the track or more — anchor jumps, scrollbar
+    // drags, Page Up/Down — snaps instantly, so programmatic scrolls
+    // (scrollToFormScene included) never crawl toward their target.
+    const FOLLOW = window.matchMedia('(pointer: coarse)').matches ? 0.18 : 0.06
+    const SNAP = 0.05
+
+    // Layout reads are cached: the track's document top and its
+    // scrollable range only change when the viewport resizes (the track
+    // is a fixed 1500vh; mobile browser chrome collapsing also resizes
+    // it, which the ResizeObserver catches). The per-frame cost is then
+    // one window.scrollY read plus transform/opacity style writes — no
+    // getBoundingClientRect / offsetHeight on every frame.
+    let trackTop = 0
+    let range = 1
+    const measure = () => {
+      range = Math.max(1, track.offsetHeight - window.innerHeight)
+      trackTop = track.getBoundingClientRect().top + window.scrollY
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
+    ro?.observe(track)
+
+    // will-change is a scarce GPU-memory hint on mobile: only layers
+    // actually on stage hold it (toggled below as fades come and go),
+    // instead of all nine full-screen photographs at once.
+    const wcOn = SCENE_IMGS.map(() => false)
+
     const frame = () => {
       raf = requestAnimationFrame(frame)
       // Progress is measured over the camera track alone: p = 0 at the
       // film's first frame, p = 1 at the end of the final (thank-you) scene.
-      const rect = track.getBoundingClientRect()
-      const range = track.offsetHeight - window.innerHeight
-      const target = clamp01(-rect.top / Math.max(1, range))
-      current += (target - current) * 0.06
+      const target = clamp01((window.scrollY - trackTop) / range)
+      const delta = target - current
+      if (Math.abs(delta) >= SNAP) current = target
+      else current += delta * FOLLOW
       if (Math.abs(target - current) < 0.00005) current = target
       const p = current
 
@@ -311,6 +344,11 @@ export default function Journey() {
         const o = Math.min(fadeIn, fadeOut)
         layer.style.opacity = o.toFixed(3)
         layer.style.visibility = o <= 0.01 ? 'hidden' : 'visible'
+        const wantWc = o > 0.001
+        if (wcOn[ai] !== wantWc) {
+          wcOn[ai] = wantWc
+          img.style.willChange = wantWc ? 'transform' : 'auto'
+        }
         const life = clamp01((p - (i - 0.42) / N) / (1.46 / N))
         const eased = 1 - Math.pow(1 - life, 2)
         const scale = lerp(s.scaleFrom, s.scaleTo, eased)
@@ -369,7 +407,11 @@ export default function Journey() {
       if (railRef.current) railRef.current.style.transform = `scaleY(${p})`
     }
     frame()
-    return () => cancelAnimationFrame(raf)
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('resize', measure)
+      ro?.disconnect()
+    }
   }, [])
 
   return (
@@ -389,17 +431,20 @@ export default function Journey() {
             className="absolute inset-0"
             style={{ zIndex: i + 1, opacity: i === 0 ? 1 : 0, visibility: i === 0 ? 'visible' : 'hidden' }}
           >
-            <img
-              ref={(el) => {
-                imgRefs.current[i] = el
-              }}
-              src={s.img}
-              alt={s.alt}
-              className="h-full w-full object-cover will-change-transform"
-              style={{ objectPosition: s.objectPosition, transformOrigin: s.origin }}
-              loading={i === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
+            <picture className="block h-full w-full">
+              <source media="(max-width: 768px)" srcSet={s.imgM} />
+              <img
+                ref={(el) => {
+                  imgRefs.current[i] = el
+                }}
+                src={s.img}
+                alt={s.alt}
+                className="h-full w-full object-cover"
+                style={{ objectPosition: s.objectPosition, transformOrigin: s.origin }}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </picture>
             {/* cinematic depth: top shade for the nav, bottom scrim for the story text */}
             <div aria-hidden="true" className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-navy-950/55 to-transparent" />
             <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[46%] bg-gradient-to-t from-navy-950/78 via-navy-950/28 to-transparent" />
@@ -457,19 +502,25 @@ export default function Journey() {
           className="absolute inset-0 z-[10]"
           style={{ opacity: 0, visibility: 'hidden', pointerEvents: 'none' }}
         >
-          <img
-            src="images/scenes/photo-dubai-skyline.jpg"
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{
-              objectPosition: '50% 45%',
-              filter: 'blur(7px) brightness(0.5) saturate(1.05)',
-              transform: 'scale(1.08)',
-            }}
-            loading="lazy"
-            decoding="async"
-          />
+          {/* Pre-blurred asset (blur + brightness(0.5) saturate(1.05)
+              baked in at build time): a full-screen CSS filter: blur()
+              was a standing GPU cost on mobile for the whole form scene,
+              so the layer now paints a plain image — no runtime filter. */}
+          <picture>
+            <source media="(max-width: 768px)" srcSet="images/scenes/m/photo-dubai-skyline-blur.jpg" />
+            <img
+              src="images/scenes/photo-dubai-skyline-blur.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{
+                objectPosition: '50% 45%',
+                transform: 'scale(1.08)',
+              }}
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
           <div aria-hidden="true" className="absolute inset-0 bg-navy-950/40" />
           <div aria-hidden="true" className="absolute inset-0 shadow-[inset_0_0_180px_rgba(5,8,28,0.55)]" />
           {/* Scroll well: top padding reserves nav height + margin so the
