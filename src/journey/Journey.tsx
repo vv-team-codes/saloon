@@ -294,12 +294,18 @@ export default function Journey() {
 
     // Follow rate: the gentle 0.06 glide that feels cinematic under a
     // mouse wheel feels delayed and floaty under a finger, so on coarse
-    // pointers (touch) the film tracks the scroll much more closely at
-    // 0.18. A gap of 5% of the track or more — anchor jumps, scrollbar
-    // drags, Page Up/Down — snaps instantly, so programmatic scrolls
-    // (scrollToFormScene included) never crawl toward their target.
-    const FOLLOW = window.matchMedia('(pointer: coarse)').matches ? 0.18 : 0.06
+    // pointers (touch) the film tracks the scroll much more closely —
+    // 0.3 since v13 (0.18 still trailed a fast flick). A gap of 5% of
+    // the track or more — anchor jumps, scrollbar drags, Page Up/Down —
+    // snaps instantly, so programmatic scrolls (scrollToFormScene
+    // included) never crawl toward their target.
+    const COARSE = window.matchMedia('(pointer: coarse)').matches
+    const FOLLOW = COARSE ? 0.3 : 0.06
     const SNAP = 0.05
+    // On touch devices the push-in magnification is capped at 1.25:
+    // past that the full-screen repaint buys nothing visually on a
+    // phone and costs frames during crossfades. Desktop unchanged.
+    const SCALE_CAP = COARSE ? 1.25 : Infinity
 
     // Layout reads are cached: the track's document top and its
     // scrollable range only change when the viewport resizes (the track
@@ -318,6 +324,25 @@ export default function Journey() {
     const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
     ro?.observe(track)
 
+    // The loop idles while the track is off-screen: no layout reads, no
+    // style writes — rAF just re-queues itself. When the track returns,
+    // the cache is re-measured first so the very next frame computes
+    // progress from fresh geometry (scrollToFormScene's own reads are
+    // independent of this cache and work regardless).
+    let inView = true
+    const io =
+      typeof IntersectionObserver !== 'undefined'
+        ? new IntersectionObserver(
+            (entries) => {
+              const next = entries[0]?.isIntersecting ?? true
+              if (next && !inView) measure()
+              inView = next
+            },
+            { threshold: 0 },
+          )
+        : null
+    io?.observe(track)
+
     // will-change is a scarce GPU-memory hint on mobile: only layers
     // actually on stage hold it (toggled below as fades come and go),
     // instead of all nine full-screen photographs at once.
@@ -325,6 +350,7 @@ export default function Journey() {
 
     const frame = () => {
       raf = requestAnimationFrame(frame)
+      if (!inView) return
       // Progress is measured over the camera track alone: p = 0 at the
       // film's first frame, p = 1 at the end of the final (thank-you) scene.
       const target = clamp01((window.scrollY - trackTop) / range)
@@ -351,7 +377,7 @@ export default function Journey() {
         }
         const life = clamp01((p - (i - 0.42) / N) / (1.46 / N))
         const eased = 1 - Math.pow(1 - life, 2)
-        const scale = lerp(s.scaleFrom, s.scaleTo, eased)
+        const scale = lerp(s.scaleFrom, Math.min(s.scaleTo, SCALE_CAP), eased)
         img.style.transform = `scale(${scale.toFixed(4)}) translateY(${((0.5 - life) * 10).toFixed(2)}px)`
       })
 
@@ -411,6 +437,7 @@ export default function Journey() {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', measure)
       ro?.disconnect()
+      io?.disconnect()
     }
   }, [])
 
@@ -460,7 +487,10 @@ export default function Journey() {
           style={{ background: 'radial-gradient(60% 55% at 47% 60%, rgba(255,236,200,0.95), rgba(255,220,170,0.35) 55%, transparent 75%)' }}
         />
 
-        {/* story texts */}
+        {/* story texts — bottom-anchored blocks carry extra BASE bottom
+            padding (v13: pb-[8.5rem], lift pb-[10.5rem]) so on phones the
+            text clears the now-fixed bottom bar (~71px) instead of
+            running into it; sm: paddings are unchanged. */}
         {TEXTS.map((t, i) => (
           <div
             key={i}
@@ -468,7 +498,11 @@ export default function Journey() {
               textRefs.current[i] = el
             }}
             className={`absolute inset-x-0 z-[9] px-5 text-center opacity-0 sm:px-8 ${
-              t.center ? 'top-1/2 -translate-y-1/2' : t.lift ? 'bottom-0 pb-36 sm:pb-40' : 'bottom-0 pb-24 sm:pb-28'
+              t.center
+                ? 'top-1/2 -translate-y-1/2'
+                : t.lift
+                  ? 'bottom-0 pb-[10.5rem] sm:pb-40'
+                  : 'bottom-0 pb-[8.5rem] sm:pb-28'
             }`}
             style={{ visibility: 'hidden' }}
           >
@@ -483,7 +517,7 @@ export default function Journey() {
                   'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(5,8,28,0.62) 0%, rgba(5,8,28,0.44) 52%, rgba(5,8,28,0) 76%)',
               }}
             />
-            <div className="relative mx-auto max-w-3xl [text-shadow:0_2px_34px_rgba(5,8,28,0.65),0_1px_10px_rgba(5,8,28,0.6)]">
+            <div className="scene-text relative mx-auto max-w-3xl [text-shadow:0_2px_34px_rgba(5,8,28,0.65),0_1px_10px_rgba(5,8,28,0.6)]">
               {t.content}
             </div>
           </div>
