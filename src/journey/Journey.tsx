@@ -524,24 +524,27 @@ export default function Journey() {
           <div aria-hidden="true" className="absolute inset-0 bg-navy-950/40" />
           <div aria-hidden="true" className="absolute inset-0 shadow-[inset_0_0_180px_rgba(5,8,28,0.55)]" />
           {/* Scroll well: top padding reserves nav height + margin so the
-              card can never slide under the fixed nav pill; the inner
-              min-h-full flex centres the card when it fits and lets it
-              top-align (fully scrollable) when it doesn't. No m-auto —
-              auto margins in a scrollable flex box push a too-tall card's
-              top above the scroll origin, where it can never be reached.
-              The well's own scrollbar is hidden (.no-scrollbar) so only the
-              golden progress rail shows; wheel/touch scrolling still works. */}
-          <div className="no-scrollbar absolute inset-0 overflow-y-auto pb-6 pt-[7rem] sm:pt-[8rem]">
+              card can never slide under the fixed nav pill; bottom padding
+              (v11) reserves the fixed bottom bar's height + ~24px so the
+              wide card and its footnote never hide behind that bar either.
+              The inner min-h-full flex centres the card when it fits and
+              lets it top-align (fully scrollable) when it doesn't. No
+              m-auto — auto margins in a scrollable flex box push a too-tall
+              card's top above the scroll origin, where it can never be
+              reached. The well's own scrollbar is hidden (.no-scrollbar)
+              so only the golden progress rail shows; wheel/touch scrolling
+              still works. */}
+          <div className="no-scrollbar absolute inset-0 overflow-y-auto pb-24 pt-[7rem] sm:pb-[4.375rem] sm:pt-[8rem]">
             <div className="flex min-h-full items-center justify-center px-5 sm:px-8">
-              <div ref={formCardRef} className="w-[min(92vw,36rem)] max-w-xl will-change-transform">
+              <div ref={formCardRef} className="w-[min(94vw,64rem)] max-w-5xl will-change-transform">
                 <Contact />
               </div>
             </div>
           </div>
         </div>
 
-        {/* scroll hint */}
-        <div ref={hintRef} className="pointer-events-none absolute bottom-7 left-1/2 z-[10] -translate-x-1/2 text-center transition-opacity duration-500">
+        {/* scroll hint — lifted (v11) so it clears the fixed bottom bar */}
+        <div ref={hintRef} className="pointer-events-none absolute bottom-[5.5rem] left-1/2 z-[10] -translate-x-1/2 text-center transition-opacity duration-500 sm:bottom-20">
           <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/75 [text-shadow:0_1px_12px_rgba(5,8,28,0.8)]">Scroll to enter</p>
           <div className="mx-auto mt-3 h-10 w-6 rounded-full border border-white/40 p-1.5">
             <div className="mx-auto h-2 w-1 animate-bounce rounded-full bg-gold-300" />
@@ -557,8 +560,9 @@ export default function Journey() {
 
       {/* Nothing follows the stage inside this section: the film's last
           two scenes — the enquiry form, then the thank-you photograph —
-          both live inside the sticky stage above, and the slim bottom bar
-          comes next. */}
+          both live inside the sticky stage above. The slim bottom bar is
+          fixed chrome (BottomBar in App) and overlays the page bottom at
+          all times, like the floating social icons. */}
     </section>
   )
 }
