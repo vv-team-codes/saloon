@@ -1,4 +1,5 @@
 import Logo from './ui/Logo'
+import { scrollToFormScene } from '../journey/Journey'
 
 const NAV = [
   { label: 'Why ZYNA', href: '#problem' },
@@ -60,6 +61,14 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={
+                  link.href === '#contact'
+                    ? (e) => {
+                        e.preventDefault()
+                        scrollToFormScene()
+                      }
+                    : undefined
+                }
                 className="text-[15px] text-white/70 transition-colors duration-300 hover:text-white"
               >
                 {link.label}
@@ -77,7 +86,14 @@ export default function Footer() {
             >
               hello@zyna.ae
             </a>
-            <a href="#contact" className="mt-2 block text-[15px] text-white/70 transition-colors hover:text-white">
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault()
+                scrollToFormScene()
+              }}
+              className="mt-2 block text-[15px] text-white/70 transition-colors hover:text-white"
+            >
               Talk to Us →
             </a>
             <p className="mt-2 text-[15px] text-white/70">Dubai, United Arab Emirates</p>
