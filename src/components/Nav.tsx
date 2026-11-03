@@ -2,14 +2,16 @@ import { useEffect, useState } from 'react'
 import Logo from './ui/Logo'
 import { IconArrowRight, IconX } from './ui/icons'
 
-import { scrollToJourneyFraction } from '../journey/Journey'
+import { FORM_FRACTION, scrollToFormScene, scrollToJourneyFraction } from '../journey/Journey'
 
-const LINKS: { label: string; frac?: number; href?: string; page?: string }[] = [
-  { label: 'What We Do', frac: 0.41 },
-  { label: 'How It Works', frac: 0.56 },
-  { label: 'About', frac: 1 },
+const LINKS: { label: string; frac?: number; form?: boolean; page?: string }[] = [
+  { label: 'What We Do', frac: 0.36 },
+  { label: 'How It Works', frac: 0.5 },
+  // "About" lands on the film's final scene — the enquiry form itself,
+  // the slot the old get-in-touch scene used to occupy.
+  { label: 'About', frac: FORM_FRACTION },
   { label: 'Blog', page: '/blog/' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', form: true },
 ]
 
 export default function Nav() {
@@ -52,7 +54,7 @@ export default function Nav() {
               <button
                 key={link.label}
                 type="button"
-                onClick={() => (link.href ? document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' }) : scrollToJourneyFraction(link.frac ?? 0))}
+                onClick={() => (link.form ? scrollToFormScene() : scrollToJourneyFraction(link.frac ?? 0))}
                 className="rounded-full px-4 py-2 text-[14px] font-medium text-white/75 transition-colors duration-300 hover:bg-white/8 hover:text-white"
               >
                 {link.label}
@@ -63,7 +65,11 @@ export default function Nav() {
 
         <div className="flex items-center gap-2.5">
           <a
-            href="#contact"
+            href="#form"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToFormScene()
+            }}
             className="group hidden items-center gap-2 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-5 py-2.5 text-[14px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_14px_30px_-10px_rgba(201,162,75,0.8)] sm:inline-flex"
           >
             Get Started
@@ -107,7 +113,7 @@ export default function Nav() {
                 type="button"
                 onClick={() => {
                   setOpen(false)
-                  if (link.href) document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' })
+                  if (link.form) scrollToFormScene()
                   else scrollToJourneyFraction(link.frac ?? 0)
                 }}
                 className="font-display py-3.5 text-3xl font-semibold text-white/90 transition-colors hover:text-gold-300"
@@ -118,8 +124,12 @@ export default function Nav() {
             ),
           )}
           <a
-            href="#contact"
-            onClick={() => setOpen(false)}
+            href="#form"
+            onClick={(e) => {
+              e.preventDefault()
+              setOpen(false)
+              scrollToFormScene()
+            }}
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-4 text-[15px] font-bold text-navy-950"
           >
             Get Started <IconArrowRight className="h-4 w-4" />
