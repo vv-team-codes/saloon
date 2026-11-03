@@ -33,10 +33,13 @@
 
 html {
   scroll-behavior: smooth;
+  /* Root background is the site navy: mobile overscroll (and the area
+     below the fixed bottom bar) must never flash white. */
+  background: #05081c;
 }
 
 body {
-  @apply bg-white font-sans text-navy-950 antialiased;
+  @apply bg-navy-950 font-sans text-navy-950 antialiased;
   text-rendering: optimizeLegibility;
 }
 
@@ -211,6 +214,29 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* The form's emirate <select> sits on a dark glass card (white text,
+   color-scheme: dark), but the OPEN native option list renders on a
+   white popup in most browsers — without an explicit rule the options
+   inherit the white text colour and vanish (white on white). Force
+   dark text on white for the options only; the closed select keeps
+   its dark glass look. */
+.dark-select option {
+  color: #0b1030;
+  background-color: #ffffff;
+}
+
+/* Journey scene text: the deep 34px text-shadow is a standing repaint
+   cost on small phone GPUs. Below sm the same wrapper (.scene-text)
+   gets a much tighter shadow — visually near-identical at phone sizes,
+   cheaper to repaint while scenes crossfade. Desktop is untouched. */
+@media (max-width: 639.98px) {
+  .scene-text {
+    text-shadow:
+      0 2px 14px rgba(5, 8, 28, 0.65),
+      0 1px 6px rgba(5, 8, 28, 0.6) !important;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
