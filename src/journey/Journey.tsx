@@ -1,20 +1,20 @@
 import { useEffect, useRef, type ReactNode } from 'react'
-import { IconArrowRight, IconCheck } from '../components/ui/icons'
+import { IconArrowRight } from '../components/ui/icons'
 import Contact from '../components/Contact'
 
 /**
  * The ZYNA journey — an interactive architectural film controlled by scrolling.
  * The brand's own reception photograph opens the film and carries the
  * welcome scene; the remaining scenes are real photographs (a client
- * messaging, salon reception, stylist and client, salon interiors, the
- * Dubai skyline, a modern office lobby) from Pexels — free commercial
+ * messaging, salon reception, stylist and client, salon interiors and
+ * the Dubai skyline) from Pexels — free commercial
  * use under the Pexels License; sources in public/images/scenes/CREDITS.md.
  * One continuous camera: every scene pushes in while the next is revealed,
  * including a zoom-through-the-entrance transition into the reception.
  * All motion is computed in a rAF loop from scroll progress — no re-renders.
  */
 
-const N = 9
+const N = 8
 
 type SceneDef = {
   img: string
@@ -34,7 +34,6 @@ const SCENE_IMGS: SceneDef[] = [
   { img: 'images/scenes/photo-salon-wide.jpg', alt: 'A wide, elegant salon interior — every step connected', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
   { img: 'images/scenes/photo-salon-luxury.jpg', alt: 'A luxury salon interior', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
   { img: 'images/scenes/photo-dubai-skyline.jpg', alt: 'The Dubai skyline and Burj Khalifa across the water', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
-  { img: 'images/scenes/photo-office-lobby.jpg', alt: 'A modern office lobby', objectPosition: '50% 38%', origin: '50% 42%', scaleFrom: 1.22, scaleTo: 1.36 },
 ]
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
@@ -70,7 +69,7 @@ const TEXTS: TextDef[] = [
       <>
         <Eyebrow>ZYNA · United Arab Emirates</Eyebrow>
         <Headline>
-          THE SMARTER WAY TO <span className="text-gold-grad">RUN YOUR SALON.</span>
+          THE SMARTER WAY TO <span className="text-white">RUN YOUR SALON.</span>
         </Headline>
         <Support>
           ZYNA helps salons create better client conversations, manage enquiries, and build
@@ -99,7 +98,7 @@ const TEXTS: TextDef[] = [
       <>
         <Eyebrow>The Conversation Space</Eyebrow>
         <Headline>
-          EVERY CONVERSATION <span className="text-gold-grad">MATTERS.</span>
+          EVERY CONVERSATION <span className="text-white">MATTERS.</span>
         </Headline>
         <Support>Turn salon enquiries into meaningful client relationships and opportunities.</Support>
       </>
@@ -112,7 +111,7 @@ const TEXTS: TextDef[] = [
       <>
         <Eyebrow>The Operations Space</Eyebrow>
         <Headline>
-          LESS COMPLEXITY. <span className="text-gold-grad">MORE CLARITY.</span>
+          LESS COMPLEXITY. <span className="text-white">MORE CLARITY.</span>
         </Headline>
         <Support>Spend less time managing the details and more time focusing on your clients.</Support>
       </>
@@ -125,7 +124,7 @@ const TEXTS: TextDef[] = [
       <>
         <Eyebrow>The Premium Salon</Eyebrow>
         <Headline>
-          BUILT AROUND BETTER <span className="text-gold-grad">CLIENT EXPERIENCES.</span>
+          BUILT AROUND BETTER <span className="text-white">CLIENT EXPERIENCES.</span>
         </Headline>
         <Support>Create a smoother journey from the first enquiry to every salon visit.</Support>
       </>
@@ -138,7 +137,7 @@ const TEXTS: TextDef[] = [
       <>
         <Eyebrow>The Client Journey</Eyebrow>
         <Headline>
-          EVERY STEP, <span className="text-gold-grad">CONNECTED.</span>
+          EVERY STEP, <span className="text-white">CONNECTED.</span>
         </Headline>
         <Support>Enquiry → Booking → Service → Repeat Client — one smooth path, guided by ZYNA.</Support>
       </>
@@ -152,7 +151,7 @@ const TEXTS: TextDef[] = [
     content: (
       <>
         <Headline>
-          READY TO TRANSFORM <span className="text-gold-grad">YOUR SALON?</span>
+          READY TO TRANSFORM <span className="text-white">YOUR SALON?</span>
         </Headline>
         <Support>
           Create better client experiences. Build a smoother business. Grow with confidence.
@@ -183,7 +182,7 @@ const TEXTS: TextDef[] = [
       <>
         <Eyebrow>Never miss a booking again</Eyebrow>
         <Headline>
-          Every conversation <span className="text-gold-grad">matters.</span>
+          Every conversation <span className="text-white">matters.</span>
         </Headline>
         <Support>
           Your next client could message tonight at midnight. Make sure someone brilliant
@@ -199,45 +198,6 @@ const TEXTS: TextDef[] = [
             <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>
-      </>
-    ),
-  },
-  {
-    from: slot(8, 0.08),
-    to: 1.01,
-    interactive: true,
-    center: true,
-    content: (
-      <>
-        <Eyebrow>Get in touch</Eyebrow>
-        <Headline>Let’s put ZYNA to work for your salon.</Headline>
-        <Support>
-          Tell us a little about your salon and what you would like ZYNA to handle. We will
-          reply with the next steps — usually within one business day.
-        </Support>
-        <ul className="mx-auto mt-7 w-fit space-y-3 text-left">
-          {[
-            'A walkthrough of ZYNA on your own salon scenario',
-            'Honest advice on what to automate first',
-            'No pressure — just a clear plan',
-          ].map((item) => (
-            <li key={item} className="flex items-start gap-3 text-[15px] text-white/85">
-              <span className="mt-0.5 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-gold-400 to-gold-600">
-                <IconCheck className="h-3 w-3 text-navy-950" />
-              </span>
-              {item}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-8">
-          <a
-            href="mailto:hello@zyna.ae"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-5 py-3 text-[14px] font-semibold text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/10"
-          >
-            Prefer email? hello@zyna.ae
-          </a>
-        </div>
-        <p className="mt-4 text-[13.5px] font-medium text-white/50">Dubai · United Arab Emirates</p>
       </>
     ),
   },
@@ -324,10 +284,10 @@ export default function Journey() {
 
   return (
     <section id="journey" ref={sectionRef} className="relative bg-navy-950">
-      {/* The camera track: 1350vh of scroll travel driving the film (9 scenes
+      {/* The camera track: 1200vh of scroll travel driving the film (8 scenes
           at ~150vh each). The sticky stage lives inside it and releases when
           the track ends. */}
-      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1350vh' }}>
+      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1200vh' }}>
         <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
         {SCENE_IMGS.map((s, i) => (
           <div
@@ -408,11 +368,10 @@ export default function Journey() {
         </div>
       </div>
 
-      {/* The whole story now finishes inside the film: the CTA ("Every
-          conversation matters") and the get-in-touch content are scenes 8 and
-          9 of the journey itself. What follows the stage is only the compact
-          enquiry form card — in normal flow (never inside the sticky stage),
-          so it stays fully interactive. */}
+      {/* The film's final scene is the CTA ("Every conversation matters");
+          what follows the stage is the compact enquiry form card alone — the
+          journey's single closing beat, in normal flow (never inside the
+          sticky stage), so it stays fully interactive. */}
       <Contact />
     </section>
   )
