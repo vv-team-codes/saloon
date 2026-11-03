@@ -7,8 +7,9 @@ export default function App() {
     <div className="min-h-screen bg-navy-950">
       <Nav />
       <main>
-        {/* The journey renders the CTA + contact segment inside its own scroll
-            container as the closing act — there is no separate Contact section. */}
+        {/* The journey is the whole homepage film — its final scene, inside
+            the scroll-driven stage itself, is the enquiry form. There is no
+            separate Contact section. */}
         <Journey />
       </main>
       <Footer />
