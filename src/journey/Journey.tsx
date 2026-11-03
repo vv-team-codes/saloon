@@ -294,13 +294,26 @@ export default function Journey() {
             }`}
             style={{ visibility: 'hidden' }}
           >
-            <div className="mx-auto max-w-3xl [text-shadow:0_2px_34px_rgba(5,8,28,0.65)]">{t.content}</div>
+            {/* localized readability scrim: a soft dark cloud behind the text block only,
+                so bright scene areas (glass facades, lit interiors) never wash out the words.
+                Fades to transparent at its edges — the rest of the scene stays untouched. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute left-1/2 top-1/2 h-[165%] w-[min(94vw,62rem)] -translate-x-1/2 -translate-y-1/2"
+              style={{
+                background:
+                  'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(5,8,28,0.62) 0%, rgba(5,8,28,0.44) 52%, rgba(5,8,28,0) 76%)',
+              }}
+            />
+            <div className="relative mx-auto max-w-3xl [text-shadow:0_2px_34px_rgba(5,8,28,0.65),0_1px_10px_rgba(5,8,28,0.6)]">
+              {t.content}
+            </div>
           </div>
         ))}
 
         {/* scroll hint */}
         <div ref={hintRef} className="absolute bottom-7 left-1/2 z-[10] -translate-x-1/2 text-center transition-opacity duration-500">
-          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/75">Scroll to enter</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/75 [text-shadow:0_1px_12px_rgba(5,8,28,0.8)]">Scroll to enter</p>
           <div className="mx-auto mt-3 h-10 w-6 rounded-full border border-white/40 p-1.5">
             <div className="mx-auto h-2 w-1 animate-bounce rounded-full bg-gold-300" />
           </div>
