@@ -4,8 +4,10 @@ import Contact from '../components/Contact'
 
 /**
  * The ZYNA journey — an interactive architectural film controlled by scrolling.
- * The brand's own reception photograph opens the film and carries the
- * welcome scene; the remaining scenes are real photographs (a client
+ * The film opens OUTSIDE the ZYNA office — a photorealistic AI-generated
+ * exterior of the building with the ZYNA sign on its fascia — then moves
+ * inside: the brand's own reception photograph carries the welcome scene;
+ * the remaining scenes are real photographs (a client
  * messaging, salon reception, stylist and client, salon interiors and
  * the Dubai skyline) from Pexels — free commercial
  * use under the Pexels License; sources in public/images/scenes/CREDITS.md.
@@ -29,7 +31,7 @@ type SceneDef = {
 }
 
 const SCENE_IMGS: SceneDef[] = [
-  { img: 'images/scenes/scene-2-reception.jpg', alt: 'Inside the ZYNA reception — the welcome space', objectPosition: '50% 55%', origin: '47% 58%', scaleFrom: 1.06, scaleTo: 2.05 },
+  { img: 'images/scenes/photo-office-exterior.jpg', alt: 'The ZYNA office building in Dubai, seen from outside', objectPosition: '50% 32%', origin: '50% 70%', scaleFrom: 1.06, scaleTo: 1.95 },
   { img: 'images/scenes/scene-2-reception.jpg', alt: 'The ZYNA reception', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.22, scaleTo: 1.36 },
   { img: 'images/scenes/photo-chat-typing.jpg', alt: 'A client messaging the salon from her phone', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
   { img: 'images/scenes/photo-salon-reception.jpg', alt: 'A salon reception desk', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
@@ -436,7 +438,7 @@ export default function Journey() {
           <div aria-hidden="true" className="absolute inset-0 shadow-[inset_0_0_180px_rgba(5,8,28,0.55)]" />
           <div className="absolute inset-0 overflow-y-auto">
             <div className="flex min-h-full px-5 py-20 sm:px-8">
-              <div ref={formCardRef} className="m-auto w-full max-w-3xl will-change-transform">
+              <div ref={formCardRef} className="m-auto w-[min(92vw,36rem)] max-w-xl will-change-transform">
                 <Contact />
               </div>
             </div>
