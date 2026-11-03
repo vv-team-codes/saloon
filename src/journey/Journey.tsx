@@ -1,5 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react'
 import Logo from '../components/ui/Logo'
+import Contact from '../components/Contact'
 
 /**
  * The ZYNA journey — an interactive architectural film controlled by scrolling.
@@ -175,13 +176,17 @@ const TEXTS: TextDef[] = [
 export function scrollToJourneyFraction(frac: number) {
   const el = document.getElementById('journey')
   if (!el) return
-  const top = el.offsetTop
-  const range = el.offsetHeight - window.innerHeight
+  // Fractions address the camera track only — the section also holds the
+  // closing contact segment after the track, which is not part of the film.
+  const track = el.querySelector<HTMLElement>('[data-journey-track]') ?? el
+  const top = track.getBoundingClientRect().top + window.scrollY
+  const range = track.offsetHeight - window.innerHeight
   window.scrollTo({ top: top + frac * range, behavior: 'smooth' })
 }
 
 export default function Journey() {
   const sectionRef = useRef<HTMLElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
   const layerRefs = useRef<(HTMLDivElement | null)[]>([])
   const imgRefs = useRef<(HTMLImageElement | null)[]>([])
   const textRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -191,14 +196,17 @@ export default function Journey() {
 
   useEffect(() => {
     const section = sectionRef.current
-    if (!section) return
+    const track = trackRef.current
+    if (!section || !track) return
     let raf = 0
     let current = 0
 
     const frame = () => {
       raf = requestAnimationFrame(frame)
-      const rect = section.getBoundingClientRect()
-      const range = section.offsetHeight - window.innerHeight
+      // Progress is measured over the camera track alone; the contact segment
+      // that follows it inside this section is past the end of the film (p = 1).
+      const rect = track.getBoundingClientRect()
+      const range = track.offsetHeight - window.innerHeight
       const target = clamp01(-rect.top / Math.max(1, range))
       current += (target - current) * 0.06
       if (Math.abs(target - current) < 0.00005) current = target
@@ -245,8 +253,11 @@ export default function Journey() {
   }, [])
 
   return (
-    <section id="journey" ref={sectionRef} className="relative" style={{ height: '1050vh' }}>
-      <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
+    <section id="journey" ref={sectionRef} className="relative bg-navy-950">
+      {/* The camera track: 1050vh of scroll travel driving the film. The sticky
+          stage lives inside it and releases when the track ends. */}
+      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1050vh' }}>
+        <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
         {SCENE_IMGS.map((s, i) => (
           <div
             key={s.img}
@@ -323,7 +334,14 @@ export default function Journey() {
         <div className="absolute right-5 top-1/2 z-[10] hidden h-44 w-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-white/20 sm:block">
           <div ref={railRef} className="h-full w-full origin-top bg-gradient-to-b from-gold-300 to-gold-600" style={{ transform: 'scaleY(0)' }} />
         </div>
+        </div>
       </div>
+
+      {/* Closing act of the same scroll journey: as the rooftop scene releases,
+          the film flows straight into the CTA + contact segment — no separate
+          section break. The form sits in normal flow (never inside the sticky
+          stage), so it stays fully interactive. */}
+      <Contact />
     </section>
   )
 }
