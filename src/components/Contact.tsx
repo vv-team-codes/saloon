@@ -32,7 +32,7 @@ export default function Contact() {
   return (
     <div
       id="form"
-      className="rounded-[32px] bg-[#f6f4ef] p-4 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.55)] sm:p-6"
+      className="rounded-[32px] bg-[#f6f4ef] p-4 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.55)] sm:p-5"
     >
       {sent ? (
         <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[24px] border border-emerald-200 bg-emerald-50/60 px-6 text-center sm:px-8">
@@ -95,12 +95,12 @@ export default function Contact() {
           </label>
           <button
             type="submit"
-            className="group mt-5 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-navy-950 px-8 py-4 text-[15px] font-semibold text-white transition-all duration-300 hover:bg-gold-600 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
+            className="group mt-5 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-navy-950 px-8 py-3 text-[15px] font-semibold text-white transition-all duration-300 hover:bg-gold-600 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
           >
             Send Message
             <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
-          <p className="mt-3 text-[12.5px] text-navy-950/45">
+          <p className="mt-3 text-[13px] leading-snug text-navy-950/45">
             By sending this form you agree to be contacted about ZYNA. We never share your
             details.
           </p>
