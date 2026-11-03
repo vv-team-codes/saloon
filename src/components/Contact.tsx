@@ -35,10 +35,10 @@ export default function Contact() {
     <div
       id="form"
       style={{ colorScheme: 'dark' }}
-      className="rounded-[32px] border border-white/12 bg-navy-900/85 p-4 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.65)] sm:p-5 sm:backdrop-blur-md"
+      className="w-full rounded-[32px] border border-white/12 bg-navy-900/85 p-5 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.65)] sm:p-6 sm:backdrop-blur-md"
     >
       {sent ? (
-        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[24px] border border-white/12 bg-white/5 px-6 text-center sm:px-8">
+        <div className="flex min-h-[264px] flex-col items-center justify-center rounded-[24px] border border-white/12 bg-white/5 px-6 text-center sm:px-12">
           <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-gold-400 to-gold-600 text-navy-950 shadow-lg">
             <IconCheck className="h-8 w-8" />
           </span>
@@ -59,7 +59,12 @@ export default function Contact() {
         </div>
       ) : (
         <form onSubmit={onSubmit}>
-          <div className="grid gap-3 sm:grid-cols-2">
+          {/* Wide landscape composition (v11): one grid for all six fields.
+              lg — three columns: name / salon / email, then phone / where /
+              message (textarea in the third column). Below lg the fields
+              pair up in two columns with the wide fields spanning both;
+              on phones everything stacks in the original order. */}
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             <label className="block">
               <span className={labelCls}>Your name *</span>
               <input required value={form.name} onChange={update('name')} placeholder="Full name" className={inputCls} />
@@ -76,7 +81,7 @@ export default function Contact() {
               <span className={labelCls}>Phone / WhatsApp</span>
               <input type="tel" value={form.phone} onChange={update('phone')} placeholder="+971 …" className={inputCls} />
             </label>
-            <label className="block sm:col-span-2">
+            <label className="block sm:col-span-2 lg:col-span-1">
               <span className={labelCls}>Where is your business?</span>
               <select value={form.emirate} onChange={update('emirate')} className={inputCls}>
                 {EMIRATES.map((e) => (
@@ -84,29 +89,34 @@ export default function Contact() {
                 ))}
               </select>
             </label>
+            <label className="block sm:col-span-2 lg:col-span-1">
+              <span className={labelCls}>How can ZYNA help? *</span>
+              <textarea
+                required
+                rows={3}
+                value={form.message}
+                onChange={update('message')}
+                placeholder="Tell us about your salon and the client conversations you'd like ZYNA to handle…"
+                className={`${inputCls} resize-none`}
+              />
+            </label>
           </div>
-          <label className="mt-3 block">
-            <span className={labelCls}>How can ZYNA help? *</span>
-            <textarea
-              required
-              rows={3}
-              value={form.message}
-              onChange={update('message')}
-              placeholder="Tell us about your salon and the client conversations you'd like ZYNA to handle…"
-              className={`${inputCls} resize-none`}
-            />
-          </label>
-          <button
-            type="submit"
-            className="group mt-5 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-3 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
-          >
-            Send Message
-            <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
-          </button>
-          <p className="mt-3 text-[13px] leading-snug text-white/55">
-            By sending this form you agree to be contacted about ZYNA. We never share your
-            details.
-          </p>
+          {/* Closing row: footnote left, Send Message right-aligned at its
+              natural width. On phones it stacks with the button on top,
+              as before. */}
+          <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[13px] leading-snug text-white/55 sm:max-w-[55%]">
+              By sending this form you agree to be contacted about ZYNA. We never share your
+              details.
+            </p>
+            <button
+              type="submit"
+              className="group inline-flex w-full shrink-0 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-3 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
+            >
+              Send Message
+              <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
+          </div>
         </form>
       )}
     </div>
