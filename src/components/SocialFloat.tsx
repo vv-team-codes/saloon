@@ -11,18 +11,27 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as R
  * link; a real drag suppresses that click. Default home (nothing saved)
  * is the bottom-right corner. Icons only — the exact profile URLs
  * Techie provided.
+ *
+ * On small screens the buttons shrink to 42px and the default corner
+ * tucks to 16px offsets, so at phone sizes the cluster clears the
+ * journey form card's Send button and footnote.
  */
 const STORAGE_KEY = 'zyna-social-pos'
 const DRAG_THRESHOLD = 6
-const CLUSTER_W = 46 * 2 + 10 // two 46px buttons + 10px gap
-const CLUSTER_H = 46
 
 type Pos = { x: number; y: number }
 
-const clampPos = (p: Pos): Pos => ({
-  x: Math.min(Math.max(4, p.x), Math.max(4, window.innerWidth - CLUSTER_W - 4)),
-  y: Math.min(Math.max(4, p.y), Math.max(4, window.innerHeight - CLUSTER_H - 4)),
-})
+// Button size follows the sm breakpoint (42px below, 46px above).
+const clusterDims = () =>
+  window.innerWidth < 640 ? { w: 42 * 2 + 10, h: 42 } : { w: 46 * 2 + 10, h: 46 }
+
+const clampPos = (p: Pos): Pos => {
+  const d = clusterDims()
+  return {
+    x: Math.min(Math.max(4, p.x), Math.max(4, window.innerWidth - d.w - 4)),
+    y: Math.min(Math.max(4, p.y), Math.max(4, window.innerHeight - d.h - 4)),
+  }
+}
 
 const SOCIALS: { label: string; href: string; style: CSSProperties; delay: string; icon: ReactNode }[] = [
   {
@@ -126,8 +135,8 @@ export default function SocialFloat() {
   return (
     <div
       ref={clusterRef}
-      className={`fixed z-30 flex touch-none select-none gap-2.5 ${dragging ? 'social-dragging cursor-grabbing' : 'cursor-grab'}`}
-      style={pos ? { left: pos.x, top: pos.y } : { right: 20, bottom: 20 }}
+      className={`fixed z-30 flex touch-none select-none gap-2.5 ${pos ? '' : 'bottom-4 right-4 sm:bottom-5 sm:right-5'} ${dragging ? 'social-dragging cursor-grabbing' : 'cursor-grab'}`}
+      style={pos ? { left: pos.x, top: pos.y } : undefined}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
@@ -147,7 +156,7 @@ export default function SocialFloat() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="social-btn group relative flex h-[46px] w-[46px] items-center justify-center rounded-full text-white shadow-[0_12px_32px_-8px_rgba(0,0,0,0.65)] ring-1 ring-white/20"
+          className="social-btn group relative flex h-[42px] w-[42px] items-center justify-center rounded-full text-white shadow-[0_12px_32px_-8px_rgba(0,0,0,0.65)] ring-1 ring-white/20 sm:h-[46px] sm:w-[46px]"
           style={{ ...s.style, animationDelay: s.delay }}
         >
           <svg
@@ -158,7 +167,7 @@ export default function SocialFloat() {
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-[22px] w-[22px] transition-transform duration-300 group-hover:scale-[1.08]"
+            className="h-5 w-5 transition-transform duration-300 group-hover:scale-[1.08] sm:h-[22px] sm:w-[22px]"
             aria-hidden="true"
           >
             {s.icon}
