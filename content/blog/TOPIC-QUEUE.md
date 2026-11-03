@@ -46,3 +46,14 @@ One post per day, written for salon & beauty business owners in the UAE. Each en
 
 29. **Salon KPIs in Plain English: The 6 Numbers to Check Every Monday Morning** — salon business metrics — Chair utilisation, rebooking rate, no-shows, average bill, retail share, new-client count.
 30. **A Salon Owner's Guide to Handling Complaints Gracefully** — salon customer complaints — Recovery scripts and systems that turn unhappy clients into loyal ones.
+
+## Techie's topic categories (provided 2026-11-03 — these govern the blog automation)
+1. Salon Business Growth
+2. Customer Enquiry Management
+3. WhatsApp Communication for Salons
+4. Salon Appointment Management
+5. Customer Retention Strategies
+6. Beauty Industry Trends in UAE
+7. Salon Marketing Strategies
+8. Customer Experience Improvements
+Rotate through these categories for scheduled posts; Dubai/UAE salon angle on every post.
