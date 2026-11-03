@@ -1,19 +1,46 @@
-import type { ReactNode } from 'react'
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react'
 
 /**
- * Permanent floating social buttons — fixed bottom-right, visible at every
- * scroll position (below the nav header z-50 and its mobile menu overlay).
- * Icons only, no labels; the exact profile URLs Techie provided.
+ * Floating social buttons — colourful, lively and DRAGGABLE.
+ *
+ * Full brand colours (Facebook blue, the Instagram gradient), a gentle
+ * bob + pulsing halo so the cluster feels alive, and visitors can drag
+ * the whole cluster anywhere on screen and drop it; the dropped spot is
+ * kept in localStorage and restored on the next visit. A press that
+ * moves less than the drag threshold is a plain click and opens the
+ * link; a real drag suppresses that click. Default home (nothing saved)
+ * is the bottom-right corner. Icons only — the exact profile URLs
+ * Techie provided.
  */
-const SOCIALS: { label: string; href: string; icon: ReactNode }[] = [
+const STORAGE_KEY = 'zyna-social-pos'
+const DRAG_THRESHOLD = 6
+const CLUSTER_W = 46 * 2 + 10 // two 46px buttons + 10px gap
+const CLUSTER_H = 46
+
+type Pos = { x: number; y: number }
+
+const clampPos = (p: Pos): Pos => ({
+  x: Math.min(Math.max(4, p.x), Math.max(4, window.innerWidth - CLUSTER_W - 4)),
+  y: Math.min(Math.max(4, p.y), Math.max(4, window.innerHeight - CLUSTER_H - 4)),
+})
+
+const SOCIALS: { label: string; href: string; style: CSSProperties; delay: string; icon: ReactNode }[] = [
   {
     label: 'ZYNA on Facebook',
     href: 'https://www.facebook.com/profile.php?id=61595756175259',
+    style: { backgroundColor: '#1877F2', ['--halo' as string]: 'rgba(24,119,242,0.55)', ['--halo-delay' as string]: '0s' },
+    delay: '0s',
     icon: <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />,
   },
   {
     label: 'ZYNA on Instagram',
     href: 'https://www.instagram.com/zyna_ae/',
+    style: {
+      backgroundImage: 'linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)',
+      ['--halo' as string]: 'rgba(214,41,118,0.5)',
+      ['--halo-delay' as string]: '1.6s',
+    },
+    delay: '1.1s',
     icon: (
       <>
         <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -25,8 +52,94 @@ const SOCIALS: { label: string; href: string; icon: ReactNode }[] = [
 ]
 
 export default function SocialFloat() {
+  const clusterRef = useRef<HTMLDivElement>(null)
+  const dragRef = useRef<{ id: number; sx: number; sy: number; ox: number; oy: number; moved: boolean } | null>(null)
+  const suppressClickRef = useRef(false)
+  const [dragging, setDragging] = useState(false)
+  const [pos, setPos] = useState<Pos | null>(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        const p = JSON.parse(raw) as Pos
+        if (typeof p?.x === 'number' && typeof p?.y === 'number') return clampPos(p)
+      }
+    } catch {
+      /* no saved position — use the default corner */
+    }
+    return null
+  })
+
+  // Keep a restored/dropped cluster on screen if the viewport shrinks.
+  useEffect(() => {
+    const onResize = () => setPos((p) => (p ? clampPos(p) : p))
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
+
+  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
+    if (e.button !== undefined && e.button !== 0) return
+    const rect = clusterRef.current?.getBoundingClientRect()
+    if (!rect) return
+    dragRef.current = { id: e.pointerId, sx: e.clientX, sy: e.clientY, ox: rect.left, oy: rect.top, moved: false }
+  }
+
+  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = dragRef.current
+    if (!d || e.pointerId !== d.id) return
+    const dx = e.clientX - d.sx
+    const dy = e.clientY - d.sy
+    if (!d.moved) {
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return
+      d.moved = true
+      setDragging(true)
+      // Capture only once this is a real drag, so plain clicks still
+      // land on the anchor itself (capture would retarget them).
+      try {
+        clusterRef.current?.setPointerCapture(e.pointerId)
+      } catch {
+        /* capture is a nicety, not a requirement */
+      }
+    }
+    setPos(clampPos({ x: d.ox + dx, y: d.oy + dy }))
+  }
+
+  const endDrag = (e: ReactPointerEvent<HTMLDivElement>) => {
+    const d = dragRef.current
+    if (!d || e.pointerId !== d.id) return
+    dragRef.current = null
+    setDragging(false)
+    if (d.moved) {
+      suppressClickRef.current = true
+      setPos((p) => {
+        if (p) {
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(p))
+          } catch {
+            /* storage unavailable — the drop still holds for this page */
+          }
+        }
+        return p
+      })
+    }
+  }
+
   return (
-    <div className="fixed bottom-5 right-5 z-30 flex gap-2.5">
+    <div
+      ref={clusterRef}
+      className={`fixed z-30 flex touch-none select-none gap-2.5 ${dragging ? 'social-dragging cursor-grabbing' : 'cursor-grab'}`}
+      style={pos ? { left: pos.x, top: pos.y } : { right: 20, bottom: 20 }}
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={endDrag}
+      onPointerCancel={endDrag}
+      onClickCapture={(e) => {
+        if (suppressClickRef.current) {
+          e.preventDefault()
+          e.stopPropagation()
+          suppressClickRef.current = false
+        }
+      }}
+    >
       {SOCIALS.map((s) => (
         <a
           key={s.label}
@@ -34,7 +147,8 @@ export default function SocialFloat() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-navy-900/85 text-white shadow-[0_12px_32px_-8px_rgba(0,0,0,0.65)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-400/70 hover:text-gold-300"
+          className="social-btn group relative flex h-[46px] w-[46px] items-center justify-center rounded-full text-white shadow-[0_12px_32px_-8px_rgba(0,0,0,0.65)] ring-1 ring-white/20"
+          style={{ ...s.style, animationDelay: s.delay }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +158,7 @@ export default function SocialFloat() {
             strokeWidth="1.8"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-5 w-5"
+            className="h-[22px] w-[22px] transition-transform duration-300 group-hover:scale-[1.08]"
             aria-hidden="true"
           >
             {s.icon}
