@@ -201,6 +201,7 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .social-float.dragging a,.social-float.dragging a::after{animation:none}
 .social-float.dragging a::after{opacity:0}
 @media (prefers-reduced-motion: reduce){.social-float a,.social-float a::after{animation:none}}
+@media (max-width:639px){.social-float{right:16px;bottom:16px}.social-float a{width:42px;height:42px}.social-float svg{width:20px;height:20px}}
 .back{display:inline-block;margin-top:26px;font-size:15px;font-weight:600}
 ::selection{background:rgba(124,58,237,.35)}
 `
