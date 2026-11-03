@@ -27,15 +27,15 @@ export default function Contact() {
   // text-base (16px) on every field: anything smaller makes iOS Safari
   // auto-zoom on focus, which would fight the scroll-driven stage.
   const inputCls =
-    'w-full rounded-2xl border border-navy-950/10 bg-white px-4.5 py-3 text-base text-navy-950 placeholder:text-navy-950/35 outline-none transition-all duration-300 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15'
+    'w-full rounded-2xl border border-navy-950/10 bg-white px-4.5 py-2.5 text-base text-navy-950 placeholder:text-navy-950/35 outline-none transition-all duration-300 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15'
 
   return (
     <div
       id="form"
-      className="rounded-[32px] bg-[#f6f4ef] p-5 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.55)] sm:p-8"
+      className="rounded-[32px] bg-[#f6f4ef] p-4 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.55)] sm:p-6"
     >
       {sent ? (
-        <div className="flex min-h-[340px] flex-col items-center justify-center rounded-[24px] border border-emerald-200 bg-emerald-50/60 px-6 text-center sm:px-8">
+        <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[24px] border border-emerald-200 bg-emerald-50/60 px-6 text-center sm:px-8">
           <span className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
             <IconCheck className="h-8 w-8" />
           </span>
@@ -56,25 +56,25 @@ export default function Contact() {
         </div>
       ) : (
         <form onSubmit={onSubmit}>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-3 sm:grid-cols-2">
             <label className="block">
-              <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">Your name *</span>
+              <span className="mb-1 block text-[13px] font-semibold text-navy-950">Your name *</span>
               <input required value={form.name} onChange={update('name')} placeholder="Full name" className={inputCls} />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">Salon name</span>
+              <span className="mb-1 block text-[13px] font-semibold text-navy-950">Salon name</span>
               <input value={form.business} onChange={update('business')} placeholder="Your salon" className={inputCls} />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">Email *</span>
+              <span className="mb-1 block text-[13px] font-semibold text-navy-950">Email *</span>
               <input required type="email" value={form.email} onChange={update('email')} placeholder="you@business.com" className={inputCls} />
             </label>
             <label className="block">
-              <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">Phone / WhatsApp</span>
+              <span className="mb-1 block text-[13px] font-semibold text-navy-950">Phone / WhatsApp</span>
               <input type="tel" value={form.phone} onChange={update('phone')} placeholder="+971 …" className={inputCls} />
             </label>
             <label className="block sm:col-span-2">
-              <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">Where is your business?</span>
+              <span className="mb-1 block text-[13px] font-semibold text-navy-950">Where is your business?</span>
               <select value={form.emirate} onChange={update('emirate')} className={inputCls}>
                 {EMIRATES.map((e) => (
                   <option key={e} value={e}>{e}</option>
@@ -82,11 +82,11 @@ export default function Contact() {
               </select>
             </label>
           </div>
-          <label className="mt-4 block">
-            <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">How can ZYNA help? *</span>
+          <label className="mt-3 block">
+            <span className="mb-1 block text-[13px] font-semibold text-navy-950">How can ZYNA help? *</span>
             <textarea
               required
-              rows={4}
+              rows={3}
               value={form.message}
               onChange={update('message')}
               placeholder="Tell us about your salon and the client conversations you'd like ZYNA to handle…"
@@ -95,12 +95,12 @@ export default function Contact() {
           </label>
           <button
             type="submit"
-            className="group mt-6 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-navy-950 px-8 py-4 text-[15px] font-semibold text-white transition-all duration-300 hover:bg-gold-600 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
+            className="group mt-5 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-navy-950 px-8 py-4 text-[15px] font-semibold text-white transition-all duration-300 hover:bg-gold-600 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
           >
             Send Message
             <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
           </button>
-          <p className="mt-4 text-[12.5px] text-navy-950/45">
+          <p className="mt-3 text-[12.5px] text-navy-950/45">
             By sending this form you agree to be contacted about ZYNA. We never share your
             details.
           </p>
