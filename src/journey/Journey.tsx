@@ -487,22 +487,29 @@ export default function Journey() {
           style={{ background: 'radial-gradient(60% 55% at 47% 60%, rgba(255,236,200,0.95), rgba(255,220,170,0.35) 55%, transparent 75%)' }}
         />
 
-        {/* story texts — bottom-anchored blocks carry extra BASE bottom
-            padding (v13: pb-[8.5rem], lift pb-[10.5rem]) so on phones the
-            text clears the now-fixed bottom bar (~71px) instead of
-            running into it; sm: paddings are unchanged. */}
+        {/* story texts — v14: on phones (below sm) EVERY text block is
+            vertically centred in the stage, like the centre-variant
+            scenes Techie pointed at (CTA, thank-you): base classes are
+            top-1/2 -translate-y-1/2 for all variants. That centring uses
+            the standalone CSS `translate` property (Tailwind v4), which
+            composes with the rAF loop's inline `transform` fade-rise
+            instead of being overridden by it. From sm up, the bottom-
+            anchored variants return to their designed placements
+            (sm:top-auto sm:bottom-0 sm:translate-y-0 + the v13-era
+            sm:pb-28 / lift sm:pb-40); centre variants stay centred at
+            every size. */}
         {TEXTS.map((t, i) => (
           <div
             key={i}
             ref={(el) => {
               textRefs.current[i] = el
             }}
-            className={`absolute inset-x-0 z-[9] px-5 text-center opacity-0 sm:px-8 ${
+            className={`absolute inset-x-0 top-1/2 z-[9] -translate-y-1/2 px-5 text-center opacity-0 sm:px-8 ${
               t.center
-                ? 'top-1/2 -translate-y-1/2'
+                ? ''
                 : t.lift
-                  ? 'bottom-0 pb-[10.5rem] sm:pb-40'
-                  : 'bottom-0 pb-[8.5rem] sm:pb-28'
+                  ? 'sm:top-auto sm:bottom-0 sm:translate-y-0 sm:pb-40'
+                  : 'sm:top-auto sm:bottom-0 sm:translate-y-0 sm:pb-28'
             }`}
             style={{ visibility: 'hidden' }}
           >
