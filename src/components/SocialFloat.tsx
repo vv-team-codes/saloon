@@ -13,8 +13,11 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent as R
  * Techie provided.
  *
  * On small screens the buttons shrink to 42px and the default corner
- * tucks to 16px offsets, so at phone sizes the cluster clears the
- * journey form card's Send button and footnote.
+ * tucks to a 16px side offset, so at phone sizes the cluster clears the
+ * journey form card's Send button and footnote. Since v11 the default
+ * corner also sits ABOVE the fixed bottom bar (bar ≈71px tall wrapped
+ * on phones → 96px default bottom; ≈45px at sm+ → 70px), while a saved
+ * or dragged position can still go anywhere, the bar included.
  */
 const STORAGE_KEY = 'zyna-social-pos'
 const DRAG_THRESHOLD = 6
@@ -135,7 +138,7 @@ export default function SocialFloat() {
   return (
     <div
       ref={clusterRef}
-      className={`fixed z-30 flex touch-none select-none gap-2.5 ${pos ? '' : 'bottom-4 right-4 sm:bottom-5 sm:right-5'} ${dragging ? 'social-dragging cursor-grabbing' : 'cursor-grab'}`}
+      className={`fixed z-30 flex touch-none select-none gap-2.5 ${pos ? '' : 'bottom-24 right-4 sm:bottom-[4.375rem] sm:right-5'} ${dragging ? 'social-dragging cursor-grabbing' : 'cursor-grab'}`}
       style={pos ? { left: pos.x, top: pos.y } : undefined}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
