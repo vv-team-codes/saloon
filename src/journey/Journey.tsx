@@ -5,7 +5,8 @@ import Contact from '../components/Contact'
 /**
  * The ZYNA journey — an interactive architectural film controlled by scrolling.
  * The film opens OUTSIDE the ZYNA office — a photorealistic AI-generated
- * exterior of the building with the ZYNA sign on its fascia — then moves
+ * exterior of the building, its fascia carrying the official ZYNA logo
+ * composited unmodified as the building's sign — then moves
  * inside: the brand's own reception photograph carries the welcome scene;
  * the remaining scenes are real photographs (a client
  * messaging, salon reception, stylist and client, salon interiors and
@@ -31,7 +32,7 @@ type SceneDef = {
 }
 
 const SCENE_IMGS: SceneDef[] = [
-  { img: 'images/scenes/photo-office-exterior.jpg', alt: 'The ZYNA office building in Dubai, seen from outside', objectPosition: '50% 32%', origin: '50% 70%', scaleFrom: 1.06, scaleTo: 1.95 },
+  { img: 'images/scenes/photo-office-exterior.jpg', alt: 'The ZYNA office building in Dubai, seen from outside', objectPosition: '50% 72%', origin: '50% 34%', scaleFrom: 1.0, scaleTo: 1.15 },
   { img: 'images/scenes/scene-2-reception.jpg', alt: 'The ZYNA reception', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.22, scaleTo: 1.36 },
   { img: 'images/scenes/photo-chat-typing.jpg', alt: 'A client messaging the salon from her phone', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
   { img: 'images/scenes/photo-salon-reception.jpg', alt: 'A salon reception desk', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
