@@ -13,8 +13,9 @@ export default function App() {
             separate Contact section. */}
         <Journey />
       </main>
-      {/* The old Footer is gone: a slim bottom bar closes the journey and
-          the social icons float permanently at the bottom-right. */}
+      {/* The old Footer is gone: a slim bottom bar floats fixed at the
+          page bottom (v11) and the social icons float permanently just
+          above it at the bottom-right. Both are always-on chrome. */}
       <BottomBar />
       <SocialFloat />
     </div>
