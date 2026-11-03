@@ -5,9 +5,9 @@ import { IconArrowRight, IconX } from './ui/icons'
 import { scrollToJourneyFraction } from '../journey/Journey'
 
 const LINKS: { label: string; frac?: number; href?: string; page?: string }[] = [
-  { label: 'What We Do', frac: 0.36 },
-  { label: 'How It Works', frac: 0.5 },
-  { label: 'About', frac: 0.9 },
+  { label: 'What We Do', frac: 0.41 },
+  { label: 'How It Works', frac: 0.56 },
+  { label: 'About', frac: 1 },
   { label: 'Blog', page: '/blog/' },
   { label: 'Contact', href: '#contact' },
 ]
