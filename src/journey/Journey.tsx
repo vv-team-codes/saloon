@@ -4,11 +4,13 @@ import Contact from '../components/Contact'
 
 /**
  * The ZYNA journey — an interactive architectural film controlled by scrolling.
- * Built from the brand's own visual assets (the ZYNA office, reception,
- * conversation space, operations space, salon, the connected client journey,
- * the rooftop and the Dubai skyline finale).
+ * The brand's own reception photograph opens the film and carries the
+ * welcome scene; the remaining scenes are real photographs (a client
+ * messaging, salon reception, stylist and client, salon interiors, the
+ * Dubai skyline, a modern office lobby) from Pexels — free commercial
+ * use under the Pexels License; sources in public/images/scenes/CREDITS.md.
  * One continuous camera: every scene pushes in while the next is revealed,
- * including a zoom-through-the-entrance transition from exterior to reception.
+ * including a zoom-through-the-entrance transition into the reception.
  * All motion is computed in a rAF loop from scroll progress — no re-renders.
  */
 
@@ -24,15 +26,15 @@ type SceneDef = {
 }
 
 const SCENE_IMGS: SceneDef[] = [
-  { img: 'images/scenes/scene-1-office3d.jpg', alt: 'A premium 3D view inside the ZYNA office', objectPosition: '50% 55%', origin: '47% 58%', scaleFrom: 1.06, scaleTo: 2.05 },
+  { img: 'images/scenes/scene-2-reception.jpg', alt: 'Inside the ZYNA reception — the welcome space', objectPosition: '50% 55%', origin: '47% 58%', scaleFrom: 1.06, scaleTo: 2.05 },
   { img: 'images/scenes/scene-2-reception.jpg', alt: 'The ZYNA reception', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.22, scaleTo: 1.36 },
-  { img: 'images/scenes/scene-3-conversation.jpg', alt: 'The ZYNA conversation space', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
-  { img: 'images/scenes/scene-4-operations.jpg', alt: 'The ZYNA operations space', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
-  { img: 'images/scenes/scene-5-salon.jpg', alt: 'A premium salon powered by ZYNA', objectPosition: '38% 50%', origin: '34% 48%', scaleFrom: 1.12, scaleTo: 1.3 },
-  { img: 'images/scenes/scene-6-connected.jpg', alt: 'Every step connected — ribbons of light flowing through the salon journey', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
-  { img: 'images/scenes/scene-7-rooftop.jpg', alt: 'The ZYNA rooftop overlooking the Dubai skyline', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
-  { img: 'images/scenes/scene-8-city.jpg', alt: 'The Dubai skyline and Burj Khalifa at golden hour', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
-  { img: 'images/scenes/scene-1-office3d.jpg', alt: 'Inside the ZYNA office', objectPosition: '50% 38%', origin: '50% 42%', scaleFrom: 1.22, scaleTo: 1.36 },
+  { img: 'images/scenes/photo-chat-typing.jpg', alt: 'A client messaging the salon from her phone', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
+  { img: 'images/scenes/photo-salon-reception.jpg', alt: 'A salon reception desk', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
+  { img: 'images/scenes/photo-stylist-client.jpg', alt: 'A stylist at work with a client in a premium salon', objectPosition: '38% 50%', origin: '34% 48%', scaleFrom: 1.12, scaleTo: 1.3 },
+  { img: 'images/scenes/photo-salon-wide.jpg', alt: 'A wide, elegant salon interior — every step connected', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
+  { img: 'images/scenes/photo-salon-luxury.jpg', alt: 'A luxury salon interior', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
+  { img: 'images/scenes/photo-dubai-skyline.jpg', alt: 'The Dubai skyline and Burj Khalifa across the water', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
+  { img: 'images/scenes/photo-office-lobby.jpg', alt: 'A modern office lobby', objectPosition: '50% 38%', origin: '50% 42%', scaleFrom: 1.22, scaleTo: 1.36 },
 ]
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
@@ -329,7 +331,7 @@ export default function Journey() {
         <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
         {SCENE_IMGS.map((s, i) => (
           <div
-            key={s.img}
+            key={`${s.img}-${i}`}
             ref={(el) => {
               layerRefs.current[i] = el
             }}
@@ -408,9 +410,9 @@ export default function Journey() {
 
       {/* The whole story now finishes inside the film: the CTA ("Every
           conversation matters") and the get-in-touch content are scenes 8 and
-          9 of the journey itself. What follows the stage is only the enquiry
-          form panel — in normal flow (never inside the sticky stage), so it
-          stays fully interactive. */}
+          9 of the journey itself. What follows the stage is only the compact
+          enquiry form card — in normal flow (never inside the sticky stage),
+          so it stays fully interactive. */}
       <Contact />
     </section>
   )
