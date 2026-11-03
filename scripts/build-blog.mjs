@@ -177,9 +177,11 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .btn{display:inline-block;margin-top:14px;background:linear-gradient(to right,var(--gold2),#a9863a);color:#05081c;font-weight:700;padding:11px 22px;border-radius:999px}
 .btn:hover{text-decoration:none;filter:brightness(1.07)}
 .gold-hr{height:1px;background:linear-gradient(to right,transparent,rgba(201,162,75,.7),transparent)}
-.bottom-bar{margin-top:56px;background:var(--navy)}
-.bottom-bar .bar-in{padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 32px;font-size:13px;color:rgba(255,255,255,.45)}
-@media(min-width:640px){.bottom-bar .bar-in{padding:16px 32px}}
+.bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--navy)}
+.bottom-bar .bar-in{padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 32px;font-size:13px;color:rgba(255,255,255,.45)}
+@media(min-width:640px){.bottom-bar .bar-in{padding:12px 32px}}
+body{padding-bottom:70px}
+@media(max-width:639px){body{padding-bottom:96px}}
 .bottom-bar p{margin:0}
 .bottom-bar .emirates{color:rgba(255,255,255,.35)}
 @media(max-width:639px){.bottom-bar .emirates{order:3;flex:0 0 100%;text-align:center}}
@@ -188,7 +190,7 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .bottom-bar a:hover{color:#fff;text-decoration:none}
 @keyframes social-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes social-halo{0%{opacity:.65;transform:scale(1)}70%{opacity:0;transform:scale(1.45)}100%{opacity:0;transform:scale(1.45)}}
-.social-float{position:fixed;right:20px;bottom:20px;z-index:30;display:flex;gap:10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.social-float{position:fixed;right:20px;bottom:70px;z-index:30;display:flex;gap:10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
 .social-float.dragging{cursor:grabbing}
 .social-float a{position:relative;display:flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:#fff;box-shadow:0 12px 32px -8px rgba(0,0,0,.65);animation:social-bob 3.6s ease-in-out infinite}
 .social-float a.fb{background:#1877F2;--halo:rgba(24,119,242,.55)}
@@ -201,7 +203,7 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .social-float.dragging a,.social-float.dragging a::after{animation:none}
 .social-float.dragging a::after{opacity:0}
 @media (prefers-reduced-motion: reduce){.social-float a,.social-float a::after{animation:none}}
-@media (max-width:639px){.social-float{right:16px;bottom:16px}.social-float a{width:42px;height:42px}.social-float svg{width:20px;height:20px}}
+@media (max-width:639px){.social-float{right:16px;bottom:96px}.social-float a{width:42px;height:42px}.social-float svg{width:20px;height:20px}}
 .back{display:inline-block;margin-top:26px;font-size:15px;font-weight:600}
 ::selection{background:rgba(124,58,237,.35)}
 `
@@ -267,7 +269,7 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
       <div class="bar-in">
         <p>© 2026 ZYNA. All rights reserved.</p>
         <p class="emirates">Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain</p>
-        <p><a href="https://www.zyna.ae">www.zyna.ae</a></p>
+        <p><a href="https://www.zyna.ae">zyna.ae</a></p>
       </div>
     </div>
     <div class="social-float" id="social-float">
