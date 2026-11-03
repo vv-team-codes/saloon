@@ -83,7 +83,7 @@ export default function Contact() {
             </label>
             <label className="block sm:col-span-2 lg:col-span-1">
               <span className={labelCls}>Where is your business?</span>
-              <select value={form.emirate} onChange={update('emirate')} className={inputCls}>
+              <select value={form.emirate} onChange={update('emirate')} className={`${inputCls} dark-select`}>
                 {EMIRATES.map((e) => (
                   <option key={e} value={e}>{e}</option>
                 ))}
