@@ -23,12 +23,10 @@ export default function Contact() {
     'w-full rounded-2xl border border-navy-950/10 bg-white px-4.5 py-3 text-[15px] text-navy-950 placeholder:text-navy-950/35 outline-none transition-all duration-300 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15'
 
   return (
-    // The journey's closing panel: the CTA ("Every conversation matters") and
-    // the get-in-touch content are scenes inside the scroll film itself, so
-    // what follows the stage is the enquiry form alone — one compact ivory
-    // card sitting in the scroll flow right after the final scene, in normal
-    // document flow (never inside the sticky stage), so it stays fully
-    // interactive on every device.
+    // The journey's closing panel: the enquiry form alone — one compact ivory
+    // card sitting in the scroll flow right after the film's final scene (the
+    // "Every conversation matters" CTA), in normal document flow (never
+    // inside the sticky stage), so it stays fully interactive on every device.
     <section id="contact" className="relative overflow-hidden bg-navy-950 pb-20 pt-10 sm:pb-24 sm:pt-14">
       <div className="mx-auto max-w-3xl px-5 sm:px-8">
         {/* Contact form — a compact ivory card, the journey's closing frame */}
@@ -59,8 +57,7 @@ export default function Contact() {
               </div>
             ) : (
               <>
-                <p className="text-[11px] font-bold uppercase tracking-[0.28em] text-[#7a5c14]">Get in touch</p>
-                <form onSubmit={onSubmit} className="mt-4">
+                <form onSubmit={onSubmit}>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <label className="block">
                       <span className="mb-1.5 block text-[13px] font-semibold text-navy-950">Your name *</span>
