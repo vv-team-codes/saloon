@@ -22,7 +22,7 @@ export default function BottomBar() {
           Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain
         </p>
         <p className="order-2 sm:order-3">
-          <a href="https://www.zyna.ae" className="transition-colors hover:text-white">
+          <a href="https://zyna.ae/" className="transition-colors hover:text-white">
             zyna.ae
           </a>
         </p>
