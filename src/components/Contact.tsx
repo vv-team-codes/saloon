@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { IconArrowRight, IconCheck } from './ui/icons'
 
-const EMIRATES = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain', 'Outside the UAE']
+const EMIRATES = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'Fujairah', 'Umm Al Quwain', 'Other UAE location']
 
 /**
  * The enquiry form card. Since the v4 rework this renders ONLY as the final
