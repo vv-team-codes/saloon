@@ -35,7 +35,7 @@ export default function Contact() {
     <div
       id="form"
       style={{ colorScheme: 'dark' }}
-      className="rounded-[32px] border border-white/12 bg-navy-900/85 p-4 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.65)] backdrop-blur-md sm:p-5"
+      className="rounded-[32px] border border-white/12 bg-navy-900/85 p-4 shadow-[0_36px_80px_-36px_rgba(0,0,0,0.65)] sm:p-5 sm:backdrop-blur-md"
     >
       {sent ? (
         <div className="flex min-h-[300px] flex-col items-center justify-center rounded-[24px] border border-white/12 bg-white/5 px-6 text-center sm:px-8">
