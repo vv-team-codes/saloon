@@ -35,7 +35,15 @@ export default function Nav() {
             : 'border border-white/8 bg-navy-950/25 backdrop-blur-md'
         }`}
       >
-        <a href="#top" aria-label="ZYNA — home" className="flex shrink-0 items-center">
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault()
+            scrollToJourneyFraction(0)
+          }}
+          aria-label="ZYNA — home"
+          className="flex shrink-0 items-center"
+        >
           <span className="rounded-full bg-white px-3 py-1.5">
             <Logo className="h-7 sm:h-8" />
           </span>
