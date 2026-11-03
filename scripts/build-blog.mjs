@@ -176,22 +176,18 @@ article hr{border:none;height:1px;background:linear-gradient(to right,transparen
 .cta p{margin-bottom:0}
 .btn{display:inline-block;margin-top:14px;background:linear-gradient(to right,var(--gold2),#a9863a);color:#05081c;font-weight:700;padding:11px 22px;border-radius:999px}
 .btn:hover{text-decoration:none;filter:brightness(1.07)}
-footer.site{margin-top:56px;padding:0 0 40px;font-size:13.5px;color:var(--mut)}
-footer.site a{color:rgba(255,255,255,.7)}
-footer.site a:hover{color:#fff;text-decoration:none}
 .gold-hr{height:1px;background:linear-gradient(to right,transparent,rgba(201,162,75,.7),transparent)}
-.foot-grid{display:flex;flex-direction:column;gap:38px;padding-top:44px}
-@media(min-width:900px){.foot-grid{flex-direction:row;justify-content:space-between;align-items:flex-start}}
-.f-logo{display:inline-flex;background:#fff;border-radius:16px;padding:13px}
-.f-logo img{height:36px;width:auto;display:block}
-.f-tag{margin:18px 0 0;font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan)}
-.f-blurb{margin:11px 0 0;max-width:330px;font-size:14.5px;line-height:1.65;color:var(--mut)}
-.foot-h{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:0 0 15px}
-.foot-links{display:grid;grid-template-columns:1fr 1fr;gap:13px 58px}
-.foot-links a{font-size:15px}
-.foot-contact p{margin:0 0 9px;font-size:15px}
-.foot-bottom{margin-top:48px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:13px;color:rgba(255,255,255,.45)}
-.foot-bottom p{margin:0}
+.bottom-bar{margin-top:56px;background:var(--navy)}
+.bottom-bar .bar-in{max-width:1152px;margin:0 auto;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;font-size:13px;color:rgba(255,255,255,.45)}
+@media(min-width:1024px){.bottom-bar .bar-in{flex-direction:row;justify-content:space-between;gap:20px;text-align:left}}
+.bottom-bar p{margin:0}
+.bottom-bar .emirates{color:rgba(255,255,255,.35)}
+.bottom-bar a{color:rgba(255,255,255,.45)}
+.bottom-bar a:hover{color:#fff;text-decoration:none}
+.social-float{position:fixed;right:20px;bottom:20px;z-index:30;display:flex;gap:10px}
+.social-float a{display:flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:rgba(10,15,46,.85);color:#fff;box-shadow:0 12px 32px -8px rgba(0,0,0,.65);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:border-color .3s ease,color .3s ease,transform .3s ease}
+.social-float a:hover{border-color:rgba(220,185,92,.7);color:var(--gold2);text-decoration:none;transform:translateY(-2px)}
+.social-float svg{width:20px;height:20px}
 .back{display:inline-block;margin-top:26px;font-size:15px;font-weight:600}
 ::selection{background:rgba(124,58,237,.35)}
 `
@@ -252,39 +248,18 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
     <main class="wrap">
       ${body}
     </main>
-    <footer class="site">
+    <div class="bottom-bar">
       <div class="gold-hr" aria-hidden="true"></div>
-      <div class="wrap">
-        <div class="foot-grid">
-          <div>
-            <span class="f-logo"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></span>
-            <p class="f-tag">AI THAT WORKS FOR YOU</p>
-            <p class="f-blurb">The intelligent 24/7 AI receptionist that replies, books and reminds — so your salon never misses a conversation that matters.</p>
-          </div>
-          <nav aria-label="Footer">
-            <p class="foot-h">Explore</p>
-            <div class="foot-links">
-              <a href="/#problem">Why ZYNA</a>
-              <a href="/#how">How it works</a>
-              <a href="/#features">Features</a>
-              <a href="/#results">Results</a>
-              <a href="/blog/">Blog</a>
-              <a href="/#contact">Contact</a>
-            </div>
-          </nav>
-          <div class="foot-contact">
-            <p class="foot-h">Contact</p>
-            <p><a href="mailto:hello@zyna.ae">hello@zyna.ae</a></p>
-            <p><a href="/#contact">Talk to Us →</a></p>
-            <p>Dubai, United Arab Emirates</p>
-          </div>
-        </div>
-        <div class="foot-bottom">
-          <p>© ${new Date().getFullYear()} ZYNA. All rights reserved.</p>
-          <p><a href="https://www.zyna.ae">www.zyna.ae</a></p>
-        </div>
+      <div class="bar-in">
+        <p>© 2026 ZYNA. All rights reserved.</p>
+        <p class="emirates">Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain</p>
+        <p><a href="https://www.zyna.ae">www.zyna.ae</a></p>
       </div>
-    </footer>
+    </div>
+    <div class="social-float">
+      <a href="https://www.facebook.com/profile.php?id=61595756175259" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+      <a href="https://www.instagram.com/zyna_ae/" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a>
+    </div>
     <script>
       (function () {
         var h = document.getElementById('site-header')
