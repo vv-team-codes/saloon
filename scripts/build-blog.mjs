@@ -240,25 +240,25 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
       <div class="nav-pill">
         <a class="logo-pill" href="/" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
         <nav class="nav-links" aria-label="Main">
-          <a href="/#journey">What We Do</a>
-          <a href="/#journey">How It Works</a>
-          <a href="/#journey">About</a>
+          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','what')}catch(e){}">What We Do</a>
+          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','how')}catch(e){}">How It Works</a>
+          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','about')}catch(e){}">About</a>
           <a href="/blog/" aria-current="page">Blog</a>
-          <a href="/#contact">Contact</a>
+          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Contact</a>
         </nav>
         <div class="nav-right">
-          <a class="btn-start" href="/#contact">Get Started <span aria-hidden="true">→</span></a>
+          <a class="btn-start" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started <span aria-hidden="true">→</span></a>
           <button class="menu-btn" id="mopen" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
         </div>
       </div>
       <div class="mobile-menu" id="mmenu">
         <button class="menu-close" id="mclose" type="button" aria-label="Close menu">✕</button>
-        <a class="mlink" href="/#journey">What We Do</a>
-        <a class="mlink" href="/#journey">How It Works</a>
-        <a class="mlink" href="/#journey">About</a>
+        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','what')}catch(e){}">What We Do</a>
+        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','how')}catch(e){}">How It Works</a>
+        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','about')}catch(e){}">About</a>
         <a class="mlink" href="/blog/">Blog</a>
-        <a class="mlink" href="/#contact">Contact</a>
-        <a class="btn-start" href="/#contact">Get Started <span aria-hidden="true">→</span></a>
+        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Contact</a>
+        <a class="btn-start" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started <span aria-hidden="true">→</span></a>
       </div>
     </header>
     <main class="wrap">
@@ -269,7 +269,7 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
       <div class="bar-in">
         <p>© 2026 ZYNA. All rights reserved.</p>
         <p class="emirates">Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain</p>
-        <p><a href="https://www.zyna.ae">zyna.ae</a></p>
+        <p><a href="https://zyna.ae/">zyna.ae</a></p>
       </div>
     </div>
     <div class="social-float" id="social-float">
@@ -389,7 +389,7 @@ for (const post of posts) {
         <div class="cta">
           <h2>Never miss a booking again</h2>
           <p>ZYNA is the 24/7 AI receptionist for salons &amp; beauty businesses in the UAE — it replies, books and reminds, day and night.</p>
-          <a class="btn" href="/#contact">Get Started</a>
+          <a class="btn" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started</a>
           <p style="margin-top:14px">Or write to us: <a href="mailto:hello@zyna.ae">hello@zyna.ae</a></p>
         </div>
         <a class="back" href="/blog/">← All articles</a>
