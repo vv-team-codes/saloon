@@ -1,17 +1,18 @@
 import { useEffect, useRef, type ReactNode } from 'react'
-import Logo from '../components/ui/Logo'
+import { IconArrowRight, IconCheck } from '../components/ui/icons'
 import Contact from '../components/Contact'
 
 /**
  * The ZYNA journey — an interactive architectural film controlled by scrolling.
- * Built from the brand's own visual assets (the ZYNA headquarters, reception,
- * conversation space, operations space, salon, client-journey wall and rooftop).
+ * Built from the brand's own visual assets (the ZYNA office, reception,
+ * conversation space, operations space, salon, the connected client journey,
+ * the rooftop and the Dubai skyline finale).
  * One continuous camera: every scene pushes in while the next is revealed,
  * including a zoom-through-the-entrance transition from exterior to reception.
  * All motion is computed in a rAF loop from scroll progress — no re-renders.
  */
 
-const N = 7
+const N = 9
 
 type SceneDef = {
   img: string
@@ -23,13 +24,15 @@ type SceneDef = {
 }
 
 const SCENE_IMGS: SceneDef[] = [
-  { img: 'images/scenes/scene-1-exterior.jpg', alt: 'The ZYNA headquarters in the UAE at dusk', objectPosition: '50% 62%', origin: '47% 63%', scaleFrom: 1.06, scaleTo: 2.05 },
+  { img: 'images/scenes/scene-1-office3d.jpg', alt: 'A premium 3D view inside the ZYNA office', objectPosition: '50% 55%', origin: '47% 58%', scaleFrom: 1.06, scaleTo: 2.05 },
   { img: 'images/scenes/scene-2-reception.jpg', alt: 'The ZYNA reception', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.22, scaleTo: 1.36 },
   { img: 'images/scenes/scene-3-conversation.jpg', alt: 'The ZYNA conversation space', objectPosition: '50% 50%', origin: '58% 48%', scaleFrom: 1.14, scaleTo: 1.32 },
   { img: 'images/scenes/scene-4-operations.jpg', alt: 'The ZYNA operations space', objectPosition: '50% 40%', origin: '66% 45%', scaleFrom: 1.14, scaleTo: 1.32 },
   { img: 'images/scenes/scene-5-salon.jpg', alt: 'A premium salon powered by ZYNA', objectPosition: '38% 50%', origin: '34% 48%', scaleFrom: 1.12, scaleTo: 1.3 },
-  { img: 'images/scenes/scene-6-journey.jpg', alt: 'The client journey — enquiry, booking, service, repeat client', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
+  { img: 'images/scenes/scene-6-connected.jpg', alt: 'Every step connected — ribbons of light flowing through the salon journey', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
   { img: 'images/scenes/scene-7-rooftop.jpg', alt: 'The ZYNA rooftop overlooking the Dubai skyline', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
+  { img: 'images/scenes/scene-8-city.jpg', alt: 'The Dubai skyline and Burj Khalifa at golden hour', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
+  { img: 'images/scenes/scene-1-office3d.jpg', alt: 'Inside the ZYNA office', objectPosition: '50% 38%', origin: '50% 42%', scaleFrom: 1.22, scaleTo: 1.36 },
 ]
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
@@ -53,13 +56,14 @@ function Support({ children }: { children: ReactNode }) {
   return <p className="mx-auto mt-4 max-w-xl text-[15.5px] leading-relaxed text-white/75 sm:text-[17px]">{children}</p>
 }
 
-type TextDef = { from: number; to: number; content: ReactNode; interactive?: boolean; center?: boolean }
+type TextDef = { from: number; to: number; content: ReactNode; interactive?: boolean; center?: boolean; lift?: boolean }
 const slot = (i: number, f: number) => (i + f) / N
 
 const TEXTS: TextDef[] = [
   {
     from: 0,
     to: slot(0, 0.88),
+    lift: true,
     content: (
       <>
         <Eyebrow>ZYNA · United Arab Emirates</Eyebrow>
@@ -140,14 +144,11 @@ const TEXTS: TextDef[] = [
   },
   {
     from: slot(6, 0.08),
-    to: 1.01,
+    to: slot(6, 0.92),
     interactive: true,
     center: true,
     content: (
       <>
-        <div className="mx-auto w-fit rounded-3xl bg-white px-5 py-3 shadow-2xl">
-          <Logo className="h-10" />
-        </div>
         <Headline>
           READY TO TRANSFORM <span className="text-gold-grad">YOUR SALON?</span>
         </Headline>
@@ -168,6 +169,73 @@ const TEXTS: TextDef[] = [
             TALK TO OUR TEAM
           </a>
         </div>
+      </>
+    ),
+  },
+  {
+    from: slot(7, 0.1),
+    to: slot(7, 0.9),
+    interactive: true,
+    center: true,
+    content: (
+      <>
+        <Eyebrow>Never miss a booking again</Eyebrow>
+        <Headline>
+          Every conversation <span className="text-gold-grad">matters.</span>
+        </Headline>
+        <Support>
+          Your next client could message tonight at midnight. Make sure someone brilliant
+          is there to answer. Start with ZYNA — and let every conversation turn into an
+          opportunity.
+        </Support>
+        <div className="mt-9">
+          <a
+            href="#form"
+            className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-4 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_44px_-12px_rgba(201,162,75,0.8)]"
+          >
+            Talk to Us
+            <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
+          </a>
+        </div>
+      </>
+    ),
+  },
+  {
+    from: slot(8, 0.08),
+    to: 1.01,
+    interactive: true,
+    center: true,
+    content: (
+      <>
+        <Eyebrow>Get in touch</Eyebrow>
+        <Headline>Let’s put ZYNA to work for your salon.</Headline>
+        <Support>
+          Tell us a little about your salon and what you would like ZYNA to handle. We will
+          reply with the next steps — usually within one business day.
+        </Support>
+        <ul className="mx-auto mt-7 w-fit space-y-3 text-left">
+          {[
+            'A walkthrough of ZYNA on your own salon scenario',
+            'Honest advice on what to automate first',
+            'No pressure — just a clear plan',
+          ].map((item) => (
+            <li key={item} className="flex items-start gap-3 text-[15px] text-white/85">
+              <span className="mt-0.5 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-gold-400 to-gold-600">
+                <IconCheck className="h-3 w-3 text-navy-950" />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8">
+          <a
+            href="mailto:hello@zyna.ae"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-5 py-3 text-[14px] font-semibold text-white backdrop-blur transition-colors hover:border-white/50 hover:bg-white/10"
+          >
+            Prefer email? hello@zyna.ae
+          </a>
+        </div>
+        <p className="mt-4 text-[13.5px] font-medium text-white/50">Dubai · United Arab Emirates</p>
       </>
     ),
   },
@@ -254,9 +322,10 @@ export default function Journey() {
 
   return (
     <section id="journey" ref={sectionRef} className="relative bg-navy-950">
-      {/* The camera track: 1050vh of scroll travel driving the film. The sticky
-          stage lives inside it and releases when the track ends. */}
-      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1050vh' }}>
+      {/* The camera track: 1350vh of scroll travel driving the film (9 scenes
+          at ~150vh each). The sticky stage lives inside it and releases when
+          the track ends. */}
+      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1350vh' }}>
         <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
         {SCENE_IMGS.map((s, i) => (
           <div
@@ -301,7 +370,7 @@ export default function Journey() {
               textRefs.current[i] = el
             }}
             className={`absolute inset-x-0 z-[9] px-5 text-center opacity-0 sm:px-8 ${
-              t.center ? 'top-1/2 -translate-y-1/2' : 'bottom-0 pb-24 sm:pb-28'
+              t.center ? 'top-1/2 -translate-y-1/2' : t.lift ? 'bottom-0 pb-36 sm:pb-40' : 'bottom-0 pb-24 sm:pb-28'
             }`}
             style={{ visibility: 'hidden' }}
           >
@@ -337,10 +406,11 @@ export default function Journey() {
         </div>
       </div>
 
-      {/* Closing act of the same scroll journey: as the rooftop scene releases,
-          the film flows straight into the CTA + contact segment — no separate
-          section break. The form sits in normal flow (never inside the sticky
-          stage), so it stays fully interactive. */}
+      {/* The whole story now finishes inside the film: the CTA ("Every
+          conversation matters") and the get-in-touch content are scenes 8 and
+          9 of the journey itself. What follows the stage is only the enquiry
+          form panel — in normal flow (never inside the sticky stage), so it
+          stays fully interactive. */}
       <Contact />
     </section>
   )
