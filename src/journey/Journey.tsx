@@ -15,12 +15,13 @@ import Contact from '../components/Contact'
  * One continuous camera: every scene pushes in while the next is revealed,
  * including a zoom-through-the-entrance transition into the reception.
  * All motion is computed in a rAF loop from scroll progress — no re-renders.
- * The film has nine scenes: the eight photographs, then — as the final
- * scene inside the sticky stage itself — the enquiry form card, arriving
- * over a dimmed, blurred continuation of the Dubai skyline frame.
+ * The film has ten scenes: the eight photographs, then — inside the sticky
+ * stage itself — the enquiry form card (scene 9), arriving over a dimmed,
+ * blurred continuation of the Dubai skyline frame, and finally a warm
+ * thank-you photograph (scene 10) that holds to the end of the track.
  */
 
-const N = 9
+const N = 10
 
 type SceneDef = {
   img: string
@@ -40,7 +41,12 @@ const SCENE_IMGS: SceneDef[] = [
   { img: 'images/scenes/photo-salon-wide.jpg', alt: 'A wide, elegant salon interior — every step connected', objectPosition: '50% 50%', origin: '50% 50%', scaleFrom: 1.08, scaleTo: 1.22 },
   { img: 'images/scenes/photo-salon-luxury.jpg', alt: 'A luxury salon interior', objectPosition: '45% 50%', origin: '50% 50%', scaleFrom: 1.18, scaleTo: 1.03 },
   { img: 'images/scenes/photo-dubai-skyline.jpg', alt: 'The Dubai skyline and Burj Khalifa across the water', objectPosition: '50% 45%', origin: '50% 50%', scaleFrom: 1.1, scaleTo: 1.24 },
+  { img: 'images/scenes/photo-thank-you.jpg', alt: 'Two happy clients sharing a joyful conversation in a warm, elegant salon', objectPosition: '50% 42%', origin: '50% 45%', scaleFrom: 1.12, scaleTo: 1.26 },
 ]
+
+// Photo layers in slot order. Slot 8 is the enquiry form (a DOM layer, not
+// a photograph), so the ninth photograph — the thank-you scene — is slot 9.
+const PHOTO_SLOTS = [0, 1, 2, 3, 4, 5, 6, 7, 9]
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const sstep = (a: number, b: number, x: number) => {
@@ -219,6 +225,26 @@ const TEXTS: TextDef[] = [
       </>
     ),
   },
+  {
+    // The final scene (slot 9): a warm thank-you over the salon photograph.
+    // `to` beyond 1 means no fade-out — it holds to the end of the track.
+    from: slot(9, 0.12),
+    to: 1.05,
+    center: true,
+    content: (
+      <>
+        <Eyebrow>ZYNA · United Arab Emirates</Eyebrow>
+        <Headline>
+          THANK YOU FOR <span className="text-white">VISITING.</span>
+        </Headline>
+        <Support>
+          We're glad you stopped by — when you're ready, ZYNA is here to help your
+          salon never miss a booking again.
+        </Support>
+        <p className="mt-8 text-[12.5px] font-bold uppercase tracking-[0.32em] text-gold-300">— Team ZYNA</p>
+      </>
+    ),
+  },
 ]
 
 export function scrollToJourneyFraction(frac: number) {
@@ -233,12 +259,13 @@ export function scrollToJourneyFraction(frac: number) {
 }
 
 /**
- * The form is the film's final scene (slot 8 of 9). Its entrance completes
- * at slot(8, 0.55) = 0.95 of track progress; 0.97 lands just past that —
- * the form fully opaque, entrance transform removed, pinned and usable,
- * with a little scroll room still in hand before the stage releases.
+ * The form is scene 9 of 10 (slot 8). Its entrance completes at
+ * slot(8, 0.55) = 0.855 of track progress and its fade-out to the
+ * thank-you scene begins at 0.875, so the fully-in, fully-usable plateau
+ * is 0.855–0.875. 0.865 lands mid-plateau — the form fully opaque,
+ * entrance transform removed, pinned and usable.
  */
-export const FORM_FRACTION = 0.97
+export const FORM_FRACTION = 0.865
 
 export function scrollToFormScene() {
   scrollToJourneyFraction(FORM_FRACTION)
@@ -266,7 +293,7 @@ export default function Journey() {
     const frame = () => {
       raf = requestAnimationFrame(frame)
       // Progress is measured over the camera track alone: p = 0 at the
-      // film's first frame, p = 1 at the end of the final (form) scene.
+      // film's first frame, p = 1 at the end of the final (thank-you) scene.
       const rect = track.getBoundingClientRect()
       const range = track.offsetHeight - window.innerHeight
       const target = clamp01(-rect.top / Math.max(1, range))
@@ -274,9 +301,10 @@ export default function Journey() {
       if (Math.abs(target - current) < 0.00005) current = target
       const p = current
 
-      SCENE_IMGS.forEach((s, i) => {
-        const layer = layerRefs.current[i]
-        const img = imgRefs.current[i]
+      SCENE_IMGS.forEach((s, ai) => {
+        const i = PHOTO_SLOTS[ai] ?? ai
+        const layer = layerRefs.current[ai]
+        const img = imgRefs.current[ai]
         if (!layer || !img) return
         const fadeIn = i === 0 ? 1 : sstep((i - 0.42) / N, (i + 0.04) / N, p)
         const fadeOut = i === N - 1 ? 1 : 1 - sstep((i + 0.58) / N, (i + 1.04) / N, p)
@@ -301,27 +329,33 @@ export default function Journey() {
         el.style.visibility = o <= 0.01 ? 'hidden' : 'visible'
       })
 
-      // The final scene (index 8): the enquiry form. It fades in across the
-      // first half of its slot as the Dubai photograph hands over (that
-      // layer's own fade-out ends at slot(8, 0.04)), and then holds — no
-      // fade-out — pinned for the rest of the track. It accepts pointer
-      // events only once it has essentially arrived, so a half-faded card
-      // can never swallow clicks meant for the CTA scene beneath it.
+      // Scene 9 (slot 8): the enquiry form. It fades in across the first
+      // half of its slot as the Dubai photograph hands over (that layer's
+      // own fade-out ends at slot(8, 0.04)), rests fully in across the
+      // plateau 0.855–0.875, then crossfades out (0.875–0.91) as the
+      // thank-you photograph takes over beneath it and its text arrives.
+      // Pointer events are live only while the form is fully in
+      // (k ≈ 1, before the fade-out begins), so a half-faded card can
+      // never swallow clicks meant for a scene beneath it.
       if (formLayerRef.current) {
         const layer = formLayerRef.current
-        const k = sstep(slot(8, 0), slot(8, 0.55), p)
+        const kin = sstep(slot(8, 0), slot(8, 0.55), p)
+        const kout = 1 - sstep(slot(8, 0.75), slot(9, 0.1), p)
+        const k = Math.min(kin, kout)
         layer.style.opacity = k.toFixed(3)
         layer.style.visibility = k <= 0.01 ? 'hidden' : 'visible'
-        layer.style.pointerEvents = k >= 0.85 ? 'auto' : 'none'
+        layer.style.pointerEvents = k >= 0.99 ? 'auto' : 'none'
         const card = formCardRef.current
         if (card) {
-          // The entrance transform is removed outright once the scene has
-          // arrived (k = 1), so while pinned there is no transform on the
-          // card at all — text stays crisp and input focus behaves.
+          // The entrance transform is driven by the fade-IN only and is
+          // removed outright once the scene has arrived (kin = 1), so
+          // while the form rests there is no transform on the card at
+          // all — text stays crisp and input focus behaves. The fade-out
+          // is pure layer opacity.
           card.style.transform =
-            k >= 1
+            kin >= 1
               ? 'none'
-              : `scale(${lerp(0.94, 1, k).toFixed(4)}) translateY(${((1 - k) * 26).toFixed(1)}px)`
+              : `scale(${lerp(0.94, 1, kin).toFixed(4)}) translateY(${((1 - kin) * 26).toFixed(1)}px)`
         }
       }
 
@@ -340,11 +374,11 @@ export default function Journey() {
 
   return (
     <section id="journey" ref={sectionRef} className="relative bg-navy-950">
-      {/* The camera track: 1350vh of scroll travel driving the film (9 scenes
-          at ~150vh each — eight photographs plus the enquiry form as the
-          final scene). The sticky stage lives inside it and releases when
-          the track ends. */}
-      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1350vh' }}>
+      {/* The camera track: 1500vh of scroll travel driving the film (10
+          scenes at ~150vh each — eight photographs, the enquiry form, and
+          the closing thank-you photograph). The sticky stage lives inside
+          it and releases when the track ends. */}
+      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1500vh' }}>
         <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
         {SCENE_IMGS.map((s, i) => (
           <div
@@ -410,9 +444,9 @@ export default function Journey() {
           </div>
         ))}
 
-        {/* The film's final scene: the enquiry form, inside the stage. The
-            backdrop is the Dubai frame again — dimmed and blurred — so the
-            card arrives as part of the film, not as a page section after it.
+        {/* Scene 9: the enquiry form, inside the stage. The backdrop is
+            the Dubai frame again — dimmed and blurred — so the card
+            arrives as part of the film, not as a page section after it.
             The layer is pointer-events:none until the rAF loop judges the
             scene arrived; its own scroll well (overflow-y-auto, scrollbar
             hidden) holds the card below the fixed nav and keeps every field
@@ -470,9 +504,10 @@ export default function Journey() {
         </div>
       </div>
 
-      {/* Nothing follows the stage inside this section: the film's final
-          scene IS the enquiry form (inside the sticky stage above), and the
-          page footer comes next. */}
+      {/* Nothing follows the stage inside this section: the film's last
+          two scenes — the enquiry form, then the thank-you photograph —
+          both live inside the sticky stage above, and the slim bottom bar
+          comes next. */}
     </section>
   )
 }
