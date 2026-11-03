@@ -8,6 +8,7 @@ good practice. Files are self-hosted in this folder.
 
 | File | Used in | Source (Pexels photo page) |
 | --- | --- | --- |
+| photo-office-exterior.jpg | Journey scene 1 — hero (the ZYNA office building in Dubai, seen from outside, ZYNA sign on the fascia) | **AI-generated** (photorealistic) — not a stock photograph, no third-party source |
 | photo-chat-typing.jpg | Journey scene 3 — "Every conversation matters" (client messaging) | https://www.pexels.com/photo/6963583/ |
 | photo-salon-reception.jpg | Journey scene 4 — "Less complexity. More clarity." (salon reception desk) | https://www.pexels.com/photo/7195809/ |
 | photo-stylist-client.jpg | Journey scene 5 — "Built around better client experiences" (stylist & client) | https://www.pexels.com/photo/3993320/ |
@@ -16,5 +17,7 @@ good practice. Files are self-hosted in this folder.
 | photo-dubai-skyline.jpg | Journey scene 8 — "Never miss a booking again" (Dubai skyline with Burj Khalifa) | https://www.pexels.com/photo/19664340/ |
 | photo-office-lobby.jpg | Journey scene 9 — "Get in touch" (modern office lobby) | https://www.pexels.com/photo/164586/ |
 
-Scenes 1 and 2 use the brand's own reception photograph
+Scene 1 uses the AI-generated exterior of the ZYNA office
+(`photo-office-exterior.jpg`, generated in-house — see the table above).
+Scene 2 uses the brand's own reception photograph
 (`scene-2-reception.jpg`) — no third-party source.
