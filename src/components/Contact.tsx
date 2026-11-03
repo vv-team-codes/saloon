@@ -23,7 +23,11 @@ export default function Contact() {
     'w-full rounded-2xl border border-navy-950/10 bg-white px-4.5 py-3.5 text-[15px] text-navy-950 placeholder:text-navy-950/35 outline-none transition-all duration-300 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15'
 
   return (
-    <section id="contact" className="relative overflow-hidden bg-[#f6f4ef] pb-24 pt-14 sm:pb-32 sm:pt-20">
+    // Closing segment of the scroll journey (rendered inside Journey's container):
+    // the navy continues uninterrupted from the rooftop scene, the skyline CTA
+    // band reads as the final scene card, and the form sits on a light ivory
+    // sheet — same rounded-frame treatment — for readability.
+    <section id="contact" className="relative overflow-hidden bg-navy-950 pb-24 pt-20 sm:pb-28 sm:pt-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         {/* CTA band — Burj Khalifa at sunset */}
         <Reveal>
@@ -59,8 +63,12 @@ export default function Contact() {
           </div>
         </Reveal>
 
-        {/* Contact form */}
-        <div id="form" className="mx-auto mt-24 grid max-w-5xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+        {/* Contact form — on a light ivory sheet, the journey's closing frame */}
+        <div
+          id="form"
+          className="mx-auto mt-16 max-w-6xl scroll-mt-28 rounded-[40px] bg-[#f6f4ef] p-6 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.55)] sm:mt-20 sm:p-10 lg:p-14"
+        >
+          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
             <p className="text-[13px] font-extrabold uppercase tracking-[0.22em] text-[#7a5c14]">
               Get in touch
@@ -172,6 +180,7 @@ export default function Contact() {
               </form>
             )}
           </Reveal>
+          </div>
         </div>
       </div>
     </section>
