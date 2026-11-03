@@ -18,6 +18,12 @@ good practice. Files are self-hosted in this folder.
 | photo-office-lobby.jpg | Journey scene 9 — "Get in touch" (modern office lobby) | https://www.pexels.com/photo/164586/ |
 | photo-thank-you.jpg | Journey scene 10 — "Thank you for visiting" (two happy clients sharing a joyful conversation in a warm, elegant salon) | https://www.pexels.com/photo/7984914/ |
 
+Responsive derivatives (v10): every journey photograph also ships a
+1080w variant in `m/` (same source, resized — served to viewports up
+to 768px), and the form scene's backdrop is `photo-dubai-skyline-blur.jpg`
+(+ `m/` variant): the Dubai skyline photograph above with the blur and
+dimming baked in at build time, replacing a runtime CSS filter.
+
 Scene 1 uses the AI-generated exterior of the ZYNA office
 (`photo-office-exterior.jpg`, generated in-house — see the table above);
 the sign on its fascia is the official ZYNA logo artwork, composited
