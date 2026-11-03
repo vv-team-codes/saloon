@@ -12,9 +12,12 @@ import Contact from '../components/Contact'
  * One continuous camera: every scene pushes in while the next is revealed,
  * including a zoom-through-the-entrance transition into the reception.
  * All motion is computed in a rAF loop from scroll progress — no re-renders.
+ * The film has nine scenes: the eight photographs, then — as the final
+ * scene inside the sticky stage itself — the enquiry form card, arriving
+ * over a dimmed, blurred continuation of the Dubai skyline frame.
  */
 
-const N = 8
+const N = 9
 
 type SceneDef = {
   img: string
@@ -158,13 +161,21 @@ const TEXTS: TextDef[] = [
         </Support>
         <div className="mt-9 flex flex-col items-center justify-center gap-3.5 sm:flex-row">
           <a
-            href="#contact"
+            href="#form"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToFormScene()
+            }}
             className="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-9 py-4 text-[15px] font-bold tracking-wide text-navy-950 transition-all duration-300 hover:shadow-[0_22px_44px_-12px_rgba(201,162,75,0.8)] sm:w-auto"
           >
             GET STARTED
           </a>
           <a
-            href="#contact"
+            href="#form"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToFormScene()
+            }}
             className="inline-flex w-full items-center justify-center rounded-full border border-white/30 bg-white/5 px-9 py-4 text-[15px] font-semibold tracking-wide text-white backdrop-blur transition-all duration-300 hover:border-white/50 hover:bg-white/10 sm:w-auto"
           >
             TALK TO OUR TEAM
@@ -192,6 +203,10 @@ const TEXTS: TextDef[] = [
         <div className="mt-9">
           <a
             href="#form"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollToFormScene()
+            }}
             className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-4 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_44px_-12px_rgba(201,162,75,0.8)]"
           >
             Talk to Us
@@ -206,12 +221,24 @@ const TEXTS: TextDef[] = [
 export function scrollToJourneyFraction(frac: number) {
   const el = document.getElementById('journey')
   if (!el) return
-  // Fractions address the camera track only — the section also holds the
-  // closing contact segment after the track, which is not part of the film.
+  // Fractions address the camera track: progress 0 is the track top (film
+  // start) and progress 1 is the track end (final scene fully arrived).
   const track = el.querySelector<HTMLElement>('[data-journey-track]') ?? el
   const top = track.getBoundingClientRect().top + window.scrollY
   const range = track.offsetHeight - window.innerHeight
   window.scrollTo({ top: top + frac * range, behavior: 'smooth' })
+}
+
+/**
+ * The form is the film's final scene (slot 8 of 9). Its entrance completes
+ * at slot(8, 0.55) = 0.95 of track progress; 0.97 lands just past that —
+ * the form fully opaque, entrance transform removed, pinned and usable,
+ * with a little scroll room still in hand before the stage releases.
+ */
+export const FORM_FRACTION = 0.97
+
+export function scrollToFormScene() {
+  scrollToJourneyFraction(FORM_FRACTION)
 }
 
 export default function Journey() {
@@ -223,6 +250,8 @@ export default function Journey() {
   const bloomRef = useRef<HTMLDivElement>(null)
   const hintRef = useRef<HTMLDivElement>(null)
   const railRef = useRef<HTMLDivElement>(null)
+  const formLayerRef = useRef<HTMLDivElement>(null)
+  const formCardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -233,8 +262,8 @@ export default function Journey() {
 
     const frame = () => {
       raf = requestAnimationFrame(frame)
-      // Progress is measured over the camera track alone; the contact segment
-      // that follows it inside this section is past the end of the film (p = 1).
+      // Progress is measured over the camera track alone: p = 0 at the
+      // film's first frame, p = 1 at the end of the final (form) scene.
       const rect = track.getBoundingClientRect()
       const range = track.offsetHeight - window.innerHeight
       const target = clamp01(-rect.top / Math.max(1, range))
@@ -269,6 +298,30 @@ export default function Journey() {
         el.style.visibility = o <= 0.01 ? 'hidden' : 'visible'
       })
 
+      // The final scene (index 8): the enquiry form. It fades in across the
+      // first half of its slot as the Dubai photograph hands over (that
+      // layer's own fade-out ends at slot(8, 0.04)), and then holds — no
+      // fade-out — pinned for the rest of the track. It accepts pointer
+      // events only once it has essentially arrived, so a half-faded card
+      // can never swallow clicks meant for the CTA scene beneath it.
+      if (formLayerRef.current) {
+        const layer = formLayerRef.current
+        const k = sstep(slot(8, 0), slot(8, 0.55), p)
+        layer.style.opacity = k.toFixed(3)
+        layer.style.visibility = k <= 0.01 ? 'hidden' : 'visible'
+        layer.style.pointerEvents = k >= 0.85 ? 'auto' : 'none'
+        const card = formCardRef.current
+        if (card) {
+          // The entrance transform is removed outright once the scene has
+          // arrived (k = 1), so while pinned there is no transform on the
+          // card at all — text stays crisp and input focus behaves.
+          card.style.transform =
+            k >= 1
+              ? 'none'
+              : `scale(${lerp(0.94, 1, k).toFixed(4)}) translateY(${((1 - k) * 26).toFixed(1)}px)`
+        }
+      }
+
       // warm light bloom as the camera passes through the entrance glass
       if (bloomRef.current) {
         const doorP = 1 / N
@@ -284,10 +337,11 @@ export default function Journey() {
 
   return (
     <section id="journey" ref={sectionRef} className="relative bg-navy-950">
-      {/* The camera track: 1200vh of scroll travel driving the film (8 scenes
-          at ~150vh each). The sticky stage lives inside it and releases when
+      {/* The camera track: 1350vh of scroll travel driving the film (9 scenes
+          at ~150vh each — eight photographs plus the enquiry form as the
+          final scene). The sticky stage lives inside it and releases when
           the track ends. */}
-      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1200vh' }}>
+      <div ref={trackRef} data-journey-track className="relative" style={{ height: '1350vh' }}>
         <div className="sticky top-0 h-screen overflow-hidden bg-navy-950">
         {SCENE_IMGS.map((s, i) => (
           <div
@@ -353,8 +407,44 @@ export default function Journey() {
           </div>
         ))}
 
+        {/* The film's final scene: the enquiry form, inside the stage. The
+            backdrop is the Dubai frame again — dimmed and blurred — so the
+            card arrives as part of the film, not as a page section after it.
+            The layer is pointer-events:none until the rAF loop judges the
+            scene arrived; its own scroll well (overflow-y-auto) exists only
+            so the card stays reachable on short viewports. */}
+        <div
+          id="contact"
+          ref={formLayerRef}
+          className="absolute inset-0 z-[10]"
+          style={{ opacity: 0, visibility: 'hidden', pointerEvents: 'none' }}
+        >
+          <img
+            src="images/scenes/photo-dubai-skyline.jpg"
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{
+              objectPosition: '50% 45%',
+              filter: 'blur(7px) brightness(0.5) saturate(1.05)',
+              transform: 'scale(1.08)',
+            }}
+            loading="lazy"
+            decoding="async"
+          />
+          <div aria-hidden="true" className="absolute inset-0 bg-navy-950/40" />
+          <div aria-hidden="true" className="absolute inset-0 shadow-[inset_0_0_180px_rgba(5,8,28,0.55)]" />
+          <div className="absolute inset-0 overflow-y-auto">
+            <div className="flex min-h-full px-5 py-20 sm:px-8">
+              <div ref={formCardRef} className="m-auto w-full max-w-3xl will-change-transform">
+                <Contact />
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* scroll hint */}
-        <div ref={hintRef} className="absolute bottom-7 left-1/2 z-[10] -translate-x-1/2 text-center transition-opacity duration-500">
+        <div ref={hintRef} className="pointer-events-none absolute bottom-7 left-1/2 z-[10] -translate-x-1/2 text-center transition-opacity duration-500">
           <p className="text-[11px] font-bold uppercase tracking-[0.3em] text-white/75 [text-shadow:0_1px_12px_rgba(5,8,28,0.8)]">Scroll to enter</p>
           <div className="mx-auto mt-3 h-10 w-6 rounded-full border border-white/40 p-1.5">
             <div className="mx-auto h-2 w-1 animate-bounce rounded-full bg-gold-300" />
@@ -362,17 +452,15 @@ export default function Journey() {
         </div>
 
         {/* progress rail */}
-        <div className="absolute right-5 top-1/2 z-[10] hidden h-44 w-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-white/20 sm:block">
+        <div className="pointer-events-none absolute right-5 top-1/2 z-[10] hidden h-44 w-[3px] -translate-y-1/2 overflow-hidden rounded-full bg-white/20 sm:block">
           <div ref={railRef} className="h-full w-full origin-top bg-gradient-to-b from-gold-300 to-gold-600" style={{ transform: 'scaleY(0)' }} />
         </div>
         </div>
       </div>
 
-      {/* The film's final scene is the CTA ("Every conversation matters");
-          what follows the stage is the compact enquiry form card alone — the
-          journey's single closing beat, in normal flow (never inside the
-          sticky stage), so it stays fully interactive. */}
-      <Contact />
+      {/* Nothing follows the stage inside this section: the film's final
+          scene IS the enquiry form (inside the sticky stage above), and the
+          page footer comes next. */}
     </section>
   )
 }
