@@ -23,89 +23,20 @@ export default function Contact() {
     'w-full rounded-2xl border border-navy-950/10 bg-white px-4.5 py-3.5 text-[15px] text-navy-950 placeholder:text-navy-950/35 outline-none transition-all duration-300 focus:border-gold-500 focus:ring-4 focus:ring-gold-500/15'
 
   return (
-    // Closing segment of the scroll journey (rendered inside Journey's container):
-    // the navy continues uninterrupted from the rooftop scene, the skyline CTA
-    // band reads as the final scene card, and the form sits on a light ivory
-    // sheet — same rounded-frame treatment — for readability.
+    // The journey's closing panel: the CTA ("Every conversation matters") and
+    // the get-in-touch content are scenes inside the scroll film itself, so
+    // what follows the stage is the enquiry form alone — on a light ivory
+    // sheet, in normal document flow right after the final scene.
     <section id="contact" className="relative overflow-hidden bg-navy-950 pb-24 pt-20 sm:pb-28 sm:pt-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        {/* CTA band — Burj Khalifa at sunset */}
-        <Reveal>
-          <div className="relative overflow-hidden rounded-[40px] px-6 py-16 text-center text-white sm:px-12 sm:py-20">
-            <img
-              src="/images/dubai-skyline.jpg"
-              alt=""
-              aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-            />
-            <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-navy-950/78 via-navy-950/62 to-navy-950/85" />
-            <div className="relative">
-              <p className="text-[12.5px] font-bold uppercase tracking-[0.24em] text-gold-300">
-                Never miss a booking again
-              </p>
-              <h2 className="font-display mx-auto mt-5 max-w-2xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-[54px]">
-                Every conversation <span className="text-gold-grad">matters.</span>
-              </h2>
-              <p className="mx-auto mt-5 max-w-xl text-[16.5px] leading-relaxed text-white/70">
-                Your next client could message tonight at midnight. Make sure someone brilliant
-                is there to answer. Start with ZYNA — and let every conversation turn into an
-                opportunity.
-              </p>
-              <a
-                href="#form"
-                className="group mt-9 inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-4 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_44px_-12px_rgba(201,162,75,0.8)]"
-              >
-                Talk to Us
-                <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-            </div>
-          </div>
-        </Reveal>
-
         {/* Contact form — on a light ivory sheet, the journey's closing frame */}
         <div
           id="form"
-          className="mx-auto mt-16 max-w-6xl scroll-mt-28 rounded-[40px] bg-[#f6f4ef] p-6 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.55)] sm:mt-20 sm:p-10 lg:p-14"
+          className="mx-auto max-w-6xl scroll-mt-28 rounded-[40px] bg-[#f6f4ef] p-6 shadow-[0_40px_90px_-40px_rgba(0,0,0,0.55)] sm:p-10 lg:p-14"
         >
-          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal>
-            <p className="text-[13px] font-extrabold uppercase tracking-[0.22em] text-[#7a5c14]">
-              Get in touch
-            </p>
-            <h3 className="font-display mt-4 text-4xl font-semibold leading-[1.12] tracking-tight text-navy-950">
-              Let’s put ZYNA to work for your salon.
-            </h3>
-            <p className="mt-5 max-w-md text-[16px] leading-relaxed text-navy-950/60">
-              Tell us a little about your salon and what you would like ZYNA to handle. We will
-              reply with the next steps — usually within one business day.
-            </p>
-            <ul className="mt-8 space-y-3.5">
-              {[
-                'A walkthrough of ZYNA on your own salon scenario',
-                'Honest advice on what to automate first',
-                'No pressure — just a clear plan',
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-[15px] text-navy-950/75">
-                  <span className="mt-0.5 flex h-5.5 w-5.5 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-gold-400 to-gold-600">
-                    <IconCheck className="h-3 w-3 text-navy-950" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <a
-              href="mailto:hello@zyna.ae"
-              className="mt-9 inline-flex items-center gap-2 rounded-full border border-navy-950/10 px-5 py-3 text-[14px] font-semibold text-navy-950 transition-colors hover:border-gold-500/50 hover:text-gold-600"
-            >
-              Prefer email? hello@zyna.ae
-            </a>
-            <p className="mt-4 text-[13.5px] font-medium text-navy-950/45">Dubai · United Arab Emirates</p>
-          </Reveal>
-
-          <Reveal delay={140}>
             {sent ? (
-              <div className="flex h-full min-h-[420px] flex-col items-center justify-center rounded-[32px] border border-emerald-200 bg-emerald-50/60 px-8 text-center">
+              <div className="mx-auto flex min-h-[420px] max-w-3xl flex-col items-center justify-center rounded-[32px] border border-emerald-200 bg-emerald-50/60 px-8 text-center">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500 text-white shadow-lg">
                   <IconCheck className="h-8 w-8" />
                 </span>
@@ -127,7 +58,7 @@ export default function Contact() {
             ) : (
               <form
                 onSubmit={onSubmit}
-                className="rounded-[32px] border border-navy-950/8 bg-white p-7 shadow-[0_30px_60px_-30px_rgba(5,8,28,0.25)] sm:p-9"
+                className="mx-auto max-w-3xl rounded-[32px] border border-navy-950/8 bg-white p-7 shadow-[0_30px_60px_-30px_rgba(5,8,28,0.25)] sm:p-9"
               >
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label className="block">
@@ -180,7 +111,6 @@ export default function Contact() {
               </form>
             )}
           </Reveal>
-          </div>
         </div>
       </div>
     </section>
