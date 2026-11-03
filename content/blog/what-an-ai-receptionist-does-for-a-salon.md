@@ -1,7 +1,7 @@
 ---
 title: What Does an AI Receptionist Actually Do for a Salon? A Step-by-Step Guide
 slug: what-an-ai-receptionist-does-for-a-salon
-date: 2026-11-05
+date: 2026-11-03
 description: No hype, just the workflow: how an AI receptionist answers enquiries, books appointments, handles reschedules and FAQs for a salon — step by step.
 keywords: AI receptionist for salons, salon booking system Dubai, AI receptionist UAE, how AI receptionist works
 category: AI for Salons
