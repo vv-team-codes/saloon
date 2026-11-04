@@ -7,23 +7,23 @@ keywords: salon marketing Dubai, new resident salon clients, UAE salon growth, s
 category: Salon Marketing Strategies
 ---
 
-Every week, planes land at Dubai International carrying people about to start a new life in the UAE. They have a new job, a new apartment, and a long list of things to sort out. Somewhere on that list, usually in the first two weeks, is a line that matters to your business: find a salon.
+Every week, planes land at Dubai International carrying people about to start a new life in the UAE. They have a new job, a new apartment, and a long list of things to sort out. Somewhere on that list is a line that matters to your business: find a salon.
 
 A new resident is a rare kind of customer. They arrive with no loyalty to any salon, no stylist they trust, and no habit to break. They are actively searching, comparing, and ready to book. The salon that wins them first often keeps them for years, because once someone finds a stylist they trust in a new city, they stop looking.
 
 ## Why new residents are worth chasing
 
-Most salon marketing fights for the same pool of established clients, many of whom already have a regular salon. New residents are different. They are in decision mode. They ask colleagues for recommendations, search "salon near me" from their new address, scroll Instagram for work done in Dubai, and message several salons on WhatsApp before choosing one.
+Most salon marketing fights for the same pool of established clients who already have a regular salon. New residents are different. They are in decision mode. They ask colleagues for recommendations, search "salon near me" from their new address, scroll Instagram for work done in Dubai, and message several salons on WhatsApp before choosing one.
 
 They also tend to spend. A newcomer often needs more than a routine cut: a fresh look for a new job, colour correction after a move, or a full grooming reset. And because they are building a whole new routine, a good first experience can lock in a monthly client who brings friends and family with them.
 
-The catch is timing. Within a few weeks of arrival, most people settle into a salon and stop searching. If your salon is invisible during that window, you lose them to a competitor without ever knowing they existed.
+The catch is timing. Within a few weeks of arrival, most people settle into a salon and stop searching. If your salon is invisible during that window, you lose them without ever knowing they existed.
 
 ## Be findable at the moment they search
 
 A new resident does not know your salon's name. They search by area, by service, and by language. That means your online presence has to answer the questions they are actually typing: a ladies' salon in JVC, a men's grooming lounge near Business Bay, a salon that does balayage in Dubai Marina, a place open late in Al Barsha.
 
-Keep your Google Business Profile complete and current, with real photos of your chairs, your team, and your recent work — not stock images. List the services you actually offer, your real opening hours, and a WhatsApp button that works. Many newcomers message rather than call, because they are still settling in and prefer to write in their own time.
+Keep your Google Business Profile complete and current, with real photos of your chairs and team — not stock images. List the services you actually offer, your real opening hours, and a WhatsApp button that works. Many newcomers message rather than call, because they are still settling in and prefer to write in their own time.
 
 Your Instagram matters too. A newcomer scrolling your feed looks for proof: recent work on hair like theirs, honest prices, and a sense that the salon understands clients from different backgrounds.
 
@@ -47,7 +47,7 @@ The real prize is not the first booking. It is the second, third, and tenth. New
 
 Follow up the next day with a short, personal message. Not a broadcast, not a discount blast. A simple note thanking them for coming in and checking how the style is settling is enough. Newcomers remember who made them feel welcome in a new city, and they tell other newcomers.
 
-That word of mouth compounds fast. New residents tend to arrive in waves — colleagues, neighbours in the same building, people from the same home country. One happy newcomer who recommends your salon in a community group or a building chat can bring three or four more first visits in a single week.
+That word of mouth compounds fast. New residents tend to arrive in waves — colleagues, neighbours in the same building, people from the same home country. One happy newcomer who recommends your salon in a community group can bring three or four more first visits in a single week.
 
 ## Where to find them before they find you
 
