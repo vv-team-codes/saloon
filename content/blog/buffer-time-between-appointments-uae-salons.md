@@ -7,7 +7,7 @@ keywords: salon appointment scheduling UAE, buffer time between appointments, sa
 category: Salon Appointment Management
 ---
 
-A diary packed wall to wall looks like success. Every chair full, every hour sold. Then one client arrives twelve minutes late, a colour takes longer to process than expected, and by seven in the evening the whole salon is running forty minutes behind. The last client sits in the waiting area, annoyed. The stylist skips lunch.
+A diary packed wall to wall looks like success. Every chair full, every hour sold. Then one client arrives twelve minutes late, a colour overruns, and by seven in the evening the whole salon is forty minutes behind. The last client sits in the waiting area, annoyed. The stylist skips lunch.
 
 The problem is not the late client or the slow colour. The problem is a diary with no air in it. Buffer time — a short gap deliberately left between appointments — is the cheapest insurance a salon can buy, and most UAE salons run without it.
 
