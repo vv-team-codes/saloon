@@ -9,8 +9,12 @@ const EMIRATES = ['Dubai', 'Abu Dhabi', 'Sharjah', 'Ajman', 'Ras Al Khaimah', 'F
  * there is no standalone contact section anywhere on the page. The scene
  * layer in Journey owns the entrance animation and pointer-events gating.
  */
+export const SALES_EMAIL = 'sales@zyna.ae'
+
 export default function Contact() {
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', business: '', email: '', phone: '', emirate: 'Dubai', message: '' })
 
   const update =
@@ -18,10 +22,45 @@ export default function Contact() {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
       setForm((f) => ({ ...f, [key]: e.target.value }))
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    // Front-end handoff point: wire this to the ZYNA CRM / email endpoint before launch.
-    setSent(true)
+    if (sending) return
+    setSending(true)
+    setError('')
+    try {
+      // Deliver the enquiry straight to sales@zyna.ae via FormSubmit's AJAX
+      // endpoint (static site — no server of our own). The first submission
+      // triggers a one-time activation email to sales@zyna.ae; once that
+      // link is clicked, every enquiry lands in that inbox.
+      const res = await fetch(`https://formsubmit.co/ajax/${SALES_EMAIL}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          salon: form.business || '—',
+          email: form.email,
+          phone: form.phone || '—',
+          location: form.emirate,
+          message: form.message,
+          _replyto: form.email,
+          _subject: `New ZYNA website enquiry — ${form.name}`,
+          _template: 'table',
+          _captcha: 'false',
+          _honey: '',
+        }),
+      })
+      const data = await res.json().catch(() => null)
+      if (!res.ok || (data && String(data.success) !== 'true')) {
+        throw new Error('delivery failed')
+      }
+      setSent(true)
+    } catch {
+      setError(
+        `Sorry — your message could not be sent just now. Please email us directly at ${SALES_EMAIL} and we will reply shortly.`,
+      )
+    } finally {
+      setSending(false)
+    }
   }
 
   // text-base (16px) on every field: anything smaller makes iOS Safari
@@ -46,8 +85,8 @@ export default function Contact() {
             Thank you, {form.name.split(' ')[0] || 'friend'}.
           </h4>
           <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-white/70">
-            Your message is with us. The ZYNA team will get back to you shortly — usually
-            within one business day.
+            Your message is with us at {SALES_EMAIL}. The ZYNA team will get back to you
+            shortly — usually within one business day.
           </p>
           <button
             type="button"
@@ -101,19 +140,31 @@ export default function Contact() {
               />
             </label>
           </div>
+          {error ? (
+            <p role="alert" className="mt-4 rounded-2xl border border-red-300/30 bg-red-500/10 px-4 py-3 text-[13.5px] leading-snug text-red-100">
+              {error}{' '}
+              <a href={`mailto:${SALES_EMAIL}`} className="font-semibold text-white underline underline-offset-2">
+                Email {SALES_EMAIL}
+              </a>
+            </p>
+          ) : null}
           {/* Closing row: footnote left, Send Message right-aligned at its
               natural width. On phones it stacks with the button on top,
               as before. */}
           <div className="mt-5 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[13px] leading-snug text-white/55 sm:max-w-[55%]">
               By sending this form you agree to be contacted about ZYNA. We never share your
-              details.
+              details. Or write to us directly:{' '}
+              <a href={`mailto:${SALES_EMAIL}`} className="font-semibold text-white/85 transition-colors hover:text-white">
+                {SALES_EMAIL}
+              </a>
             </p>
             <button
               type="submit"
-              className="group inline-flex w-full shrink-0 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-3 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] sm:w-auto"
+              disabled={sending}
+              className="group inline-flex w-full shrink-0 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-3 text-[15px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_20px_40px_-14px_rgba(169,134,58,0.65)] disabled:cursor-wait disabled:opacity-70 sm:w-auto"
             >
-              Send Message
+              {sending ? 'Sending…' : 'Send Message'}
               <IconArrowRight className="h-4.5 w-4.5 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
           </div>
