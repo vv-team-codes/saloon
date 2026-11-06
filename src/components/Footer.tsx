@@ -81,10 +81,10 @@ export default function Footer() {
               Contact
             </p>
             <a
-              href="mailto:hello@zyna.ae"
+              href="mailto:sales@zyna.ae"
               className="mt-3.5 block text-[15px] text-white/70 transition-colors hover:text-white"
             >
-              hello@zyna.ae
+              sales@zyna.ae
             </a>
             <a
               href="#contact"
