@@ -7,7 +7,7 @@ keywords: salon client experience UAE, salon bathroom cleanliness, salon hygiene
 category: Customer Experience Improvements
 ---
 
-Your client has had a brilliant balayage, a perfect blow-dry and a warm goodbye at the door. She walks out happy. Then, on the way home, she opens Google and leaves four stars instead of five. The reason she mentions in the review? The bathroom.
+Your client has had a great balayage, a perfect blow-dry and a warm goodbye at the door. She walks out happy. Then, on the way home, she opens Google and leaves four stars instead of five. The reason she mentions in the review? The bathroom.
 
 It sounds unfair, but that is how client experience works: people judge a business by its weakest point. A spotless salon with a tired, smelly or poorly stocked bathroom feels like a salon that cuts corners where nobody is watching. In the UAE, where alternatives sit one mall corridor away, clients notice fast.
 
@@ -33,7 +33,7 @@ Nothing ruins the impression faster than an empty dispenser. Clients do not comp
 
 Keep a small cupboard or basket in the bathroom itself with spare hand towels, tissues, sanitary items, a spare roll and a bottle of surface spray. When the stock lives in the room, the hourly check takes seconds instead of a trip to the store room. Nobody tops up a dispenser if it means leaving the floor during a busy evening.
 
-Choose quality where hands touch. A decent liquid soap, a proper hand cream and good hand towels signal care far more than an expensive scented candle. If you use paper towels, empty the bin often — an overflowing bin undoes everything else in seconds.
+Choose quality where hands touch. A decent liquid soap, a hand cream and good hand towels signal care far more than an expensive scented candle. If you use paper towels, empty the bin often — an overflowing bin undoes everything else in seconds.
 
 ## Scent, Light and the Door That Locks
 
