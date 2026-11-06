@@ -45,7 +45,10 @@ function parsePost(file) {
     if (kv) fm[kv[1]] = kv[2].trim()
   }
   if (!fm.title || !fm.slug) return null
-  return { ...fm, body: m[2].trim() }
+  // Contact email changed to sales@zyna.ae (2026-11-06): normalise any
+  // older post body that still ends with the old hello@ address at render
+  // time, so every published page shows the current sales inbox.
+  return { ...fm, body: m[2].trim().replaceAll('hello@zyna.ae', 'sales@zyna.ae') }
 }
 
 const esc = (s) =>
@@ -390,7 +393,7 @@ for (const post of posts) {
           <h2>Never miss a booking again</h2>
           <p>ZYNA is the 24/7 AI receptionist for salons &amp; beauty businesses in the UAE — it replies, books and reminds, day and night.</p>
           <a class="btn" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started</a>
-          <p style="margin-top:14px">Or write to us: <a href="mailto:hello@zyna.ae">hello@zyna.ae</a></p>
+          <p style="margin-top:14px">Or write to us: <a href="mailto:sales@zyna.ae">sales@zyna.ae</a></p>
         </div>
         <a class="back" href="/blog/">← All articles</a>
       </article>`
