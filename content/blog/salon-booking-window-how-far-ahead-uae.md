@@ -9,7 +9,7 @@ category: Salon Appointment Management
 
 Every salon owner in Dubai knows two opposite complaints. The first comes from a regular who tried to book three weeks ahead and was told the diary was not open yet. The second comes from a diary full of appointments made two months ago, half of which will be moved or forgotten by the time the day arrives.
 
-Both problems have the same cause: the booking window. That is simply how far into the future clients are allowed to book. Get it right and the diary fills steadily, with fewer gaps and fewer surprises. Get it wrong and you spend every week chasing confirmations or turning away clients who wanted to plan ahead.
+Both problems have the same cause: the booking window — how far into the future clients are allowed to book. Get it right and the diary fills steadily, with fewer gaps and fewer surprises. Get it wrong and you spend every week chasing confirmations or turning away clients who wanted to plan ahead.
 
 ## Why the booking window matters
 
@@ -21,9 +21,9 @@ At the same time, clients who like to organise their lives want to book ahead. A
 
 For a typical ladies' or unisex salon in Dubai or Abu Dhabi, a booking window of two to four weeks works best. Two weeks is enough for regulars to plan their next visit. Four weeks is enough for clients who like to book a month ahead without stretching so far that plans go stale.
 
-Start with three weeks if you are unsure. It is long enough to feel generous and short enough that most bookings hold. Watch what happens over a month. If clients keep asking to book further out, extend it to four weeks. If you spend too much time chasing confirmations for bookings made weeks ago, pull it back to two.
+Start with three weeks if you are unsure. Watch what happens over a month. If clients keep asking to book further out, extend it to four weeks. If you spend too much time chasing confirmations for bookings made weeks ago, pull it back to two.
 
-The right window also depends on your services. A salon that mostly does cuts, blow-dries and express treatments can run happily on two weeks. A salon with a heavy colour book, bridal work or long treatments like keratin needs longer, because those clients plan further ahead and their appointments take bigger blocks of the day.
+The right window also depends on your services. A salon that mostly does cuts, blow-dries and express treatments can run happily on two weeks. A salon with a heavy colour book, bridal work or long treatments like keratin needs longer, because those clients plan further ahead.
 
 ## When a longer window genuinely makes sense
 
@@ -31,7 +31,7 @@ Some bookings deserve a longer horizon. Bridal trials and wedding-morning bookin
 
 The same applies to standing slots, the same time every week or fortnight. Once a regular has a standing appointment, the window stops mattering for her, because her slot is already protected. Group bookings and bridal parties belong here too, since they need coordination across several stylists and are usually arranged weeks in advance.
 
-Make these exceptions deliberate rather than letting the whole diary drift open. Keep the standard window at three or four weeks, and open longer dates only for the bookings that need them. That way the diary stays honest: most of what you see is real, and the far-future bookings are the ones that were always going to hold.
+Keep these exceptions deliberate rather than letting the whole diary drift open. Keep the standard window at three or four weeks, and open longer dates only for the bookings that need them. That way the diary stays honest: most of what you see is real, and the far-future bookings are the ones that were always going to hold.
 
 ## The hidden cost of opening too far ahead
 
@@ -57,6 +57,6 @@ For these periods, open the diary six to eight weeks ahead, announce it once, an
 
 Open your diary three weeks ahead, protect the exceptions that need longer, and review the window once a quarter. Ask two questions. Are clients asking to book further out? And are bookings made more than a month ahead actually turning up? If the first answer is yes, extend the window. If the second answer is no, shorten it.
 
-Your booking window is not a setting you choose once and forget. It is a small, quiet decision that shapes how full your chairs are, how calm your front desk feels and how easy you are to book. Get it right and the diary starts working for you instead of against you. A 24/7 AI receptionist like ZYNA can take bookings the moment your diary opens, day or night, so the clients who plan at midnight are still booking with you.
+Your booking window is a small, quiet decision that shapes how full your chairs are and how calm your front desk feels. Get it right and the diary starts working for you instead of against you. A 24/7 AI receptionist like ZYNA can take bookings the moment your diary opens, day or night, so the clients who plan at midnight are still booking with you.
 
 Get in touch: sales@zyna.ae
