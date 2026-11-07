@@ -1,5 +1,5 @@
 ---
-title: "Let Them Book Themselves: Why UAE Salons Are Adding Online Self-Booking — and What Changes When They Do"
+title: Let Them Book Themselves: Why UAE Salons Are Adding Online Self-Booking — and What Changes When They Do
 slug: online-self-booking-uae-salons
 date: 2026-11-07
 description: More UAE salons are letting clients book themselves online. Here is what changes for your diary, your team and your evenings — and how to start calmly.
