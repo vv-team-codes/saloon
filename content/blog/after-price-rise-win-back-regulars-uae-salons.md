@@ -2,7 +2,7 @@
 title: After the Price Rise: How UAE Salons Bring Back the Regulars Who Quietly Drifted Away
 slug: after-price-rise-win-back-regulars-uae-salons
 date: 2026-11-10
-description: After a price rise, some regulars drift away quietly. Here's how UAE salons spot them, reach out honestly, and bring them back without discounting the salon away.
+description: After a price rise, some regulars drift away quietly. Here's how UAE salons spot them, reach out honestly, and bring them back without discounting it away.
 keywords: salon price increase UAE, win back salon clients, salon client retention Dubai, salon pricing strategy, retain regular salon clients
 category: Customer Retention Strategies
 ---
