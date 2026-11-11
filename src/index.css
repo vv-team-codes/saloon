@@ -4,13 +4,13 @@
   --font-sans: "Inter", ui-sans-system, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Sora", "Inter", ui-sans-system, system-ui, sans-serif;
 
-  --color-navy-950: #05081c;
-  --color-navy-900: #0a0f2e;
+  --color-navy-950: #17384f;
+  --color-navy-900: #1d4258;
   --color-navy-800: #131a45;
   --color-royal-600: #4338ca;
   --color-royal-500: #4f46e5;
-  --color-violet-brand: #7c3aed;
-  --color-electric-500: #2f7bff;
+  --color-violet-brand: #38bdf8;
+  --color-electric-500: #2dd4bf;
   --color-electric-400: #5b97ff;
   --color-cyan-brand: #22d3ee;
   --color-gold-300: #ecd28a;
@@ -33,18 +33,18 @@
 
 html {
   scroll-behavior: smooth;
-  /* Root background is the site navy: mobile overscroll (and the area
-     below the fixed bottom bar) must never flash white. */
-  background: #05081c;
+  /* Root background is white: the B2B homepage (v8) is a light page;
+     overscroll at the top must not flash navy. */
+  background: #ffffff;
 }
 
 body {
-  @apply bg-navy-950 font-sans text-navy-950 antialiased;
+  @apply bg-white font-sans text-navy-950 antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background: rgba(124, 58, 237, 0.22);
+  background: rgba(56, 189, 248, 0.22);
 }
 
 /* ---------- keyframes ---------- */
@@ -116,7 +116,7 @@ body {
 }
 
 .text-gradient {
-  @apply bg-gradient-to-r from-violet-brand via-electric-500 to-cyan-brand bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-sky-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent;
 }
 
 .text-shimmer {
@@ -154,7 +154,7 @@ body {
 }
 
 .ring-conic {
-  background: conic-gradient(from 120deg, #7c3aed, #2f7bff, #22d3ee, #7c3aed);
+  background: conic-gradient(from 120deg, #38bdf8, #22d3ee, #2dd4bf, #38bdf8);
 }
 
 .card-lift {

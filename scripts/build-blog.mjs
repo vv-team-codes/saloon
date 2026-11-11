@@ -121,50 +121,50 @@ const fmtDate = (iso) =>
 
 const readingTime = (body) => Math.max(1, Math.round(body.split(/\s+/).length / 200))
 
-/* ---------- shared page chrome (matches the main site: navy, gold, Sora/Inter, logo on white) ---------- */
+/* ---------- shared page chrome (matches the main site: Sky Aqua light theme, Sora/Inter, glass header + real footer) ---------- */
 const CSS = `
-:root{--navy:#05081c;--navy2:#0a0f2e;--gold:#c9a24b;--gold2:#dcb95c;--cyan:#22d3ee;--ink:rgba(255,255,255,.82);--mut:rgba(255,255,255,.55)}
+:root{--ink:#17384f;--body:#475569;--mut:#64748b;--sky:#0284c7;--sky400:#38bdf8;--teal:#2dd4bf;--tint:#f0f9ff;--line:#e2e8f0}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;background:var(--navy);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
-a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
+body{margin:0;background:#fff;color:var(--body);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:var(--sky);text-decoration:none}a:hover{text-decoration:underline}
 .wrap{max-width:880px;margin:0 auto;padding:0 20px}
-body{padding-top:96px}
-header.site{position:fixed;inset:0 0 auto 0;z-index:50;padding:16px 16px 0}
-@media(min-width:640px){header.site{padding:16px 24px 0}}
-.nav-pill{max-width:1152px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;border-radius:999px;padding:10px 10px 10px 12px;background:rgba(5,8,28,.3);border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:background .4s ease,border-color .4s ease,box-shadow .4s ease}
-header.site.scrolled .nav-pill{background:rgba(5,8,28,.75);border-color:rgba(255,255,255,.14);box-shadow:0 18px 44px -16px rgba(0,0,0,.65)}
-.logo-pill{display:inline-flex;align-items:center;flex-shrink:0;background:#fff;border-radius:999px;padding:6px 12px}
-.logo-pill img{height:28px;width:auto;display:block}
-@media(min-width:640px){.logo-pill img{height:32px}}
+body{padding-top:84px}
+header.site{position:fixed;inset:0 0 auto 0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(226,232,240,.9);transition:box-shadow .3s ease}
+header.site.scrolled{box-shadow:0 14px 34px -18px rgba(23,56,79,.25)}
+.nav-in{max-width:1152px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px}
+@media(min-width:640px){.nav-in{padding:12px 24px}}
+.logo-link{display:inline-flex;align-items:center;flex-shrink:0}
+.logo-link img{height:30px;width:auto;display:block}
+@media(min-width:640px){.logo-link img{height:34px}}
 .nav-links{display:none;align-items:center;gap:2px}
 @media(min-width:1024px){.nav-links{display:flex}}
-.nav-links a{color:rgba(255,255,255,.75);font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;transition:background .3s ease,color .3s ease}
-.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08);text-decoration:none}
-.nav-links a[aria-current="page"]{color:#fff;background:rgba(255,255,255,.08)}
+.nav-links a{color:rgba(23,56,79,.72);font-size:14px;font-weight:500;padding:8px 14px;border-radius:999px;transition:background .3s ease,color .3s ease}
+.nav-links a:hover{color:var(--ink);background:var(--tint);text-decoration:none}
+.nav-links a[aria-current="page"]{color:var(--sky);background:var(--tint)}
 .nav-right{display:flex;align-items:center;gap:10px}
-.btn-start{display:none;align-items:center;gap:8px;border-radius:999px;background:linear-gradient(to right,var(--gold2),#a9863a);color:var(--navy);font-size:14px;font-weight:700;padding:10px 20px;transition:box-shadow .3s ease}
+.btn-start{display:none;align-items:center;gap:8px;border-radius:10px;background:linear-gradient(to right,var(--sky400),var(--teal));color:#fff;font-size:14px;font-weight:700;padding:10px 20px;transition:filter .3s ease,box-shadow .3s ease}
 @media(min-width:640px){.btn-start{display:inline-flex}}
-.btn-start:hover{text-decoration:none;color:var(--navy);box-shadow:0 14px 30px -10px rgba(201,162,75,.8)}
-.menu-btn{display:flex;height:40px;width:40px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;font-size:18px;line-height:1;cursor:pointer}
+.btn-start:hover{text-decoration:none;color:#fff;filter:brightness(1.06);box-shadow:0 14px 30px -12px rgba(56,189,248,.55)}
+.menu-btn{display:flex;height:40px;width:40px;align-items:center;justify-content:center;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:18px;line-height:1;cursor:pointer}
 @media(min-width:1024px){.menu-btn{display:none}}
-.mobile-menu{display:none;position:fixed;inset:0;z-index:60;background:rgba(5,8,28,.94);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center}
+.mobile-menu{display:none;position:fixed;inset:0;z-index:60;background:rgba(255,255,255,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center}
 .mobile-menu.open{display:flex}
-.mobile-menu a.mlink{font-family:Sora,Inter,system-ui,sans-serif;font-size:30px;font-weight:600;color:rgba(255,255,255,.9);padding:13px 0;transition:color .3s ease}
-.mobile-menu a.mlink:hover{color:var(--gold2);text-decoration:none}
+.mobile-menu a.mlink{font-family:Sora,Inter,system-ui,sans-serif;font-size:30px;font-weight:600;color:var(--ink);padding:13px 0;transition:color .3s ease}
+.mobile-menu a.mlink:hover{color:var(--sky);text-decoration:none}
 .mobile-menu .btn-start{display:inline-flex;margin-top:30px;font-size:15px;padding:15px 30px}
-.menu-close{position:absolute;top:24px;right:24px;height:44px;width:44px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#fff;font-size:17px;cursor:pointer}
-h1,h2,h3{font-family:Sora,Inter,system-ui,sans-serif;color:#fff;line-height:1.25}
-.eyebrow{letter-spacing:.24em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--cyan)}
+.menu-close{position:absolute;top:24px;right:24px;height:44px;width:44px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);font-size:17px;cursor:pointer}
+h1,h2,h3{font-family:Sora,Inter,system-ui,sans-serif;color:var(--ink);line-height:1.25}
+.eyebrow{letter-spacing:.24em;text-transform:uppercase;font-size:12px;font-weight:700;color:var(--sky)}
 .hero{padding:38px 0 10px}
 .hero h1{font-size:clamp(30px,5vw,44px);font-weight:800;margin:10px 0 12px}
 .hero p.lede{font-size:17.5px;color:var(--mut);max-width:640px;margin:0}
-.card{display:block;background:var(--navy2);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:26px 26px 22px;margin:22px 0;transition:transform .35s ease,border-color .35s ease}
-.card:hover{transform:translateY(-4px);border-color:rgba(201,162,75,.55);text-decoration:none}
+.card{display:block;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 26px 22px;margin:22px 0;box-shadow:0 16px 40px -28px rgba(23,56,79,.25);transition:transform .35s ease,border-color .35s ease}
+.card:hover{transform:translateY(-4px);border-color:#7dd3fc;text-decoration:none}
 .card .meta,.meta{font-size:13px;color:var(--mut);text-transform:uppercase;letter-spacing:.14em;font-weight:600}
-.card .meta .cat,article .cat{color:var(--gold2)}
+.card .meta .cat,article .cat{color:var(--sky)}
 .card h2{font-size:23px;margin:10px 0 8px}
-.card p{margin:0 0 12px;color:var(--ink)}
-.read{font-weight:600;font-size:15px}
+.card p{margin:0 0 12px;color:var(--body)}
+.read{font-weight:600;font-size:15px;color:var(--sky)}
 article{padding:20px 0 8px}
 article h1{font-size:clamp(28px,4.6vw,40px);font-weight:800;margin:12px 0 14px}
 article h2{font-size:24px;margin:34px 0 10px}
@@ -172,43 +172,47 @@ article h3{font-size:19px;margin:26px 0 8px}
 article p{margin:0 0 16px;font-size:16.5px}
 article ul,article ol{margin:0 0 16px;padding-left:24px}
 article li{margin-bottom:8px;font-size:16.5px}
-article strong{color:#fff}
-article hr{border:none;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,75,.65),transparent);margin:30px 0}
-.cta{background:var(--navy2);border:1px solid rgba(201,162,75,.4);border-radius:18px;padding:26px;margin:36px 0 8px}
+article strong{color:var(--ink)}
+article hr{border:none;height:1px;background:linear-gradient(to right,transparent,rgba(56,189,248,.65),transparent);margin:30px 0}
+.cta{background:var(--tint);border:1px solid #bae6fd;border-radius:18px;padding:26px;margin:36px 0 8px}
 .cta h2{margin-top:0;font-size:21px}
 .cta p{margin-bottom:0}
-.btn{display:inline-block;margin-top:14px;background:linear-gradient(to right,var(--gold2),#a9863a);color:#05081c;font-weight:700;padding:11px 22px;border-radius:999px}
-.btn:hover{text-decoration:none;filter:brightness(1.07)}
-.gold-hr{height:1px;background:linear-gradient(to right,transparent,rgba(201,162,75,.7),transparent)}
-.bottom-bar{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--navy)}
-.bottom-bar .bar-in{padding:12px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 32px;font-size:13px;color:rgba(255,255,255,.45)}
-@media(min-width:640px){.bottom-bar .bar-in{padding:12px 32px}}
-body{padding-bottom:70px}
-@media(max-width:639px){body{padding-bottom:96px}}
-.bottom-bar p{margin:0}
-.bottom-bar .emirates{color:rgba(255,255,255,.35)}
-@media(max-width:639px){.bottom-bar .emirates{order:3;flex:0 0 100%;text-align:center}}
-@media(min-width:640px){.bottom-bar .emirates{flex:1;text-align:center}}
-.bottom-bar a{color:rgba(255,255,255,.45)}
-.bottom-bar a:hover{color:#fff;text-decoration:none}
-@keyframes social-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-@keyframes social-halo{0%{opacity:.65;transform:scale(1)}70%{opacity:0;transform:scale(1.45)}100%{opacity:0;transform:scale(1.45)}}
-.social-float{position:fixed;right:20px;bottom:70px;z-index:30;display:flex;gap:10px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
-.social-float.dragging{cursor:grabbing}
-.social-float a{position:relative;display:flex;width:46px;height:46px;align-items:center;justify-content:center;border-radius:999px;border:1px solid rgba(255,255,255,.2);color:#fff;box-shadow:0 12px 32px -8px rgba(0,0,0,.65);animation:social-bob 3.6s ease-in-out infinite}
-.social-float a.fb{background:#1877F2;--halo:rgba(24,119,242,.55)}
-.social-float a.ig{background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5);--halo:rgba(214,41,118,.5);animation-delay:1.1s}
-.social-float a::after{content:"";position:absolute;inset:0;border-radius:999px;border:2px solid var(--halo,rgba(255,255,255,.4));animation:social-halo 3.2s cubic-bezier(.22,1,.36,1) infinite;pointer-events:none}
-.social-float a.ig::after{animation-delay:1.6s}
-.social-float a:hover{text-decoration:none}
-.social-float svg{width:22px;height:22px;transition:transform .3s ease}
-.social-float a:hover svg{transform:scale(1.08)}
-.social-float.dragging a,.social-float.dragging a::after{animation:none}
-.social-float.dragging a::after{opacity:0}
-@media (prefers-reduced-motion: reduce){.social-float a,.social-float a::after{animation:none}}
-@media (max-width:639px){.social-float{right:16px;bottom:96px}.social-float a{width:42px;height:42px}.social-float svg{width:20px;height:20px}}
+.btn{display:inline-block;margin-top:14px;background:linear-gradient(to right,var(--sky400),var(--teal));color:#fff;font-weight:700;padding:11px 22px;border-radius:999px}
+.btn:hover{text-decoration:none;color:#fff;filter:brightness(1.06)}
+.sky-hr{height:2px;background:linear-gradient(to right,var(--sky400),#22d3ee,var(--teal))}
+footer.site-footer{position:relative;background:var(--tint);color:var(--body);margin-top:56px}
+footer.site-footer .foot-grid{max-width:1152px;margin:0 auto;display:grid;gap:40px;padding:52px 20px 40px}
+@media(min-width:640px){footer.site-footer .foot-grid{padding:52px 32px 40px}}
+@media(min-width:1024px){footer.site-footer .foot-grid{grid-template-columns:5fr 3fr 4fr}}
+footer.site-footer .foot-logo{display:inline-flex;border-radius:12px;background:#fff;padding:6px 12px;box-shadow:inset 0 0 0 1px var(--line)}
+footer.site-footer .foot-logo img{height:32px;width:auto;display:block}
+footer.site-footer .tagline{margin:18px 0 0;max-width:340px;font-size:15px;line-height:1.65;color:var(--mut)}
+footer.site-footer .socials{display:flex;gap:12px;margin-top:22px}
+footer.site-footer .socials a{display:flex;width:44px;height:44px;align-items:center;justify-content:center;border-radius:12px;color:#fff;transition:transform .3s ease}
+footer.site-footer .socials a:hover{transform:scale(1.06);text-decoration:none}
+footer.site-footer .socials svg{width:22px;height:22px}
+footer.site-footer .socials a.fb{background:#1877F2}
+footer.site-footer .socials a.ig{background:linear-gradient(45deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
+footer.site-footer h3{font-family:Inter,system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--sky);margin:0 0 18px}
+footer.site-footer ul{list-style:none;margin:0;padding:0}
+footer.site-footer ul li{margin-bottom:12px}
+footer.site-footer ul a{color:var(--body);font-size:15px;transition:color .3s ease}
+footer.site-footer ul a:hover{color:var(--sky);text-decoration:none}
+footer.site-footer .mail{color:var(--ink);font-size:15px;font-weight:500;transition:color .3s ease}
+footer.site-footer .mail:hover{color:var(--sky);text-decoration:none}
+footer.site-footer .loc{margin:8px 0 0;font-size:15px;color:var(--mut)}
+footer.site-footer .btn-start{display:inline-flex;margin-top:22px}
+footer.site-footer .foot-bottom{border-top:1px solid var(--line)}
+footer.site-footer .foot-bottom-in{max-width:1152px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 32px;padding:18px 20px;font-size:13px;color:var(--mut)}
+@media(min-width:640px){footer.site-footer .foot-bottom-in{padding:18px 32px}}
+footer.site-footer .foot-bottom p{margin:0}
+footer.site-footer .emirates{color:#94a3b8}
+@media(max-width:639px){footer.site-footer .emirates{order:3;flex:0 0 100%;text-align:center}}
+@media(min-width:640px){footer.site-footer .emirates{flex:1;text-align:center}}
+footer.site-footer .foot-bottom a{color:var(--mut)}
+footer.site-footer .foot-bottom a:hover{color:var(--sky);text-decoration:none}
 .back{display:inline-block;margin-top:26px;font-size:15px;font-weight:600}
-::selection{background:rgba(124,58,237,.35)}
+::selection{background:rgba(56,189,248,.25)}
 `
 
 function pageShell({ title, description, canonical, ogType, extraHead = '', body }) {
@@ -231,7 +235,7 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
     <meta name="twitter:title" content="${esc(title)}" />
     <meta name="twitter:description" content="${esc(description)}" />
     <meta name="twitter:image" content="${SITE}/og-image.jpg" />
-    <meta name="theme-color" content="#05081c" />
+    <meta name="theme-color" content="#F0F9FF" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -240,45 +244,72 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
   </head>
   <body>
     <header class="site" id="site-header">
-      <div class="nav-pill">
-        <a class="logo-pill" href="/" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
+      <div class="nav-in">
+        <a class="logo-link" href="/" aria-label="ZYNA — home"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></a>
         <nav class="nav-links" aria-label="Main">
-          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','what')}catch(e){}">What We Do</a>
-          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','how')}catch(e){}">How It Works</a>
-          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','about')}catch(e){}">About</a>
+          <a href="/#product">What We Do</a>
+          <a href="/#how-it-works">How It Works</a>
+          <a href="/#for-salons">For Salons</a>
+          <a href="/#for-spas">For Spas</a>
           <a href="/blog/" aria-current="page">Blog</a>
-          <a href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Contact</a>
+          <a href="/#demo">Contact</a>
         </nav>
         <div class="nav-right">
-          <a class="btn-start" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started <span aria-hidden="true">→</span></a>
+          <a class="btn-start" href="/#demo">Book a Demo <span aria-hidden="true">→</span></a>
           <button class="menu-btn" id="mopen" type="button" aria-label="Open menu" aria-expanded="false">☰</button>
         </div>
       </div>
       <div class="mobile-menu" id="mmenu">
         <button class="menu-close" id="mclose" type="button" aria-label="Close menu">✕</button>
-        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','what')}catch(e){}">What We Do</a>
-        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','how')}catch(e){}">How It Works</a>
-        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','about')}catch(e){}">About</a>
+        <a class="mlink" href="/#product">What We Do</a>
+        <a class="mlink" href="/#how-it-works">How It Works</a>
+        <a class="mlink" href="/#for-salons">For Salons</a>
+        <a class="mlink" href="/#for-spas">For Spas</a>
         <a class="mlink" href="/blog/">Blog</a>
-        <a class="mlink" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Contact</a>
-        <a class="btn-start" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started <span aria-hidden="true">→</span></a>
+        <a class="mlink" href="/#demo">Contact</a>
+        <a class="btn-start" href="/#demo">Book a Demo <span aria-hidden="true">→</span></a>
       </div>
     </header>
     <main class="wrap">
       ${body}
     </main>
-    <div class="bottom-bar">
-      <div class="gold-hr" aria-hidden="true"></div>
-      <div class="bar-in">
-        <p>© 2026 ZYNA. All rights reserved.</p>
-        <p class="emirates">Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain</p>
-        <p><a href="https://zyna.ae/">zyna.ae</a></p>
+    <footer class="site-footer">
+      <div class="sky-hr" aria-hidden="true"></div>
+      <div class="foot-grid">
+        <div>
+          <span class="foot-logo"><img src="/zyna-logo.jpg" alt="ZYNA — AI THAT WORKS FOR YOU" /></span>
+          <p class="tagline">The 24/7 AI receptionist for salons &amp; spas in the UAE.</p>
+          <div class="socials">
+            <a class="fb" href="https://www.facebook.com/profile.php?id=61595756175259" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
+            <a class="ig" href="https://www.instagram.com/zyna_ae/" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a>
+          </div>
+        </div>
+        <nav aria-label="Footer">
+          <h3>Explore</h3>
+          <ul>
+            <li><a href="/#product">What We Do</a></li>
+            <li><a href="/#how-it-works">How It Works</a></li>
+            <li><a href="/#for-salons">For Salons</a></li>
+            <li><a href="/#for-spas">For Spas</a></li>
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/#demo">Contact</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h3>Get in Touch</h3>
+          <p style="margin:0"><a class="mail" href="mailto:sales@zyna.ae">sales@zyna.ae</a></p>
+          <p class="loc">Dubai, United Arab Emirates</p>
+          <a class="btn-start" href="/#demo">Book a Demo <span aria-hidden="true">→</span></a>
+        </div>
       </div>
-    </div>
-    <div class="social-float" id="social-float">
-      <a class="fb" href="https://www.facebook.com/profile.php?id=61595756175259" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Facebook"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg></a>
-      <a class="ig" href="https://www.instagram.com/zyna_ae/" target="_blank" rel="noopener noreferrer" aria-label="ZYNA on Instagram"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg></a>
-    </div>
+      <div class="foot-bottom">
+        <div class="foot-bottom-in">
+          <p>© 2026 ZYNA. All rights reserved.</p>
+          <p class="emirates">Dubai · Abu Dhabi · Sharjah · Ajman · Ras Al Khaimah · Fujairah · Umm Al Quwain</p>
+          <p><a href="https://zyna.ae/">zyna.ae</a></p>
+        </div>
+      </div>
+    </footer>
     <script>
       (function () {
         var h = document.getElementById('site-header')
@@ -288,57 +319,6 @@ function pageShell({ title, description, canonical, ogType, extraHead = '', body
         o.addEventListener('click', function () { m.classList.add('open'); o.setAttribute('aria-expanded', 'true') })
         c.addEventListener('click', function () { m.classList.remove('open'); o.setAttribute('aria-expanded', 'false') })
         m.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { m.classList.remove('open') }) })
-      })()
-    </script>
-    <script>
-      // Draggable social cluster — same behaviour (and storage key) as the
-      // homepage widget: drag it anywhere, it stays where dropped; a press
-      // that barely moves is a normal click on the link.
-      (function () {
-        var sf = document.getElementById('social-float')
-        if (!sf) return
-        var KEY = 'zyna-social-pos', THRESH = 6, pos = null
-        var clampPos = function (p) {
-          return {
-            x: Math.min(Math.max(4, p.x), Math.max(4, window.innerWidth - sf.offsetWidth - 4)),
-            y: Math.min(Math.max(4, p.y), Math.max(4, window.innerHeight - sf.offsetHeight - 4))
-          }
-        }
-        var apply = function (p) { sf.style.left = p.x + 'px'; sf.style.top = p.y + 'px'; sf.style.right = 'auto'; sf.style.bottom = 'auto' }
-        try {
-          var raw = localStorage.getItem(KEY)
-          if (raw) { var saved = JSON.parse(raw); if (saved && typeof saved.x === 'number' && typeof saved.y === 'number') { pos = clampPos(saved); apply(pos) } }
-        } catch (e) {}
-        var drag = null, suppress = false
-        sf.addEventListener('pointerdown', function (e) {
-          if (e.button !== undefined && e.button !== 0) return
-          var r = sf.getBoundingClientRect()
-          drag = { id: e.pointerId, sx: e.clientX, sy: e.clientY, ox: r.left, oy: r.top, moved: false }
-        })
-        sf.addEventListener('pointermove', function (e) {
-          if (!drag || e.pointerId !== drag.id) return
-          var dx = e.clientX - drag.sx, dy = e.clientY - drag.sy
-          if (!drag.moved) {
-            if (Math.sqrt(dx * dx + dy * dy) < THRESH) return
-            drag.moved = true
-            sf.classList.add('dragging')
-            try { sf.setPointerCapture(e.pointerId) } catch (err) {}
-          }
-          pos = clampPos({ x: drag.ox + dx, y: drag.oy + dy }); apply(pos)
-        })
-        var end = function (e) {
-          if (!drag || e.pointerId !== drag.id) return
-          if (drag.moved) {
-            suppress = true
-            try { localStorage.setItem(KEY, JSON.stringify(pos)) } catch (err) {}
-          }
-          drag = null
-          sf.classList.remove('dragging')
-        }
-        sf.addEventListener('pointerup', end)
-        sf.addEventListener('pointercancel', end)
-        sf.addEventListener('click', function (e) { if (suppress) { e.preventDefault(); e.stopPropagation(); suppress = false } }, true)
-        window.addEventListener('resize', function () { if (pos) { pos = clampPos(pos); apply(pos) } })
       })()
     </script>
   </body>
@@ -391,8 +371,8 @@ for (const post of posts) {
         ${markdownToHtml(post.body)}
         <div class="cta">
           <h2>Never miss a booking again</h2>
-          <p>ZYNA is the 24/7 AI receptionist for salons &amp; beauty businesses in the UAE — it replies, books and reminds, day and night.</p>
-          <a class="btn" href="/" onclick="try{sessionStorage.setItem('zyna-goto','contact')}catch(e){}">Get Started</a>
+          <p>ZYNA is the 24/7 AI receptionist for salons, spas &amp; beauty businesses in the UAE — it replies, books and reminds, day and night.</p>
+          <a class="btn" href="/#demo">Book a Demo</a>
           <p style="margin-top:14px">Or write to us: <a href="mailto:sales@zyna.ae">sales@zyna.ae</a></p>
         </div>
         <a class="back" href="/blog/">← All articles</a>
@@ -428,13 +408,13 @@ const indexJsonLd = {
   '@type': 'Blog',
   name: 'ZYNA Blog',
   url: `${SITE}/blog/`,
-  description: 'Practical ideas for salon and beauty business owners in the UAE: bookings, no-shows, client retention and front-desk systems.',
+  description: 'Practical ideas for salon, spa and beauty business owners in the UAE: bookings, no-shows, client retention and front-desk systems.',
   publisher: { '@type': 'Organization', name: SITE_NAME, url: `${SITE}/` },
 }
 const indexHtml = pageShell({
-  title: 'Blog | ZYNA — Ideas for Salon Owners in the UAE',
+  title: 'Blog | ZYNA — Ideas for Salon & Spa Owners in the UAE',
   description:
-    'Practical ideas for salon and beauty business owners in the UAE: cutting no-shows, winning bookings on WhatsApp, client retention and smarter front-desk systems.',
+    'Practical ideas for salon, spa and beauty business owners in the UAE: cutting no-shows, winning bookings on WhatsApp, client retention and smarter front-desk systems.',
   canonical: `${SITE}/blog/`,
   ogType: 'website',
   extraHead: `<script type="application/ld+json">${JSON.stringify(indexJsonLd)}</script>`,
@@ -442,7 +422,7 @@ const indexHtml = pageShell({
       <section class="hero">
         <p class="eyebrow">The ZYNA Blog</p>
         <h1>Ideas that fill chairs.</h1>
-        <p class="lede">Practical, no-hype advice for salon &amp; beauty business owners in the UAE — bookings, no-shows, retention and the systems behind a fully-booked diary.</p>
+        <p class="lede">Practical, no-hype advice for salon, spa &amp; beauty business owners in the UAE — bookings, no-shows, retention and the systems behind a fully-booked diary.</p>
       </section>
       <section>
         ${cards}

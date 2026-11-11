@@ -2,19 +2,25 @@ import { useEffect, useState } from 'react'
 import Logo from './ui/Logo'
 import { IconArrowRight, IconX } from './ui/icons'
 
-import { FORM_FRACTION, scrollToFormScene, scrollToJourneyFraction } from '../journey/Journey'
-
-const LINKS: { label: string; frac?: number; form?: boolean; page?: string }[] = [
-  // Fractions rescaled ×9/10 for the 10-scene film (v9) so each link
-  // still lands on the same film moment.
-  { label: 'What We Do', frac: 0.324 },
-  { label: 'How It Works', frac: 0.45 },
-  // "About" lands on the enquiry form scene (scene 9 of 10).
-  { label: 'About', frac: FORM_FRACTION },
-  { label: 'Blog', page: '/blog/' },
-  { label: 'Contact', form: true },
+const LINKS: { label: string; href: string }[] = [
+  { label: 'Product', href: '#product' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'For Salons', href: '#for-salons' },
+  { label: 'For Spas', href: '#for-spas' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Contact', href: '#demo' },
 ]
 
+/**
+ * Top navigation — white professional bar (v19, Clean Light Corporate;
+ * anchor-based since v8 replaced the journey homepage with a normal
+ * B2B page). Solid white with a slate hairline along its bottom edge.
+ * The logo sits directly on the bar (its file is a white-background
+ * JPEG, so it blends in with no tile). Desktop links are bare navy
+ * uppercase labels with an animated violet underline; the primary
+ * action is the Theme A gradient (violet → electric blue) "Book a
+ * Demo" button (v9).
+ */
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
@@ -26,62 +32,40 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const linkCls =
+    'relative py-1 text-[12.5px] font-semibold uppercase tracking-[0.16em] text-navy-950/70 transition-colors duration-300 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-sky-500 after:transition-transform after:duration-300 hover:text-sky-600 hover:after:scale-x-100'
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6">
+    <header className="fixed inset-x-0 top-0 z-50">
       <div
-        className={`mx-auto flex max-w-6xl items-center justify-between gap-4 rounded-full py-2.5 pl-3 pr-2.5 transition-all duration-500 ${
-          scrolled
-            ? 'glass-dark border border-white/12 shadow-[0_18px_44px_-16px_rgba(0,0,0,0.65)]'
-            : 'border border-white/8 bg-navy-950/25 backdrop-blur-md'
+        className={`relative flex h-[72px] items-center justify-between gap-4 border-b border-slate-200 bg-white/95 px-5 backdrop-blur transition-shadow duration-500 sm:px-10 ${
+          scrolled ? 'shadow-[0_10px_36px_-16px_rgba(11,18,48,0.28)]' : ''
         }`}
       >
-        <a
-          href="/"
-          onClick={(e) => {
-            e.preventDefault()
-            scrollToJourneyFraction(0)
-          }}
-          aria-label="ZYNA — home"
-          className="flex shrink-0 items-center"
-        >
-          <span className="rounded-full bg-white px-3 py-1.5">
-            <Logo className="h-7 sm:h-8" />
-          </span>
+        <a href="/" aria-label="ZYNA — home" className="flex shrink-0 items-center">
+          <Logo className="h-8 sm:h-9" />
         </a>
 
-        <nav aria-label="Main" className="hidden items-center gap-1 lg:flex">
-          {LINKS.map((link) =>
-            link.page ? (
-              <a
-                key={link.label}
-                href={link.page}
-                className="rounded-full px-4 py-2 text-[14px] font-medium text-white/75 transition-colors duration-300 hover:bg-white/8 hover:text-white"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <button
-                key={link.label}
-                type="button"
-                onClick={() => (link.form ? scrollToFormScene() : scrollToJourneyFraction(link.frac ?? 0))}
-                className="rounded-full px-4 py-2 text-[14px] font-medium text-white/75 transition-colors duration-300 hover:bg-white/8 hover:text-white"
-              >
-                {link.label}
-              </button>
-            ),
-          )}
+        <nav aria-label="Main" className="hidden items-center gap-8 lg:flex">
+          {LINKS.map((link) => (
+            <a key={link.label} href={link.href} className={linkCls}>
+              {link.label}
+            </a>
+          ))}
         </nav>
 
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-5">
           <a
-            href="#form"
-            onClick={(e) => {
-              e.preventDefault()
-              scrollToFormScene()
-            }}
-            className="group hidden items-center gap-2 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-5 py-2.5 text-[14px] font-bold text-navy-950 transition-all duration-300 hover:shadow-[0_14px_30px_-10px_rgba(201,162,75,0.8)] sm:inline-flex"
+            href="mailto:sales@zyna.ae"
+            className="hidden text-[13px] font-medium text-slate-500 transition-colors duration-300 hover:text-navy-950 md:inline-flex"
           >
-            Get Started
+            sales@zyna.ae
+          </a>
+          <a
+            href="#demo"
+            className="group hidden items-center gap-2 rounded-lg bg-gradient-to-r from-sky-400 to-teal-300 px-5 py-2.5 text-[14px] font-bold text-white shadow-[0_10px_24px_-10px_rgba(56,189,248,0.55)] transition duration-300 hover:brightness-110 sm:inline-flex"
+          >
+            Book a Demo
             <IconArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
           </a>
           <button
@@ -89,59 +73,54 @@ export default function Nav() {
             onClick={() => setOpen((o) => !o)}
             aria-label={open ? 'Close menu' : 'Open menu'}
             aria-expanded={open}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white lg:hidden"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 text-navy-950 lg:hidden"
           >
-            {open ? <IconX className="h-5 w-5" /> : <span className="text-lg leading-none">☰</span>}
+            {open ? (
+              <IconX className="h-5 w-5" />
+            ) : (
+              <span aria-hidden="true" className="flex w-5 flex-col gap-[5px]">
+                <span className="h-[2px] w-full rounded bg-navy-950" />
+                <span className="h-[2px] w-full rounded bg-navy-950" />
+                <span className="h-[2px] w-full rounded bg-navy-950" />
+              </span>
+            )}
           </button>
         </div>
       </div>
 
       {open && (
-        <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-navy-950/92 backdrop-blur-xl lg:hidden">
+        <div className="fixed inset-0 z-40 flex flex-col justify-center bg-white px-8 lg:hidden">
           <button
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close menu"
-            className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 text-white"
+            className="absolute right-6 top-6 flex h-11 w-11 items-center justify-center rounded-lg border border-slate-300 text-navy-950"
           >
             <IconX className="h-5 w-5" />
           </button>
-          {LINKS.map((link, i) =>
-            link.page ? (
+          <div className="w-full divide-y divide-slate-200">
+            {LINKS.map((link, i) => (
               <a
                 key={link.label}
-                href={link.page}
-                className="font-display py-3.5 text-3xl font-semibold text-white/90 transition-colors hover:text-gold-300"
-                style={{ transitionDelay: `${i * 30}ms` }}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="group flex w-full items-baseline gap-4 py-4 text-left"
               >
-                {link.label}
+                <span className="text-[13px] font-bold tracking-[0.2em] text-sky-500">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span className="font-display text-3xl font-semibold text-navy-950 transition-colors group-hover:text-sky-600">
+                  {link.label}
+                </span>
               </a>
-            ) : (
-              <button
-                key={link.label}
-                type="button"
-                onClick={() => {
-                  setOpen(false)
-                  if (link.form) scrollToFormScene()
-                  else scrollToJourneyFraction(link.frac ?? 0)
-                }}
-                className="font-display py-3.5 text-3xl font-semibold text-white/90 transition-colors hover:text-gold-300"
-                style={{ transitionDelay: `${i * 30}ms` }}
-              >
-                {link.label}
-              </button>
-            ),
-          )}
+            ))}
+          </div>
           <a
-            href="#form"
-            onClick={(e) => {
-              e.preventDefault()
-              setOpen(false)
-              scrollToFormScene()
-            }}
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-gold-400 to-gold-600 px-8 py-4 text-[15px] font-bold text-navy-950"
+            href="#demo"
+            onClick={() => setOpen(false)}
+            className="mt-8 inline-flex items-center gap-2 self-start rounded-lg bg-gradient-to-r from-sky-400 to-teal-300 px-8 py-4 text-[15px] font-bold text-white shadow-[0_10px_24px_-10px_rgba(56,189,248,0.55)] transition hover:brightness-110"
           >
-            Get Started <IconArrowRight className="h-4 w-4" />
+            Book a Demo <IconArrowRight className="h-4 w-4" />
           </a>
         </div>
       )}
