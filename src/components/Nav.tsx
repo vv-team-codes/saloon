@@ -8,6 +8,7 @@ const LINKS: { label: string; href: string }[] = [
   { label: 'For Salons', href: '#for-salons' },
   { label: 'For Spas', href: '#for-spas' },
   { label: 'Blog', href: '/blog/' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'Contact', href: '#demo' },
 ]
 

@@ -510,6 +510,126 @@ function Faq() {
   )
 }
 
+/* -------------------------------- Pricing ------------------------------- */
+
+const pricingPlans: {
+  name: string
+  price: number
+  blurb: string
+  features: string[]
+  featured?: boolean
+}[] = [
+  {
+    name: 'Starter',
+    price: 99,
+    blurb: 'For a single salon or spa that never wants to miss a booking again.',
+    features: [
+      '24/7 AI receptionist — calls and WhatsApp answered in your business\u2019s name',
+      'Appointments booked straight into your diary',
+      'Automatic reminders before every appointment',
+      'Enquiries answered after hours and at peak times',
+      '1 location',
+    ],
+  },
+  {
+    name: 'Premium',
+    price: 499,
+    blurb: 'For growing salons and spas that want every guest looked after, end to end.',
+    features: [
+      'Everything in Starter',
+      'Multiple locations under one account',
+      'Rebooking and follow-up messages that bring guests back',
+      'Priority support',
+      'Monthly summary of bookings and enquiries',
+    ],
+    featured: true,
+  },
+]
+
+function Pricing() {
+  return (
+    <section
+      id="pricing"
+      className="scroll-mt-20 border-y border-slate-100 bg-white py-20 lg:py-24"
+    >
+      <div className={container}>
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <p className={eyebrowCls}>Pricing</p>
+          <h2 className={h2Cls}>Two plans. Zero missed bookings.</h2>
+          <p className="mx-auto mt-5 max-w-xl text-[17px] leading-relaxed text-slate-600">
+            Pick the plan that fits your business — every call and message
+            answered, day and night.
+          </p>
+        </Reveal>
+        <div className="mx-auto mt-12 grid max-w-4xl items-stretch gap-6 md:grid-cols-2">
+          {pricingPlans.map((plan, i) => (
+            <Reveal key={plan.name} delay={i * 120} className="h-full">
+              {plan.featured ? (
+                <div className="relative h-full rounded-3xl bg-gradient-to-br from-sky-400 to-teal-400 p-[2px] shadow-[0_24px_50px_-24px_rgba(2,132,199,0.45)]">
+                  <span className="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-gradient-to-r from-sky-500 to-teal-500 px-4 py-1 text-[12px] font-bold uppercase tracking-[0.14em] text-white">
+                    Most Popular
+                  </span>
+                  <div className="flex h-full flex-col rounded-[22px] bg-white p-8">
+                    <PricingCardBody plan={plan} />
+                  </div>
+                </div>
+              ) : (
+                <div className={`${cardCls} flex h-full flex-col p-8`}>
+                  <PricingCardBody plan={plan} />
+                </div>
+              )}
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function PricingCardBody({
+  plan,
+}: {
+  plan: (typeof pricingPlans)[number]
+}) {
+  return (
+    <>
+      <h3 className="font-display text-xl font-semibold text-navy-950">
+        {plan.name}
+      </h3>
+      <p className="mt-2 text-[15px] leading-relaxed text-slate-600">
+        {plan.blurb}
+      </p>
+      <p className="mt-6 flex items-baseline gap-2">
+        <span className="font-display text-5xl font-semibold leading-none text-navy-950">
+          {plan.price}
+        </span>
+        <span className="text-slate-500">/ month</span>
+      </p>
+      <ul className="mt-7 flex-1 space-y-3">
+        {plan.features.map((f) => (
+          <li key={f} className="flex items-start gap-3 text-[15px] text-slate-700">
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F0FDF9] text-[#0D9488]">
+              <IconCheck className="h-3.5 w-3.5" />
+            </span>
+            {f}
+          </li>
+        ))}
+      </ul>
+      <a
+        href="#demo"
+        className={
+          plan.featured
+            ? 'mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-sky-500 to-teal-500 px-6 py-3 font-semibold text-white transition hover:opacity-90'
+            : 'mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-sky-500 px-6 py-3 font-semibold text-sky-600 transition hover:bg-sky-50'
+        }
+      >
+        Book a demo
+        <IconArrowRight className="h-4 w-4" />
+      </a>
+    </>
+  )
+}
+
 /* -------------------------------- Demo --------------------------------- */
 
 function Demo() {
@@ -574,6 +694,7 @@ export default function Home() {
       />
       <Outcomes />
       <Faq />
+      <Pricing />
       <Demo />
     </>
   )
