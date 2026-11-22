@@ -7,7 +7,7 @@ keywords: salon appointment management UAE, chronic canceller salon, salon cance
 category: Salon Appointment Management
 ---
 
-Every salon in the UAE has one. She books a cut and colour for Saturday at 6 PM, the most valuable slot in your week. On Thursday she cancels. On Friday she rebooks for next Saturday. Next week, the same thing happens again. She is friendly, she always apologises, and she genuinely means to come. But week after week, the same chair sits empty at the busiest hour of your diary, while the client who would have paid for that slot was turned away because the diary said you were full.
+Every salon in the UAE has one. She books a cut and colour for Saturday at 6 PM, the most valuable slot in your week. On Thursday she cancels. On Friday she rebooks for next Saturday. Next week, the same thing happens again. But week after week, the same chair sits empty at the busiest hour of your diary, while the client who would have paid for that slot was turned away because the diary said you were full.
 
 This is not a no-show problem. A no-show is a single event. The chronic canceller is a pattern, and a pattern quietly costs you prime-time revenue and the trust of the clients you turned away.
 
