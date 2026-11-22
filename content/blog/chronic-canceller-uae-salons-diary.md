@@ -15,7 +15,7 @@ This is not a no-show problem. A no-show is a single event. The chronic cancelle
 
 The mistake most owners make is relying on memory. "I think she cancels a lot" is not enough to act on, and it is not fair to the client either. Look at the diary properly. Take your busiest four weeks and count, for each client, how many appointments were booked, kept, moved or cancelled. You will usually find the problem is smaller than it feels — two or three clients, not twenty.
 
-What you are looking for is a rate, not a single incident. A client who cancels once in ten visits is a normal client having a busy life. A client who cancels four times out of ten is a pattern, and a client who cancels her Saturday evening slot three weeks running is a pattern costing you real money. Write the names down with the numbers beside them. Once it is written down, it stops being a feeling and becomes a decision you can make calmly.
+What you are looking for is a rate, not a single incident. A client who cancels once in ten visits is a normal client having a busy life. A client who cancels four times out of ten is a pattern, and a client who cancels her Saturday evening slot three weeks running is a pattern costing you real money. Write the names down with the numbers beside them — it stops being a feeling and becomes a decision you can make calmly.
 
 ## Understand why before you judge
 
@@ -49,7 +49,7 @@ Letting go does not mean a confrontation. Send a calm message: the peak slots ar
 
 This is not a problem you solve once. New chronic cancellers appear as your client list grows, and old ones can slip back into the habit. Build a tiny routine into your week. Every Sunday evening, glance at the cancellations for the week just gone. Anyone who cancelled twice in a month gets a note. Anyone who cancelled a peak slot twice gets the conversation, and the deposit rule, before their next booking.
 
-It takes five minutes, and it protects the hours that pay for everything else. Your diary is the heart of your salon. The clients who keep their appointments are the reason it works, and the ones who do not are not bad clients — they are clients who need a different way of booking. Give them that way, clearly and kindly, and your busiest hours will belong to the people who actually sit in the chair.
+It takes five minutes and protects the hours that pay for everything else. Your diary is the heart of your salon. The clients who keep their appointments are the reason it works, and the ones who do not are not bad clients — they are clients who need a different way of booking. Give them that way, clearly and kindly, and your busiest hours will belong to the people who actually sit in the chair.
 
 A 24/7 AI receptionist like ZYNA can help here too, answering the late-night cancellation and rebooking messages the moment they arrive, so the diary is updated before the morning rush and a cancelled prime slot can be offered to your waitlist straight away.
 
